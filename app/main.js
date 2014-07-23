@@ -6,7 +6,5 @@ define(["jquery.min", "countdown.min"], function (require) {
             msgPattern: "Faltam {months} meses, {days} dias, {hours} horas e {minutes} minutos!",
             dateEnd: new Date('Aug 15, 2015 20:00')
         });
-
-        console.log('teste ' + countdown.getMonths);
     });
 });
