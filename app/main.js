@@ -12,13 +12,19 @@ require.config({
 
 require(['fb']);
 
-define(["jquery.min", "jquery.countdown.min", "bootstrap.min", "parse.min"], function (require) {
+define(["jquery.min", "countdown.min", "bootstrap.min", "parse.min"], function (require) {
 
     Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
 
     main = new Object();
 
     $(function() {
+        
+        new Countdown({
+            selector: '#countdown',
+            msgPattern: "Faltam {months} meses, {days} dias, {hours} horas e {minutes} minutos!",
+            dateEnd: new Date('Aug 15, 2015 20:00')
+        });
 
         main = {
 
@@ -58,42 +64,8 @@ define(["jquery.min", "jquery.countdown.min", "bootstrap.min", "parse.min"], fun
                 });
             }
         };
-
-    	$('#countdown').countdown('2015/08/15 20:00:00', function (event) {
-    		var months = event.strftime('%m'),
-    			days = event.strftime('%d'),
-    			hours = event.strftime('%H'),
-    			min = event.strftime('%M'),
-    			string = 'Faltam ';
-
-    		if (months === 1) {
-    			string += months + ' mes, ';
-    		} else {
-    			string += months + ' meses, ';
-    		}
-
-    		if (days === 1) {
-    			string += days + ' dia, ';
-    		} else {
-    			string += days + ' dias, ';
-    		}
-
-			if (hours === 1) {
-    			string += hours + ' hora e ';
-    		} else {
-    			string += hours + ' horas e ';
-    		}
-
-			if (min === 1) {
-    			string += min + ' minuto ';
-    		} else {
-    			string += min + ' minutos ';
-    		}
-
-    		$(this).html(string);
-    	});
     });
 
     main.init();
-    
+
 });

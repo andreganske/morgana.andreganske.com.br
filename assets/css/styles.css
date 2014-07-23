@@ -4,7 +4,6 @@ html {
 }
 
 body {
-	margin-bottom: 30px;
 	font-family: 'Open Sans', sans-serif;
 	
 	background: url('https://scontent-b-mia.xx.fbcdn.net/hphotos-xpf1/t31.0-8/10333555_839152142779565_2633079239816577471_o.jpg')  no-repeat center center fixed; 
@@ -27,6 +26,10 @@ body {
 	color: #838383;
 	font-size: 0.6em;
 	padding: 5px;
+}
+
+.footer p {
+	color: #585858;
 }
 
 #main {
