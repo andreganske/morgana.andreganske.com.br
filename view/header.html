@@ -1,0 +1,82 @@
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Morgana e Andre</a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" data-toggle="modal" data-target="#login-modal">Entrar</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#signin-modal">Registrar</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="modal fade" id="login-modal" role="dialog" aria-labelledby="Entrar na área restrita" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cancelar"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Entrar na área restrita</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" class="form-control" id="login-email" placeholder="seu email">
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Senha</label>
+            <input type="password" class="form-control" id="login-password" placeholder="sua senha">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-do-login>Entrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="signin-modal" role="dialog" aria-labelledby="Novo usuário para área restrita" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cancelar"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Novo usuário para área restrita</h4>
+      </div>
+      <div class="modal-body">
+        <form id="signin-form">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" class="form-control" id="login-email" placeholder="Seu email">
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Senha</label>
+            <input type="password" class="form-control" id="login-password" placeholder="Crie uma senha" name="password">
+          </div>
+
+          <div class="form-group">
+            <label for="login-password">Confirmar a senha</label>
+            <input type="password" class="form-control" id="login-password" placeholder="Confimar a senha" name="confirmPassword">
+          </div>
+
+          <div class="form-group">
+            <label for="login-address">Endereço</label>
+            <input type="password" class="form-control" id="login-address" placeholder="Seu endereço completo">
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" data-do-login>Cadastrar</button>
+      </div>
+    </div>
+  </div>
+</div>
