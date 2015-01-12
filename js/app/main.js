@@ -100,35 +100,29 @@ define([ "jquery", "angular", "parse", "countdown.min", "bootstrap", "validator"
     		},
 
             loginControl: function() {
-                var allow_login = false,
-                    allow_singin = false;
+            	var that = this;
 
                 Parse.Config.get().then(function(config) {
-                    allow_login = config.get("allow_login");
-                    allow_singin = config.get("allow_singin");
-
-
-                }, function(error) {
-                    var config = Parse.Config.current();
-                    allow_login = config.get("allow_login");
-                    allow_singin = config.get("allow_singin");
-
-                    if (allow_login === undefined) {
-                        allow_login = false;
+                    if(config.get("allow_login")) {
+                    	$('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#login-modal">Entrar</a></li>');
                     }
 
-                    if (allow_singin === undefined) {
-                        allow_singin = false;   
+                    if(config.get("allow_singin")) {
+                    	$('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#signin-modal">Registrar</a></li>');
+                    }
+                }, function(error) {
+                    var config = Parse.Config.current(),
+                    	allow_login = config.get("allow_login"),
+                    	allow_singin = config.get("allow_singin");
+
+                    if (allow_login != undefined) {
+                        $('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#login-modal">Entrar</a></li>');
+                    }
+
+                    if (allow_singin != undefined) {
+                        $('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#signin-modal">Registrar</a></li>');
                     }
                 });
-
-                if (allow_login) {
-                    $('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#login-modal">Entrar</a></li>');        
-                }
-
-                if (allow_singin) {
-                    $('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#signin-modal">Registrar</a></li>');
-                }
             }
 
         };
