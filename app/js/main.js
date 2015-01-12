@@ -2,25 +2,29 @@
 
 require.config({
 	paths: {
-		angular: '../bower_components/angular/angular',
-		angularRoute: '../bower_components/angular-route/angular-route',
-		angularMocks: '../bower_components/angular-mocks/angular-mocks',
-		text: '../bower_components/requirejs-text/text'
+		angular: 		"//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min",
+		angularRoute: 	"//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.min",
+		angularMocks: 	"//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-mocks",
+		angularAnimate: "//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.min",
+		jquery: 		"//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min",
+		parse:          "//www.parsecdn.com/js/parse-1.3.3.min",
+		bootstrap:      "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min",
+		validator:      "//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min"
 	},
+
 	shim: {
-		'angular' : {'exports' : 'angular'},
-		'angularRoute': ['angular'],
-		'angularMocks': {
-			deps:['angular'],
-			'exports':'angular.mock'
-		}
+		'angular' 			: { 'exports' : 'angular' },
+		'angularRoute'		: [ 'angular' ],
+		'angularAnimate'    : [ 'angular' ],
+		'bootstrap'         : { deps:['jquery'] },
+		'angularMocks'		: { deps:['angular'], 'exports':'angular.mock' }
 	},
+
 	priority: [
 		"angular"
 	]
 });
 
-//http://code.angularjs.org/1.2.1/docs/guide/bootstrap#overview_deferred-bootstrap
 window.name = "NG_DEFER_BOOTSTRAP!";
 
 require( [
