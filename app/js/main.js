@@ -30,8 +30,12 @@ window.name = "NG_DEFER_BOOTSTRAP!";
 require( [
 	'angular',
 	'app',
-	'routes'
+	'routes',
+	'parse'
 ], function(angular, app, routes) {
+	
+	Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
+
 	var $html = angular.element(document.getElementsByTagName('html')[0]);
 
 	angular.element().ready(function() {
