@@ -11,7 +11,7 @@ define(['angular', 'services'], function (angular) {
 		}])
 
 		// Landing controller
-		.controller('LandingCtrl', ['$scope', 'countdown.min', function ($scope) {
+		.controller('LandingCtrl', ['$scope', 'countdown', function ($scope) {
 			new Countdown({
 				selector: '#countdown',
 				msgPattern: "Faltam {days} dias, {hours} horas, {minutes} minutos e {seconds} segundos!",
