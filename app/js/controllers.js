@@ -11,14 +11,14 @@ define(['angular', 'services'], function (angular) {
 		}])
 
 		// Landing controller
-		.controller('LandingCtrl', ['$scope', 'countdown.min', function ($scope, version) {
+		.controller('LandingCtrl', ['$scope', 'countdown.min', function ($scope) {
 			new Countdown({
 				selector: '#countdown',
 				msgPattern: "Faltam {days} dias, {hours} horas, {minutes} minutos e {seconds} segundos!",
 				dateEnd: new Date('Aug 15, 2015 20:00')
 			});
 		}])
-		
+
 		// More involved example where controller is required from an external file
 		.controller('MyCtrl2', ['$scope', '$injector', function($scope, $injector) {
 			require(['controllers/myctrl2'], function(myctrl2) {
