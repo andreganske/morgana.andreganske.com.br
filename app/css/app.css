@@ -28,3 +28,39 @@
   content: "";
   padding: 0;
 }
+
+#home-content {
+  position: fixed !important;
+  height: 100%;
+  padding: 0;
+}
+
+.home-background-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background: url("../img/bg.jpg") no-repeat center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.profile-content {
+  text-align:center;
+  position: absolute;
+  top: 38%;
+  left: 10%;
+  right: 10%;
+}
+
+.nav-footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 20px;
+  font-size: 12px;
+}
