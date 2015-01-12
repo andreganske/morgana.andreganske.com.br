@@ -1,7 +1,5 @@
 define([ "jquery", "angular", "parse", "countdown.min", "bootstrap", "validator"], function() {
 
-    angular.module()
-
     Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
 
     new Countdown({
@@ -40,14 +38,16 @@ define([ "jquery", "angular", "parse", "countdown.min", "bootstrap", "validator"
     		},
 
     		doLogin: function() {
-    			Parse.User.logIn($scope.user.username, $scope.user.password, {
+    			$('#login-error').remove();
+
+    			Parse.User.logIn($('#login-email').val(), $('#login-password').val(), {
     				success: function(retorno) {
-    					$rootScope.user = retorno;
-    					$mdDialog.hide();
+    					//$rootScope.user = retorno;
+    					//$mdDialog.hide();
     				},
     				error: function(user, error) {
     					if (error.code == 101) {
-    						$('#warn-invalid-login-info').alert();
+    						app.showAlert(1);
     					} else {
     						$('#error-undefined').alert();
     					}
@@ -91,6 +91,12 @@ define([ "jquery", "angular", "parse", "countdown.min", "bootstrap", "validator"
     					}
     				}
     			});
+    		},
+
+    		showAlert: function(type) {
+    			if (type == 1) {
+    				$('#login-form').append('<div id="login-error" class="alert alert-info" role="alert"><strong>Ooops!</strong> Usuário ou senha incorretos. Não lembra a senha? <a href="#" class="alert-link">Clique aqui.</a></div>');
+    			}
     		},
 
             loginControl: function() {

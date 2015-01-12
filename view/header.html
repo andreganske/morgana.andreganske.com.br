@@ -21,7 +21,7 @@
         <h4 class="modal-title">Entrar na área restrita</h4>
       </div>
       <div class="modal-body">
-        <form>
+        <form id="login-form">
           <div class="form-group">
             <label for="login-email">Email</label>
             <input type="email" class="form-control" id="login-email" placeholder="seu email">
@@ -79,3 +79,7 @@
     </div>
   </div>
 </div>
+
+<div id="warn-invalid-login-info" class="alert alert-info alert-dismissible" role="alert" aria-hidden="true"><strong>Ooops!</strong> Esse usuário ou senha estão incorretos. Não lembra a senha? <a href="#" class="alert-link">Clique aqui.</a></div>
+
+<div id="error-undefined" class="alert alert-warning alert-dismissible" role="alert" aria-hidden="true"><strong>Vixi!</strong> Alguma coisa errada aconteceu e não foi possível entrar! Tente novamente mais tarde :)</div>
