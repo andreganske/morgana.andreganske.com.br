@@ -11,7 +11,7 @@ require.config({
 		parse:          "//www.parsecdn.com/js/parse-1.3.3.min",
 		bootstrap:      "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min",
 		validator:      "//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min",
-		require: 		"js/lib/require.min"
+		countdown: 		"lib/countdown.min"
 	},
 
 	shim: {
