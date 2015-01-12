@@ -2,16 +2,7 @@
 
 // Configure loading modules from the lib directory, except 'app' ones
 require.config({
-
     baseUrl: "js/lib",
-
-    shim: {
-        'angular'           : {'exports' : 'angular'},
-        'angularRoute'      : ['angular'],
-        'angularAnimate'    : ['angular'],
-        "bootstrap"         : { "deps" : ["jquery"] }
-    },
-
     paths: {
         "app":              "../app",
         "angular":          "//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min",
@@ -22,7 +13,12 @@ require.config({
         "bootstrap":        "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min",
         "validator":        "//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min"
     },
-
+    shim: {
+        'angular'           : {'exports' : 'angular'},
+        'angularRoute'      : ['angular'],
+        'angularAnimate'    : ['angular'],
+        "bootstrap"         : { "deps" : ["jquery"] }
+    },
     priority: [
         "angular"
     ]
