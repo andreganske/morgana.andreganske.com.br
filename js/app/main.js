@@ -100,9 +100,7 @@ define([ "jquery", "angular", "parse", "countdown.min", "bootstrap", "validator"
     		},
 
             loginControl: function() {
-            	var that = this;
-
-                Parse.Config.get().then(function(config) {
+            	Parse.Config.get().then(function(config) {
                     if(config.get("allow_login")) {
                     	$('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#login-modal">Entrar</a></li>');
                     }
@@ -111,15 +109,13 @@ define([ "jquery", "angular", "parse", "countdown.min", "bootstrap", "validator"
                     	$('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#signin-modal">Registrar</a></li>');
                     }
                 }, function(error) {
-                    var config = Parse.Config.current(),
-                    	allow_login = config.get("allow_login"),
-                    	allow_singin = config.get("allow_singin");
+                    var config = Parse.Config.current();
 
-                    if (allow_login != undefined) {
+                    if (config.get("allow_login")) {
                         $('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#login-modal">Entrar</a></li>');
                     }
 
-                    if (allow_singin != undefined) {
+                    if (config.get("allow_singin")) {
                         $('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#signin-modal">Registrar</a></li>');
                     }
                 });
