@@ -18,6 +18,7 @@ define([ "jquery", "parse", "countdown.min", "bootstrap", "validator"], function
     		},
 
     		init: function() {
+                this.loginControl();
     			this.doBindings();
     			this.passwordValidator();
     		},
@@ -88,43 +89,43 @@ define([ "jquery", "parse", "countdown.min", "bootstrap", "validator"], function
     					}
     				}
     			});
-    		}
-    	};
+    		},
+
+            loginControl: function() {
+                var allow_login = false,
+                    allow_singin = false;
+
+                Parse.Config.get().then(function(config) {
+                    allow_login = config.get("allow_login");
+                    allow_singin = config.get("allow_singin");
 
 
-        loginControl = function() {
+                }, function(error) {
+                    var config = Parse.Config.current();
+                    allow_login = config.get("allow_login");
+                    allow_singin = config.get("allow_singin");
 
-            var allow_login = false,
-                allow_singin = false;
+                    if (allow_login === undefined) {
+                        allow_login = false;
+                    }
 
-            Parse.Config.get().then(function(config) {
-                allow_login = config.get("allow_login");
-                allow_singin = config.get("allow_singin");
+                    if (allow_singin === undefined) {
+                        allow_singin = false;   
+                    }
+                });
 
-
-            }, function(error) {
-                var config = Parse.Config.current();
-                allow_login = config.get("allow_login");
-                allow_singin = config.get("allow_singin");
-
-                if (allow_login === undefined) {
-                    allow_login = false;
+                if (allow_login) {
+                    $('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#login-modal">Entrar</a></li>');        
                 }
 
-                if (allow_singin === undefined) {
-                    allow_singin = false;   
+                if (allow_singin) {
+                    $('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#signin-modal">Registrar</a></li>');
                 }
-            });
-
-            if (allow_login) {
-                $('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#login-modal">Entrar</a></li>');        
             }
 
-            if (allow_singin) {
-                $('#login-nav-bar').append('<li><a href="#" data-toggle="modal" data-target="#signin-modal">Registrar</a></li>');
-            }
         };
 
         app.init();
+
     });
 });
