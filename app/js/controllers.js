@@ -11,16 +11,14 @@ define(['angular', 'services'], function (angular) {
 		}])
 
 		// Landing controller
-		.controller('LandingCtrl', ['$scope', 'countdown', function ($scope) {
-			new Countdown({
-				selector: '#countdown',
-				msgPattern: "Faltam {days} dias, {hours} horas, {minutes} minutos e {seconds} segundos!",
-				dateEnd: new Date('Aug 15, 2015 20:00')
+		.controller('LandingCtrl', ['$scope', '$injector', function ($scope, $injector) {
+			require(['controllers/landingctrl'], function(landingctrl) {
+				$injector.invoke(landingctrl, this, {'$scope': $scope});
 			});
 		}])
 
 		// More involved example where controller is required from an external file
-		.controller('MyCtrl2', ['$scope', '$injector', function($scope, $injector) {
+		.controller('MyCtrl2', ['$scope', '$injector', function ($scope, $injector) {
 			require(['controllers/myctrl2'], function(myctrl2) {
 				// injector method takes an array of modules as the first argument
 				// if you want your controller to be able to use components from
