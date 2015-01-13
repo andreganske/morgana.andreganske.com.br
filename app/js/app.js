@@ -19,7 +19,13 @@ define([
 
 		app.controller('servicesctrl', ['$scope', function($scope, globalConstant, globalConfig) {
 			var config  = Parse.Config.get().then(function(config) {
-				return config;
+				var globalConfig = {};
+				
+				globalConfig.allowLogin = config.get("allowLogin");
+				globalConfig.allowSigin = config.get("allowSigin");
+				globalConfig.useAnalytics = config.get("useAnalytics");
+
+				return globalConfig;
 			}, function(error) {
 				var codeString = '' + error.code;
 				Parse.Analytics.track('error', { code: codeString });
