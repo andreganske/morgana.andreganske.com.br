@@ -6,21 +6,11 @@ define(['angular', 'services'], function (angular) {
 	
 	return angular.module('myApp.controllers', ['myApp.services'])
 		// Sample controller where service is being used
-		.controller('MyCtrl1', ['$scope', 'globalConstant', function ($scope, config) {
-			$scope.appName = config.name;
-			$scope.appVersion = config.version;
+		.controller('MyCtrl1', ['$scope', function ($scope) {
 		}])
 
 		// Landing controller
-		.controller('LandingCtrl', ['$scope', '$injector', 'globalConfig', 'globalConstant', function ($scope, $injector, globalConfig, config) {
-
-			$scope.allowLogin = globalConfig.allowLogin;
-			$scope.allowSigin = globalConfig.allowSigin;
-			$scope.useAnalytics = globalConfig.useAnalytics;
-
-			$scope.appName = config.name;
-			$scope.appVersion = config.version;
-
+		.controller('LandingCtrl', ['$scope', '$injector', function ($scope, $injector) {
 			require(['controllers/landingctrl'], function() {});
 		}])
 
