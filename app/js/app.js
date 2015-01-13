@@ -17,7 +17,7 @@ define([
 			'myApp.controllers'
 		]);
 
-		app.controller('servicesctrl', function(globalConstant, globalConfig) {
+		app.controller('servicesctrl', ['$scope', function($scope, globalConstant, globalConfig) {
 			Parse.Config.get().then(function(config) {
 				globalConfig.allowLogin = config.allowLogin;
 				globalConfig.allowSigin = config.allowSigin;
@@ -44,7 +44,7 @@ define([
 
 			$scope.appName = config.name;
 			$scope.appVersion = config.version;
-		});
+		}]);
 
 		return app;
 });
