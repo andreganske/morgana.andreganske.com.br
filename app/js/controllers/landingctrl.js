@@ -1,4 +1,4 @@
-define(['jquery', 'countdown', 'myApp.services'], function (jquery, countdown, globalConfig) {
+define(['jquery', 'countdown', 'services'], function () {
 
 	new Countdown({
 		selector: '#countdown',
@@ -10,8 +10,8 @@ define(['jquery', 'countdown', 'myApp.services'], function (jquery, countdown, g
 		console.log('allowLogin');
 	};
 
-	if (globalConfig.allowSigin) {
-		console.log('allowSigin');
+	if (globalConfig.allowSingin) {
+		console.log('allowSingin');
 	};
 	
 	if (globalConfig.useAnalytics) {
