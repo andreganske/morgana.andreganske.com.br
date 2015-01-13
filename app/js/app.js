@@ -20,10 +20,10 @@ define([
 		app.controller('servicesctrl', ['$scope', function($scope, globalConstant, globalConfig) {
 			var config  = Parse.Config.get().then(function(config) {
 				var globalConfig = {};
-				
-				globalConfig.allowLogin = config.get("allowLogin");
-				globalConfig.allowSigin = config.get("allowSigin");
-				globalConfig.useAnalytics = config.get("useAnalytics");
+
+				globalConfig.allowLogin = config.get("allow_login");
+				globalConfig.allowSigin = config.get("allow_sigin");
+				globalConfig.useAnalytics = config.get("use_analytics");
 
 				return globalConfig;
 			}, function(error) {
