@@ -1,5 +1,9 @@
 'use strict';
 
+var allowLogin,
+	allowSigin,
+	useAnalytics;
+
 define([
 	'angular',
 	'filters',
@@ -20,9 +24,9 @@ define([
 		app.controller('servicesctrl', ['$scope', function($scope, globalConstant, globalConfig) {
 			var that = this;
 			Parse.Config.get().then(function(config) {
-				that.globalConfig.allowLogin = config.get("allow_login");
-				globalConfig.allowSigin = config.get("allow_sigin");
-				globalConfig.useAnalytics = config.get("use_analytics");
+				that.allowLogin = config.get("allow_login");
+				that.allowSigin = config.get("allow_sigin");
+				that.useAnalytics = config.get("use_analytics");
 			}, function(error) {
 				var codeString = '' + error.code;
 				Parse.Analytics.track('error', { code: codeString });
@@ -38,6 +42,10 @@ define([
 					globalConfig.useAnalytics = config.get("useAnalytics");
 				}
 			});
+
+			globalConfig.allowLogin = this.allowLogin;
+			globalConfig.allowSigin = this.allowSigin;
+			globalConfig.useAnalytics = this.useAnalytics;
 
 			$scope.allowLogin = globalConfig.allowLogin;
 			$scope.allowSigin = globalConfig.allowSigin;
