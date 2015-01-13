@@ -12,9 +12,7 @@ define(['angular', 'services'], function (angular) {
 
 		// Landing controller
 		.controller('LandingCtrl', ['$scope', '$injector', function ($scope, $injector) {
-			require(['controllers/landingctrl'], function(landingctrl) {
-				$injector.invoke(landingctrl, this, {'$scope': $scope});
-			});
+			require(['controllers/landingctrl'], function() {});
 		}])
 
 		// More involved example where controller is required from an external file
