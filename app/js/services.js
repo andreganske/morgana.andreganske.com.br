@@ -6,9 +6,9 @@ define(['angular'], function (angular) {
 		name: 		'Morgana e Andre',
 		version: 	'0.1'
 	}).value('globalConfig', {
-		allowLogin, 	true,
-		allowSigin, 	true,
-		useAnalytics, 	true
+		allowLogin: 	false,
+		allowSigin: 	false,
+		useAnalytics: 	false
 	}).controller('servicesctrl', function(globalConstant, globalConfig) {
 
 		Parse.Config.get().then(function(config) {
