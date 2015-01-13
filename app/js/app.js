@@ -19,9 +19,9 @@ define([
 
 		app.controller('servicesctrl', ['$scope', function($scope, globalConstant, globalConfig) {
 			Parse.Config.get().then(function(config) {
-				globalConfig.allowLogin = config.allowLogin;
-				globalConfig.allowSigin = config.allowSigin;
-				globalConfig.useAnalytics = config.useAnalytics;
+				globalConfig.allowLogin = config.get("allowLogin");
+				globalConfig.allowSigin = config.get("allowSigin");
+				globalConfig.useAnalytics = config.get("useAnalytics");
 			}, function(error) {
 				var codeString = '' + error.code;
 				Parse.Analytics.track('error', { code: codeString });
@@ -32,9 +32,9 @@ define([
 					globalConfig.allowSigin = false;
 					globalConfig.useAnalytics = false;
 				} else {
-					globalConfig.allowLogin = config.allowLogin;
-					globalConfig.allowSigin = config.allowSigin;
-					globalConfig.useAnalytics = config.useAnalytics;
+					globalConfig.allowLogin = config.get("allowLogin");
+					globalConfig.allowSigin = config.get("allowSigin");
+					globalConfig.useAnalytics = config.get("useAnalytics");
 				}
 			});
 
