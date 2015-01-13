@@ -17,41 +17,41 @@ define([
 			'myApp.controllers'
 		]);
 
-		app.controller('servicesctrl', ['$scope', function($scope, globalConstant, globalConfig) {
+		app.controller('servicesctrl', function(globalConstant, globalConfig) {
 			var config  = Parse.Config.get().then(function(config) {
-				var globalConfig = {};
+				var global = {};
 
-				globalConfig.allowLogin = config.get("allow_login");
-				globalConfig.allowSingin = config.get("allow_singin");
-				globalConfig.useAnalytics = config.get("use_analytics");
+				global.allowLogin = config.get("allow_login");
+				global.allowSingin = config.get("allow_singin");
+				global.useAnalytics = config.get("use_analytics");
 
-				return globalConfig;
-				
+				return global;
+
 			}, function(error) {
 				var config = Parse.Config.current(),
-					globalConfig = {};
+					global = {};
 
 				Parse.Analytics.track('error', { code: '' + error.code });
 
 				if (config === undefined) {
-					globalConfig.allowLogin = false;
-					globalConfig.allowSingin = false;
-					globalConfig.useAnalytics = false;
+					global.allowLogin = false;
+					global.allowSingin = false;
+					global.useAnalytics = false;
 				} else {
-					globalConfig.allowLogin = config.get("allowLogin");
-					globalConfig.allowSingin = config.get("allowSingin");
-					globalConfig.useAnalytics = config.get("useAnalytics");
+					global.allowLogin = config.get("allowLogin");
+					global.allowSingin = config.get("allowSingin");
+					global.useAnalytics = config.get("useAnalytics");
 				}
-				return globalConfig;
+				return global;
 			});
 
-			$scope.allowLogin = globalConfig.allowLogin;
-			$scope.allowSingin = globalConfig.allowSingin;
-			$scope.useAnalytics = globalConfig.useAnalytics;
+			if (global != undefined) {
+				globalConfig.allowLogin = config.allowLogin;
+				globalConfig.allowSingin = config.allowSingin;
+				globalConfig.useAnalytics = config.useAnalytics;
+			}
 
-			$scope.appName = config.name;
-			$scope.appVersion = config.version;
-		}]);
+		});
 
 		return app;
 });
