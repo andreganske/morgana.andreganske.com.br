@@ -37,9 +37,9 @@ define([
 				globalConfig.allowSigin = false;
 				globalConfig.useAnalytics = false;
 			} else {
-				globalConfig.allowLogin = config.get("allow_login");
-				globalConfig.allowSigin = config.get("allow_sigin");
-				globalConfig.useAnalytics = config.get("use_analytics");
+				globalConfig.allowLogin = config.get("allowLogin");
+				globalConfig.allowSigin = config.get("allowSigin");
+				globalConfig.useAnalytics = config.get("useAnalytics");
 			}
 
 			$scope.allowLogin = globalConfig.allowLogin;
