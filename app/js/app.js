@@ -15,9 +15,7 @@ define([
 			'myApp.services',
 			'myApp.directives',
 			'myApp.controllers'
-		]);
-
-		app.controller('servicesctrl', function(globalConstant, globalConfig) {
+		], function(globalConstant, globalConfig) {
 			var config  = Parse.Config.get().then(function(config) {
 				var global = {};
 
