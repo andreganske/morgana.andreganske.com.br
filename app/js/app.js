@@ -22,28 +22,31 @@ define([
 				var globalConfig = {};
 
 				globalConfig.allowLogin = config.get("allow_login");
-				globalConfig.allowSigin = config.get("allow_sigin");
+				globalConfig.allowSingin = config.get("allow_singin");
 				globalConfig.useAnalytics = config.get("use_analytics");
 
 				return globalConfig;
+				
 			}, function(error) {
-				var codeString = '' + error.code;
-				Parse.Analytics.track('error', { code: codeString });
-				return Parse.Config.current();
+				var config = Parse.Config.current(),
+					globalConfig = {};
+
+				Parse.Analytics.track('error', { code: '' + error.code });
+
+				if (config === undefined) {
+					globalConfig.allowLogin = false;
+					globalConfig.allowSingin = false;
+					globalConfig.useAnalytics = false;
+				} else {
+					globalConfig.allowLogin = config.get("allowLogin");
+					globalConfig.allowSingin = config.get("allowSingin");
+					globalConfig.useAnalytics = config.get("useAnalytics");
+				}
+				return globalConfig;
 			});
 
-			if (config === undefined) {
-				globalConfig.allowLogin = false;
-				globalConfig.allowSigin = false;
-				globalConfig.useAnalytics = false;
-			} else {
-				globalConfig.allowLogin = config.get("allowLogin");
-				globalConfig.allowSigin = config.get("allowSigin");
-				globalConfig.useAnalytics = config.get("useAnalytics");
-			}
-
 			$scope.allowLogin = globalConfig.allowLogin;
-			$scope.allowSigin = globalConfig.allowSigin;
+			$scope.allowSingin = globalConfig.allowSingin;
 			$scope.useAnalytics = globalConfig.useAnalytics;
 
 			$scope.appName = config.name;
