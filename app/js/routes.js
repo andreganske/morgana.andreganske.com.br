@@ -7,14 +7,7 @@ define(['angular', 'app'], function(angular, app) {
 			templateUrl: 'app/partials/landing.html',
 			controller: 'LandingCtrl'
 		});
-		$routeProvider.when('/view1', {
-			templateUrl: 'app/partials/partial1.html',
-			controller: 'MyCtrl1'
-		});
-		$routeProvider.when('/view2', {
-			templateUrl: 'app/partials/partial2.html',
-			controller: 'MyCtrl2'
-		});
+
 		$routeProvider.otherwise({redirectTo: '/landing'});
 	}]);
 

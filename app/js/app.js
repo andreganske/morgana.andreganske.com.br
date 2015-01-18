@@ -44,17 +44,13 @@ define([
 			});
 
 			if (global != undefined) {
-				globalConfig.allowLogin = config.allowLogin;
-				globalConfig.allowSingin = config.allowSingin;
-				globalConfig.useAnalytics = config.useAnalytics;
+				$scope.allowLogin = config.allowLogin;
+				$scope.allowSingin = config.allowSingin;
+				$scope.useAnalytics = config.useAnalytics;
 			}
 
 			var currentUser = Parse.User.current();
-			if (currentUser) {
-				// show signuot button
-			} else {
-				// show login and/or signup buttons
-			}
+			$scope.allowSingout = currentUser ? true : false;
 		});
 
 		return app;
