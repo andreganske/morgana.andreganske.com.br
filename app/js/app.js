@@ -49,6 +49,12 @@ define([
 				globalConfig.useAnalytics = config.useAnalytics;
 			}
 
+			var currentUser = Parse.User.current();
+			if (currentUser) {
+				// show signuot button
+			} else {
+				// show login and/or signup buttons
+			}
 		});
 
 		return app;
