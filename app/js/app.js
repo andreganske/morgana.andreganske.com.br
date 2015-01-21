@@ -9,7 +9,7 @@ define([
 	'angularRoute',
 	], function (angular, filters, services, directives, controllers) {
 
-		return angular.module('myApp', [
+		var app = angular.module('myApp', [
 			'ngRoute',
 			'myApp.filters',
 			'myApp.services',
@@ -17,35 +17,34 @@ define([
 			'myApp.controllers'
 		]);
 
-		/*var app = angular.module('myApp', [
-			'ngRoute',
-			'myApp.controllers'
-		], function() {
-			var config  = Parse.Config.get().then(function(config) {
+		app.run(function($rootScope) {
+			var params = {};
 
-				$scope.allowLogin = config.get("allow_login");
-				$scope.allowSingin = config.get("allow_singin");
-				$scope.useAnalytics = config.get("use_analytics");
-
+			Parse.Config.get().then(function(config) {
+				params.allowLogin = config.get("allow_login");
+				params.allowSingin = config.get("allow_singin");
+				params.useAnalytics = config.get("use_analytics");
 			}, function(error) {
-				var config = Parse.Config.current();
-
 				Parse.Analytics.track('error', { code: '' + error.code });
-
+				var config = Parse.Config.current();
 				if (config === undefined) {
-					$scope.allowLogin = false;
-					$scope.allowSingin = false;
-					$scope.useAnalytics = false;
+					params.allowLogin = false;
+					params.allowSingin = false;
+					params.useAnalytics = false;
 				} else {
-					$scope.allowLogin = config.get("allowLogin");
-					$scope.allowSingin = config.get("allowSingin");
-					$scope.useAnalytics = config.get("useAnalytics");
+					params.allowLogin = config.get("allowLogin");
+					params.allowSingin = config.get("allowSingin");
+					params.useAnalytics = config.get("useAnalytics");
 				}
 			});
 
 			var currentUser = Parse.User.current();
-			$scope.allowSingout = currentUser ? true : false;
+			
+			$rootScope.allowSingout = currentUser ? true : false;
+			$rootScope.allowLogin = params.allowLogin ? true : false;
+			$rootScope.allowSingin = params.allowSingin ? true : false;
+			$rootScope.useAnalytics = params.useAnalytics ? true : false;
 		});
 
-		return app;*/
+		return app;		 
 });
