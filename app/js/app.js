@@ -20,7 +20,7 @@ define([
 		app.run(function($rootScope) {
 			var params = {};
 
-			Parse.Config.get().then(function(config) {
+			var promise = Parse.Config.get().then(function(config) {
 				params.allowLogin = config.get("allow_login");
 				params.allowSingin = config.get("allow_singin");
 				params.useAnalytics = config.get("use_analytics");
@@ -38,12 +38,14 @@ define([
 				}
 			});
 
-			var currentUser = Parse.User.current();
-			
-			$rootScope.allowSingout = currentUser ? true : false;
-			$rootScope.allowLogin = params.allowLogin ? true : false;
-			$rootScope.allowSingin = params.allowSingin ? true : false;
-			$rootScope.useAnalytics = params.useAnalytics ? true : false;
+			promise.done(function() {
+				var currentUser = Parse.User.current();
+
+				$rootScope.allowSingout = currentUser ? true : false;
+				$rootScope.allowLogin = params.allowLogin ? true : false;
+				$rootScope.allowSingin = params.allowSingin ? true : false;
+				$rootScope.useAnalytics = params.useAnalytics ? true : false;
+			});
 		});
 
 		return app;		 
