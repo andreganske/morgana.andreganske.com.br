@@ -1,13 +1,22 @@
-<nav class="navbar navbar-default navbar-static-top">
+<nav class="navbar navbar-default" ng-controller="headerctrl as controller">
   <div class="container-fluid">
-
+    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Alterar navegação</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
       <a class="navbar-brand" href="#">Morgana e Andre</a>
     </div>
 
+    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right" id="login-nav-bar">
-        
+      <ul class="nav navbar-nav navbar-right" id="">
+        <li><a href="#" ng-click='' ng-show='allowSingin'>Nova conta</a></li>
+        <li><a href="#" ng-click='' ng-show='allowLogin'>Entrar</a></li>
+        <li><a href="#" ng-click='' ng-show='allowSingout'>Sair</a></li>
       </ul>
     </div>
   </div>

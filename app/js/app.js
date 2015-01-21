@@ -9,47 +9,43 @@ define([
 	'angularRoute',
 	], function (angular, filters, services, directives, controllers) {
 
-		var app = angular.module('myApp', [
+		return angular.module('myApp', [
 			'ngRoute',
 			'myApp.filters',
 			'myApp.services',
 			'myApp.directives',
 			'myApp.controllers'
-		], function(globalConstant, globalConfig) {
+		]);
+
+		/*var app = angular.module('myApp', [
+			'ngRoute',
+			'myApp.controllers'
+		], function() {
 			var config  = Parse.Config.get().then(function(config) {
-				var global = {};
 
-				global.allowLogin = config.get("allow_login");
-				global.allowSingin = config.get("allow_singin");
-				global.useAnalytics = config.get("use_analytics");
-
-				return global;
+				$scope.allowLogin = config.get("allow_login");
+				$scope.allowSingin = config.get("allow_singin");
+				$scope.useAnalytics = config.get("use_analytics");
 
 			}, function(error) {
-				var config = Parse.Config.current(),
-					global = {};
+				var config = Parse.Config.current();
 
 				Parse.Analytics.track('error', { code: '' + error.code });
 
 				if (config === undefined) {
-					global.allowLogin = false;
-					global.allowSingin = false;
-					global.useAnalytics = false;
+					$scope.allowLogin = false;
+					$scope.allowSingin = false;
+					$scope.useAnalytics = false;
 				} else {
-					global.allowLogin = config.get("allowLogin");
-					global.allowSingin = config.get("allowSingin");
-					global.useAnalytics = config.get("useAnalytics");
+					$scope.allowLogin = config.get("allowLogin");
+					$scope.allowSingin = config.get("allowSingin");
+					$scope.useAnalytics = config.get("useAnalytics");
 				}
-				return global;
 			});
 
-			if (global != undefined) {
-				globalConfig.allowLogin = config.allowLogin;
-				globalConfig.allowSingin = config.allowSingin;
-				globalConfig.useAnalytics = config.useAnalytics;
-			}
-
+			var currentUser = Parse.User.current();
+			$scope.allowSingout = currentUser ? true : false;
 		});
 
-		return app;
+		return app;*/
 });
