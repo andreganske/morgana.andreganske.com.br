@@ -27,9 +27,11 @@
 			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 	<![endif]-->
 
-	<div properties-validation></div>
 
-	<div ng-view></div>
+	<div properties-validation></div>
+	<!--div ng-view></div-->
+
+	<div id="guest-view" ng-include="'app/partials/guest-view.html'"></div>
 
 	<script data-main="app/js/main" src="app/js/libs/require.min.js"></script>
 

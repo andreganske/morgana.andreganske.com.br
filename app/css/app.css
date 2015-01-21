@@ -95,3 +95,7 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
 .modal-backdrop {
   z-index: -1;
 }
+
+.navbar {
+  margin-bottom: 0;
+}
