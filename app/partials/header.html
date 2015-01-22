@@ -9,12 +9,12 @@
           <form>
             <div class="form-group">
               <label for="login-inputEmail">Email</label>
-              <input type="email" class="form-control" id="login-inputEmail" placeholder="meuemail@meuemail.com.br">
+              <input type="email" class="form-control" id="login-inputEmail" ng-model="email" placeholder="meuemail@meuemail.com.br">
             </div>
 
             <div class="form-group">
               <label for="login-inputPass">Senha</label>
-              <input type="password" class="form-control" id="login-inputPass" placeholder="minha senha">
+              <input type="password" class="form-control" id="login-inputPass" ng-model="password" placeholder="minha senha">
             </div>
           </form>
         </div>
@@ -56,6 +56,7 @@
     </script>
 
     <div id="login-header" class="pull-right">
+      <div ng-show="logged"><h4>Bem vindo {{user}}</h4></div>
       <button class="btn btn-default" ng-click="logoff()" ng-show="logged">Sair</button>
       <button class="btn btn-default" ng-click="open('loginModal', 'sm')" ng-show="allowLogin" ng-hide="logged">Entrar</button>
       <button class="btn btn-default" ng-click="open('signinModal')" ng-show="allowSingin" ng-hide="logged">Nova conta</button>

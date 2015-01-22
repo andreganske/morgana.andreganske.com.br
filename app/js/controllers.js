@@ -29,8 +29,10 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 				size: size
 			});
 
-			modalInstance.result.then(function (selectedItem) {
-				$log.info('ook');
+			modalInstance.result.then(function () {
+				var currentUser = Parse.User.current();
+				$scope.logged = currentUser ? true : false;
+				$scope.user = currentUser.get('name');
 			}, function () {
 				$log.info('Modal dismissed at: ' + new Date());
 			});
@@ -38,13 +40,29 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 
 		$scope.logoff = function() {
 			Parse.User.logOut();
+			var currentUser = Parse.User.current();
+			$scope.logged = currentUser ? true : false;
 		};
 	}]);
 
 	app.controller('ModalInstanceCtrl', function($scope, $modalInstance) {
 
 		$scope.login = function () {
-			$modalInstance.close();
+
+			Parse.User.logIn($scope.email, $scope.password, {
+				success: function(retorno) {
+					//$rootScope.user = retorno;
+					//$mdDialog.hide();
+					$modalInstance.close();
+				},
+				error: function(user, error) {
+					if (error.code == 101) {
+						//app.showAlert(1);
+					} else {
+						//$('#error-undefined').alert();
+					}
+				}
+			});
 		};
 
 		$scope.create = function () {
@@ -57,10 +75,13 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 
 			newUser.signUp (null, {
 				success: function(user) {
-					$scope.alerts.push({type: 'success', msg: "Bem vindo " + user.get("name")});
+					//$scope.alerts.push({type: 'success', msg: "Bem vindo " + user.get("name")});
+					alert("Sucesso!");
+					$modalInstance.close();
 				},
 				error: function(user, error) {
-					$scope.alerts.push({type: 'danger', msg: "Error: " + error.code + " " + error.message});
+					//$scope.alerts.push({type: 'danger', msg: "Error: " + error.code + " " + error.message});
+					alert("Error: " + error.code + " " + error.message);
 				}
 			});
 		};
