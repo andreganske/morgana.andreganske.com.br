@@ -12,7 +12,11 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 		});
 	}]);
 
-	app.controller('LoginModalCtrl', ['$rootScope', '$scope', '$modal', '$log', function($rootScope, $scope, $modal, $log) {
+	app.controller('GuestCtrl', ['$scope', function($scope) {
+
+	}]);
+
+	app.controller('LoginModalCtrl', ['$rootScope', '$scope', '$modal', '$location', function($rootScope, $scope, $modal, $location) {
 
 		 $scope.init = function() {
 			$scope.allowLogin = $rootScope.allowLogin;
@@ -33,6 +37,7 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 				var currentUser = Parse.User.current();
 				$scope.logged = currentUser ? true : false;
 				$scope.user = currentUser.get('name');
+				$location.path('/guest');
 			});
 		};
 
@@ -40,6 +45,7 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 			Parse.User.logOut();
 			var currentUser = Parse.User.current();
 			$scope.logged = currentUser ? true : false;
+			$location.path('/');
 		};
 	}]);
 
