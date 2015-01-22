@@ -37,7 +37,7 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 		};
 
 		$scope.logoff = function() {
-
+			Parse.User.logOut();
 		};
 	}]);
 
@@ -48,7 +48,21 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 		};
 
 		$scope.create = function () {
-			$modalInstance.close();
+			var newUser = new Parse.User();
+
+			newUser.set('username', $scope.email);
+			newUser.set('name', $scope.fullname);
+			newUser.set('email', $scope.email);
+			newUser.set('password',	$scope.password);
+
+			newUser.signUp (null, {
+				success: function(user) {
+					$scope.alerts.push({type: 'success', msg: "Bem vindo " + user.get("name")});
+				},
+				error: function(user, error) {
+					$scope.alerts.push({type: 'danger', msg: "Error: " + error.code + " " + error.message});
+				}
+			});
 		};
 
 		$scope.cancel = function () {
