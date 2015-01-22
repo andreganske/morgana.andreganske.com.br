@@ -54,6 +54,10 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
   outline: none;
 }
 
+.inline {
+  display: inline;
+}
+
 /* ------------------------------------ navigation ------------------------------------ */
 
 #home-content {
@@ -106,3 +110,4 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
   -moz-opacity:0.8;
   opacity: 0.8;
 }
+

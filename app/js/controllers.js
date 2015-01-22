@@ -5,6 +5,9 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 	var app = angular.module('myApp.controllers', ['myApp.services', 'ui.bootstrap']);
 
 	app.controller('LandingCtrl', ['$rootScope', '$scope', function($rootScope, $scope) {
+		var currentUser = Parse.User.current();
+		$scope.logged = currentUser ? true : false;
+
 		new Countdown({
 			selector: '#countdown',
 			msgPattern: "Faltam {days} dias, {hours} horas, {minutes} minutos e {seconds} segundos!",
@@ -14,6 +17,19 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 
 	app.controller('GuestCtrl', ['$scope', function($scope) {
 
+		var currentUser = Parse.User.current();
+		$scope.logged = currentUser ? true : false;
+		if ($scope.logged) {
+			$scope.user = currentUser.get('fullname');
+		}
+
+		$scope.groups = [{
+			title: 'Dynamic Group Header - 1',
+			content: 'Dynamic Group Body - 1'
+		},{
+			title: 'Dynamic Group Header - 2',
+			content: 'Dynamic Group Body - 2'
+		}];
 	}]);
 
 	app.controller('LoginModalCtrl', ['$rootScope', '$scope', '$modal', '$location', function($rootScope, $scope, $modal, $location) {
@@ -36,15 +52,13 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 			modalInstance.result.then(function () {
 				var currentUser = Parse.User.current();
 				$scope.logged = currentUser ? true : false;
-				$scope.user = currentUser.get('name');
+				$scope.user = currentUser.get('fullname');
 				$location.path('/guest');
 			});
 		};
 
 		$scope.logoff = function() {
 			Parse.User.logOut();
-			var currentUser = Parse.User.current();
-			$scope.logged = currentUser ? true : false;
 			$location.path('/');
 		};
 	}]);
@@ -70,9 +84,9 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 			var newUser = new Parse.User();
 
 			newUser.set('username', $scope.email);
-			newUser.set('name', $scope.fullname);
 			newUser.set('email', $scope.email);
 			newUser.set('password',	$scope.password);
+			newUser.set('fullname', $scope.fullname);
 
 			newUser.signUp (null, {
 				success: function(user) {
