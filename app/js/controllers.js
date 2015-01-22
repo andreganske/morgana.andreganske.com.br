@@ -33,8 +33,6 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 				var currentUser = Parse.User.current();
 				$scope.logged = currentUser ? true : false;
 				$scope.user = currentUser.get('name');
-			}, function () {
-				$log.info('Modal dismissed at: ' + new Date());
 			});
 		};
 
@@ -48,11 +46,8 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 	app.controller('ModalInstanceCtrl', function($scope, $modalInstance) {
 
 		$scope.login = function () {
-
 			Parse.User.logIn($scope.email, $scope.password, {
 				success: function(retorno) {
-					//$rootScope.user = retorno;
-					//$mdDialog.hide();
 					$modalInstance.close();
 				},
 				error: function(user, error) {
@@ -75,8 +70,6 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 
 			newUser.signUp (null, {
 				success: function(user) {
-					//$scope.alerts.push({type: 'success', msg: "Bem vindo " + user.get("name")});
-					alert("Sucesso!");
 					$modalInstance.close();
 				},
 				error: function(user, error) {
