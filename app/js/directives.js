@@ -36,28 +36,9 @@ define(['angular', 'services'], function(angular, services) {
 			});
 
 			promise.done(function() {
-				var currentUser = Parse.User.current();
-
-				$rootScope.allowSingout = currentUser ? true : false;
 				$rootScope.allowLogin = params.allowLogin ? true : false;
 				$rootScope.allowSingin = params.allowSingin ? true : false;
 				$rootScope.useAnalytics = params.useAnalytics ? true : false;
-
-				if ($rootScope.allowSingout) {					
-					$('#header_menu').append('<li><a href="#" ng-click="" ng-show="allowSingout">Sair</a></li>');
-				} else {
-					if ($rootScope.allowLogin) {
-						$('#header_menu').append('<li><a href="#" ng-click="" ng-show="allowLogin">Entrar</a></li>');
-					}
-
-					if ($rootScope.allowSingin) {
-						$('#header_menu').append('<li><a href="#" ng-click="" ng-show="allowSingin">Nova conta</a></li>');
-					}
-				}
-
-				if ($rootScope.useAnalytics) {
-					// do something;
-				}
 			});
 		};
 	}]);

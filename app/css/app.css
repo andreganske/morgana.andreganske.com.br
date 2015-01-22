@@ -92,30 +92,17 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
   right: 10%;
 }
 
-.modal-backdrop {
-  z-index: -1;
+#login-header {
+  padding: 20px;
 }
 
-.navbar {
-  margin-bottom: 0;
-}
+#login-header .btn {
+  height: 40px;
+  width: 140px;
+  margin: 10px;
 
-#guestview-main {
-  position: fixed !important;
-  height: 100%;
-  padding: 0;
-}
-
-#guestview-main .background-img {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-
-  background: url("../img/bg.jpg") no-repeat center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-color: #DCEBE8;
+  filter:alpha(opacity=80);
+  -moz-opacity:0.8;
+  opacity: 0.8;
 }

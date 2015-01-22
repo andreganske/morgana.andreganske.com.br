@@ -9,6 +9,11 @@ define(['angular', 'app'], function(angular, app) {
 			controller: 'LandingCtrl'
 		});
 
+		$routeProvider.when('/login', {
+			templateUrl: 'app/partials/login.html',
+			controller: 'LoginCtrl'
+		});
+
 		$routeProvider.otherwise({redirectTo: '/landing'});
 	}]);
 

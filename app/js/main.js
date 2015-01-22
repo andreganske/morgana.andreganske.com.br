@@ -10,7 +10,8 @@ require.config({
 		jquery: 		"//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min",
 		parse:          "//www.parsecdn.com/js/parse-1.3.3.min",
 		bootstrap:      "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min",
-		countdown: 		"libs/countdown.min"
+		countdown: 		"libs/countdown.min",
+		uibootstrap: 	"libs/ui-bootstrap.min"
 	},
 
 	shim: {
@@ -18,7 +19,8 @@ require.config({
 		'angularRoute'		: [ 'angular' ],
 		'angularAnimate'    : [ 'angular' ],
 		'bootstrap'         : { deps:['jquery'] },
-		'angularMocks'		: { deps:['angular'], 'exports':'angular.mock' }
+		'angularMocks'		: { deps:['angular'], 'exports':'angular.mock' },
+		'uibootstrap'		: [ 'angular' ],
 	},
 
 	priority: [
