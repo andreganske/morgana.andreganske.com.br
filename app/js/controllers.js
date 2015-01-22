@@ -15,19 +15,33 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 		});
 	}]);
 
-	app.controller('GuestCtrl', ['$scope', function($scope) {
+	app.controller('AdminCtrl', ['$scope', '$location', function($scope, $location) {
 
 		var currentUser = Parse.User.current();
 		$scope.logged = currentUser ? true : false;
 		if ($scope.logged) {
 			$scope.user = currentUser.get('fullname');
+		} else {
+			$location.path('/');
+		}
+
+	}]);
+
+	app.controller('GuestCtrl', ['$scope', '$location', function($scope, $location) {
+
+		var currentUser = Parse.User.current();
+		$scope.logged = currentUser ? true : false;
+		if ($scope.logged) {
+			$scope.user = currentUser.get('fullname');
+		} else {
+			$location.path('/');
 		}
 
 		$scope.groups = [{
-			title: 'Dynamic Group Header - 1',
+			title: 'Eletrodomesticos',
 			content: 'Dynamic Group Body - 1'
 		},{
-			title: 'Dynamic Group Header - 2',
+			title: 'Cozinha',
 			content: 'Dynamic Group Body - 2'
 		}];
 	}]);
