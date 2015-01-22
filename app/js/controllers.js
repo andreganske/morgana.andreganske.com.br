@@ -7,6 +7,9 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 	app.controller('LandingCtrl', ['$rootScope', '$scope', function($rootScope, $scope) {
 		var currentUser = Parse.User.current();
 		$scope.logged = currentUser ? true : false;
+		if ($scope.logged) {
+			$scope.user = currentUser.get('fullname');
+		}
 
 		new Countdown({
 			selector: '#countdown',
