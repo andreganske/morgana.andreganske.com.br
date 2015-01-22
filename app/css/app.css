@@ -97,17 +97,15 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
 }
 
 #login-header {
-  padding: 20px;
+  padding: 10px 0;
 }
 
 #login-header .btn {
-  height: 40px;
-  width: 140px;
-  margin: 10px;
-
+  width: 120px;
   background-color: #DCEBE8;
-  filter:alpha(opacity=80);
-  -moz-opacity:0.8;
-  opacity: 0.8;
 }
 
+.logout-header .btn {
+  margin-left: 20px;
+  
+}
