@@ -26,10 +26,14 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 		$scope.categories = [];
 		$scope.products = [];
 
-		updateLists($scope);
+		getCategories($scope);
 
 		$scope.save = function(gift) {
 			createProduct(gift);
+		};
+
+		$scope.productList = function(category) {
+			getProductsByCategory($scope, category);
 		};
 
 	}]);
@@ -144,7 +148,28 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 		});
 	};
 
-	function updateLists($scope) {
+	function getProductsByCategory($scope, category) {
+		var Product = Parse.Object.extend('Product');
+		var query = new Parse.Query(Product);
+
+		query.equalTo("category", category);
+		query.find({
+			success: function(result) {
+				$scope.products = [];
+				
+				for (var i = result.length - 1; i >= 0; i--) {
+					var obj = {name: ''};
+					obj.name = result[i].get('name');
+					$scope.products.push(obj);
+				};
+			},
+			error: function(error) {
+				alert("Error: " + error.code + " " + error.message);
+			}
+		});	
+	};
+
+	function getCategories($scope) {
 		var Product = Parse.Object.extend('Product');
 		var query = new Parse.Query(Product);
 

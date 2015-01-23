@@ -25,9 +25,19 @@
 				</div>
 
 				<div class="row">
-					<ul class="example-animate-container">
-						<li ng-repeat="category in categories | unique: 'name' | filter:q as results">{{category.name}}</li>
-					</ul>
+
+					<div class="col-md-4">
+						<ul class="example-animate-container">
+							<li ng-repeat="category in categories | unique: 'name' | filter:q as results" class="btn" ng-click="productList(category.name)">{{category.name}}</li>
+						</ul>
+					</div>
+
+					<div class="col-md-8">
+						<ul class="example-animate-container">
+							<li ng-repeat="product in products | filter:q as results" >{{product.name}}</li>
+						</ul>						
+					</div>
+
 				</div>
 			</tab>
 

@@ -19,7 +19,7 @@ define(['angular', 'services'], function (angular, services) {
 
 			angular.forEach(collection, function(item) {
 				var key = item[keyname];
-				if(keys.indexOf(key) === -1) {
+				if (keys.indexOf(key) === -1) {
 					keys.push(key);
 					output.push(item);
 				}
@@ -27,5 +27,18 @@ define(['angular', 'services'], function (angular, services) {
 			return output;
 		};
 	});
-	
+
+	app.filter('category', function() {
+		return function(collection, category) {
+			var output = [];
+
+			angular.forEach(collection, function(item) {
+				if (item.category === category) {
+					output.push(item);
+				}
+			});
+			return output;
+		};
+	});
+
 });
