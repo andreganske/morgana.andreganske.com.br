@@ -7,16 +7,30 @@
 		<tabset id="admin-menu">
 			<tab heading="Lista de presentes">
 
-				<form novalidate class="simple-form">
-					<label>Categoria</label>
-					<input type="text" ng-model="gift.category" />
+				<div class="row">
+					<form novalidate class="simple-form">
+						<label>Categoria</label>
+						<input type="text" ng-model="gift.category" />
 
-					<label>Produto</label>
-					<input type="text" ng-model="gift.product" />
-					
-					<input type="submit" ng-click="save(gift)" value="Salvar" />
-				</form>
+						<label>Produto</label>
+						<input type="text" ng-model="gift.product" />
+						
+						<input type="submit" ng-click="save(gift)" value="Salvar" />
+					</form>
+				</div>
+
+				<div class="row">
+					<label>Busca</label>
+					<input type="search" ng-model="q" placeholder="filtrar" />					
+				</div>
+
+				<div class="row">
+					<ul class="example-animate-container">
+						<li ng-repeat="category in categories | unique: 'name' | filter:q as results">{{category.name}}</li>
+					</ul>
+				</div>
 			</tab>
+
 			<tab heading="Lista de convidados">
 			</tab>
 		</tabset>		

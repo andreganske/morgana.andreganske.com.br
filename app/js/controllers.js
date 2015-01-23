@@ -23,6 +23,11 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 
 		$scope.master = {};
 
+		$scope.categories = [];
+		$scope.products = [];
+
+		updateLists($scope);
+
 		$scope.save = function(gift) {
 			createProduct(gift);
 		};
@@ -146,8 +151,9 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 		query.find({
 			success: function(result) {
 				for (var i = result.length - 1; i >= 0; i--) {
-					$scope.categories.push('name: ' + result[i].get('category'));
-					$scope.products.push('name: ' + result[i].get('name'));
+					var obj = {name: ''};
+					obj.name = result[i].get('category');
+					$scope.categories.push(obj);
 				};
 			},
 			error: function(error) {
