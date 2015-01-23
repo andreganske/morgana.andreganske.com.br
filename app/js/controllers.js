@@ -19,34 +19,19 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 	}]);
 
 	app.controller('AdminCtrl', ['$scope', '$location', function($scope, $location) {
+		validateLoggedUser($scope, $location);
 
-		var currentUser = Parse.User.current();
-		$scope.logged = currentUser ? true : false;
-		if ($scope.logged) {
-			$scope.user = currentUser.get('fullname');
-		} else {
-			$location.path('/');
-		}
+		$scope.master = {};
+
+		$scope.save = function(gift) {
+			createProduct(gift);
+		};
 
 	}]);
 
 	app.controller('GuestCtrl', ['$scope', '$location', function($scope, $location) {
+		validateLoggedUser($scope, $location);
 
-		var currentUser = Parse.User.current();
-		$scope.logged = currentUser ? true : false;
-		if ($scope.logged) {
-			$scope.user = currentUser.get('fullname');
-		} else {
-			$location.path('/');
-		}
-
-		$scope.groups = [{
-			title: 'Eletrodomesticos',
-			content: 'Dynamic Group Body - 1'
-		},{
-			title: 'Cozinha',
-			content: 'Dynamic Group Body - 2'
-		}];
 	}]);
 
 	app.controller('LoginModalCtrl', ['$rootScope', '$scope', '$modal', '$location', function($rootScope, $scope, $modal, $location) {
@@ -70,7 +55,12 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 				var currentUser = Parse.User.current();
 				$scope.logged = currentUser ? true : false;
 				$scope.user = currentUser.get('fullname');
-				$location.path('/guest');
+				
+				if ($scope.user === 'admin') {
+					$location.path('/admin');
+				} else {
+					$location.path('/guest');
+				}
 			});
 		};
 
@@ -120,6 +110,52 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 			$modalInstance.dismiss('cancel');
 		};
 	});
+
+	function validateLoggedUser($scope, $location) {
+		var currentUser = Parse.User.current();
+		$scope.logged = currentUser ? true : false;
+		if ($scope.logged) {
+			$scope.user = currentUser.get('fullname');
+		} else {
+			$location.path('/');
+		}
+	};
+
+	function createProduct(gift) {
+		var Product = Parse.Object.extend('Product');
+		var product = new Product();
+
+		product.set('category', gift.category);
+		product.set('name', gift.product);
+		product.set('available', true);
+
+		product.save(null, {
+			success: function(product) {
+				alert('New object created with objectId: ' + product.id);
+			},
+			error: function(product, error) {
+				alert('Failed to create new object, with error code: ' + error.message);
+			}
+		});
+	};
+
+	function updateLists($scope) {
+		var Product = Parse.Object.extend('Product');
+		var query = new Parse.Query(Product);
+
+		query.find({
+			success: function(result) {
+				for (var i = result.length - 1; i >= 0; i--) {
+					$scope.categories.push('name: ' + result[i].get('category'));
+					$scope.products.push('name: ' + result[i].get('name'));
+				};
+			},
+			error: function(error) {
+				alert("Error: " + error.code + " " + error.message);
+			}
+		});
+
+	};
 
 	return app;
 });

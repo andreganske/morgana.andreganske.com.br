@@ -1,1 +1,24 @@
 <div id="header" ng-include="'app/partials/header.html'"></div>
+
+<div class="container-fluid">
+
+	<div class="col-md-12">
+
+		<tabset id="admin-menu">
+			<tab heading="Lista de presentes">
+
+				<form novalidate class="simple-form">
+					<label>Categoria</label>
+					<input type="text" ng-model="gift.category" />
+
+					<label>Produto</label>
+					<input type="text" ng-model="gift.product" />
+					
+					<input type="submit" ng-click="save(gift)" value="Salvar" />
+				</form>
+			</tab>
+			<tab heading="Lista de convidados">
+			</tab>
+		</tabset>		
+	</div>
+</div>

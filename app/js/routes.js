@@ -14,6 +14,11 @@ define(['angular', 'app'], function(angular, app) {
 			controller: 'GuestCtrl'
 		});
 
+		$routeProvider.when('/admin', {
+			templateUrl: 'app/partials/admin-view.html',
+			controller: 'AdminCtrl'
+		});
+
 		$routeProvider.otherwise({redirectTo: '/landing'});
 	}]);
 
