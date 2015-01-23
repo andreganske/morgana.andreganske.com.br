@@ -106,6 +106,9 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
 }
 
 .logout-header .btn {
-  margin-left: 20px;
-  
+  margin-left: 20px; 
+}
+
+.category-list li {
+  cursor: pointer;
 }

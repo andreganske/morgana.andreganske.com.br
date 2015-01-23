@@ -25,9 +25,9 @@
 				<div class="row">
 
 					<div class="col-md-4">
-						<ul class="example-animate-container">
-							<li ng-repeat="category in categories | unique: 'name' | filter:q as results" class="btn" ng-click="productList(category.name)">{{category.name}}</li>
-						</ul>
+						<tabset vertical="true" type="pills">
+							<tab ng-repeat="category in categories | unique: 'name' | filter:q as results" ng-click="productList(category.name)" heading="{{category.name}}">{{category.name}}</tab>
+						</tabset>
 					</div>
 
 					<div class="col-md-8">
