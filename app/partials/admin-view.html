@@ -8,15 +8,13 @@
 			<tab heading="Lista de presentes">
 
 				<div class="row">
-					<form novalidate class="simple-form">
-						<label>Categoria</label>
-						<input type="text" ng-model="gift.category" />
+					<label>Categoria</label>
+					<input type="text" ng-model="gift.category" typeahead="category.name for category in categories | filter:$viewValue | limitTo:8" class="form-control">
 
-						<label>Produto</label>
-						<input type="text" ng-model="gift.product" />
-						
-						<input type="submit" ng-click="save(gift)" value="Salvar" />
-					</form>
+					<label>Produto</label>
+					<input type="text" ng-model="gift.product" class="form-control"/>
+					
+					<input type="submit" ng-click="save(gift)" value="Salvar" />
 				</div>
 
 				<div class="row">
