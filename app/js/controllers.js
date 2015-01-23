@@ -158,8 +158,9 @@ define(['angular', 'services', 'jquery', 'countdown', 'uibootstrap'], function(a
 				$scope.products = [];
 				
 				for (var i = result.length - 1; i >= 0; i--) {
-					var obj = {name: ''};
+					var obj = {name: '', available: ''};
 					obj.name = result[i].get('name');
+					obj.available = result[i].get('available');
 					$scope.products.push(obj);
 				};
 			},
