@@ -34,14 +34,14 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>Descrição</th>
+									<th class="description">Descrição</th>
 									<th>Disponível</th>
 								</tr>
 							</thead>
 
 							<tbody>
 								<tr ng-repeat="product in products | filter:q as results" >
-									<th>{{product.name}}</th>
+									<th class="description">{{product.name}}</th>
 									<th>{{product.available}}</th>									
 								</tr>
 							</tbody>

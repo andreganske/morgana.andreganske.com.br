@@ -109,6 +109,6 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
   margin-left: 20px; 
 }
 
-.category-list li {
-  cursor: pointer;
+.table .description {
+  width: 80%;
 }
