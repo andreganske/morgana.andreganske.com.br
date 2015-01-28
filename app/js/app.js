@@ -7,6 +7,7 @@ define([
 	'directives',
 	'controllers',
 	'angularRoute',
+	'loadingbar',
 	], function (angular, filters, services, directives, controllers) {
 
 		var app = angular.module('myApp', [
@@ -14,12 +15,13 @@ define([
 			'myApp.filters',
 			'myApp.services',
 			'myApp.directives',
-			'myApp.controllers'
+			'myApp.controllers',
+			'angular-loading-bar'
 		]);
 
 		app.run(function($rootScope) {
 
 		});
 
-		return app;		 
+		return app;
 });

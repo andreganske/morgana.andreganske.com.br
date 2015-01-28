@@ -11,7 +11,8 @@ require.config({
 		parse:          "//www.parsecdn.com/js/parse-1.3.3.min",
 		bootstrap:      "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min",
 		countdown: 		"libs/countdown.min",
-		uibootstrap: 	"libs/ui-bootstrap.min"
+		uibootstrap: 	"libs/ui-bootstrap.min",
+		loadingbar:		"libs/loading-bar"
 	},
 
 	shim: {
@@ -21,6 +22,7 @@ require.config({
 		'bootstrap'         : { deps:['jquery'] },
 		'angularMocks'		: { deps:['angular'], 'exports':'angular.mock' },
 		'uibootstrap'		: [ 'angular' ],
+		'loadingbar' 		: [ 'angular' ]
 	},
 
 	priority: [
