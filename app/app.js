@@ -9,16 +9,33 @@ var app = angular.module('myApp', [
 			'angular-loading-bar'
 		]);
 
-app.config(function($rootScope) {
+app.config(['$routeProvider', function($routeProvider) {
 
 	Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
 
-	getConfigFromServer($rootScope);
+	getConfigFromServer();
 
-});
+	$routeProvider.when('/', {
+		templateUrl: 'app/pages/landing.html',
+		controller: 'LandingCtrl'
+	});
 
-getConfigFromServer = function($rootScope) {
+	$routeProvider.when('/guest', {
+		templateUrl: 'app/pages/guest-view.html',
+		controller: 'GuestCtrl'
+	});
+
+	$routeProvider.when('/admin', {
+		templateUrl: 'app/pages/admin-view.html',
+		controller: 'AdminCtrl'
+	});
+
+	$routeProvider.otherwise({redirectTo: '/'});
+}]);
+
+function getConfigFromServer() {
 	var params = {};
+	var _this = this;
 
 	var promise = Parse.Config.get().then(function(config) {
 		params.allowLogin = config.get("allow_login");
@@ -39,8 +56,8 @@ getConfigFromServer = function($rootScope) {
 	});
 
 	promise.done(function() {
-		$rootScope.allowLogin = params.allowLogin ? true : false;
-		$rootScope.allowSingin = params.allowSingin ? true : false;
-		$rootScope.useAnalytics = params.useAnalytics ? true : false;
+		_this.allowLogin = params.allowLogin ? true : false;
+		_this.allowSingin = params.allowSingin ? true : false;
+		_this.useAnalytics = params.useAnalytics ? true : false;
 	});
-}
+};
