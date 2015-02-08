@@ -1,0 +1,73 @@
+<div ng-controller="LoginModalCtrl" data-ng-init="init()">
+    
+    <script type="text/ng-template" id="loginModal.html">
+        <div class="modal-header">
+            <h4 class="modal-title">Entrar</h4>
+        </div>
+
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="login-inputEmail">Email</label>
+              <input type="email" class="form-control" id="login-inputEmail" ng-model="email" placeholder="meuemail@meuemail.com.br">
+            </div>
+
+            <div class="form-group">
+              <label for="login-inputPass">Senha</label>
+              <input type="password" class="form-control" id="login-inputPass" ng-model="password" placeholder="minha senha">
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="login()" >Entrar</button>
+            <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+        </div>
+    </script>
+
+    <script type="text/ng-template" id="signinModal.html">
+        <div class="modal-header">
+            <h4 class="modal-title">Novo usuário</h4>
+        </div>
+
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="login-inputEmail">Nome completo</label>
+              <input type="email" class="form-control" id="login-fullname" ng-model="fullname" placeholder="Meu Nome">
+            </div>
+
+            <div class="form-group">
+              <label for="login-inputEmail">Email</label>
+              <input type="email" class="form-control" id="login-inputEmail" ng-model="email" placeholder="meuemail@meuemail.com.br">
+            </div>
+
+            <div class="form-group">
+              <label for="login-inputPass">Senha</label>
+              <input type="password" class="form-control" id="login-inputPass" ng-model="password" placeholder="minha senha">
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="create()">Cadastrar</button>
+            <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+        </div>
+    </script>
+
+    <nav class="navbar navbar-default">
+      <div class="container">
+
+        <div id="login-header" class="pull-right">
+          <div ng-show="logged" class="logout-header">
+            <h4 class="inline">Bem vindo <strong>{{user}}</strong><button class="btn btn-default" ng-click="logoff()">Sair</button></h4>
+          </div>
+
+          <div ng-hide="logged" class="login-header">
+            <button class="btn btn-default" ng-click="open('loginModal', 'sm')" ng-show="allowLogin">Entrar</button>
+            <button class="btn btn-default" ng-click="open('signinModal')" ng-show="allowSingin">Nova conta</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+</div>
