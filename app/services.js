@@ -1,14 +1,10 @@
 'use strict';
 
-define(['angular'], function (angular) {
-	
-	angular.module('myApp.services', []).constant('globalConstant', {
-		name: 		'Morgana e Andre',
-		version: 	'0.1'
-	}).value('globalConfig', {
-		allowLogin: 	false,
-		allowSigin: 	false,
-		useAnalytics: 	false
-	});
-
+angular.module('myApp.services', []).constant('globalConstant', {
+	name: 		'Morgana e Andre',
+	version: 	'0.1'
+}).value('globalConfig', {
+	allowLogin: 	false,
+	allowSigin: 	false,
+	useAnalytics: 	false
 });

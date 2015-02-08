@@ -1,25 +1,21 @@
 'use strict';
 
-define(['angular', 'app'], function(angular, app) {
+var app.config(['$routeProvider', function($routeProvider) {
 
-	return app.config(['$routeProvider', function($routeProvider) {
+	$routeProvider.when('/', {
+		templateUrl: 'app/pages/landing.html',
+		controller: 'LandingCtrl'
+	});
 
-		$routeProvider.when('/landing', {
-			templateUrl: 'app/partials/landing.html',
-			controller: 'LandingCtrl'
-		});
+	$routeProvider.when('/guest', {
+		templateUrl: 'app/pages/guest-view.html',
+		controller: 'GuestCtrl'
+	});
 
-		$routeProvider.when('/guest', {
-			templateUrl: 'app/partials/guest-view.html',
-			controller: 'GuestCtrl'
-		});
+	$routeProvider.when('/admin', {
+		templateUrl: 'app/pages/admin-view.html',
+		controller: 'AdminCtrl'
+	});
 
-		$routeProvider.when('/admin', {
-			templateUrl: 'app/partials/admin-view.html',
-			controller: 'AdminCtrl'
-		});
-
-		$routeProvider.otherwise({redirectTo: '/landing'});
-	}]);
-
-});
+	$routeProvider.otherwise({redirectTo: '/'});
+}]);
