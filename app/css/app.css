@@ -81,7 +81,7 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
   bottom: 0;
   left: 0;
 
-  background: url("../img/bg.jpg") no-repeat center fixed;
+  background: url("../images/bg.jpg") no-repeat center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
