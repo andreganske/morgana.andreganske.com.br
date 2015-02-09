@@ -1,0 +1,21 @@
+<div id="header" ng-include="'app/partials/header.html'"></div>
+
+<div id="guestview-main" class="container background-img">
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="row">
+				<div id="guestview-header" class="col-md-12"></div>
+				<div id="guestview-menu" class="col-md-4">
+					
+					<accordion close-others="true">
+						<accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+							{{group.content}}
+						</accordion-group>
+					</accordion>
+
+				</div>
+				<div id="guestview-list" class="col-md-8"></div>
+			</div>
+		</div>
+	</div>
+</div>

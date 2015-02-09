@@ -2,11 +2,12 @@
 
 angular.module('myApp')
 
-.controller('ModalController', function($scope, $modalInstance) {
+.controller('ModalController', ['$location', function($scope, $modalInstance, $location) {
 
 	$scope.login = function () {
 		Parse.User.logIn($scope.email, $scope.password, {
 			success: function(retorno) {
+				$location.path('/guest');
 				$modalInstance.close();
 			},
 			error: function(user, error) {
@@ -30,6 +31,7 @@ angular.module('myApp')
 		newUser.signUp (null, {
 			success: function(user) {
 				$modalInstance.close();
+				$location.path('/guest');
 			},
 			error: function(user, error) {
 				//$scope.alerts.push({type: 'danger', msg: "Error: " + error.code + " " + error.message});
@@ -42,4 +44,4 @@ angular.module('myApp')
 		$modalInstance.dismiss('cancel');
 	};
 	
-});
+}]);

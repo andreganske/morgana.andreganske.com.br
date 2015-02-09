@@ -11,11 +11,17 @@ var myApp = angular.module('myApp', [
 myApp.config(function($routeProvider) {
 
 	$routeProvider.when('/', {
-		templateUrl : 'app/scripts/views/home.html'
+		templateUrl: 'app/scripts/views/home.html',
+		controller: 'HomeController'
 	});
 
 	$routeProvider.when('/contact', {
-		templateUrl : 'app/scripts/views/contact.html'
+		templateUrl: 'app/scripts/views/contact.html'
+	});
+
+	$routeProvider.when('/guest', {
+		templateUrl: 'app/scripts/views/guest.html',
+		controller: 'GuestController'
 	});
 
 	$routeProvider.otherwise({redirectTo: '/'});

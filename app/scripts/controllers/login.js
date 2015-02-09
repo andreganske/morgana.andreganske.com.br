@@ -17,18 +17,6 @@ angular.module('myApp')
 			controller: 'ModalController',
 			size: size
 		});
-
-		modalInstance.result.then(function () {
-			var currentUser = Parse.User.current();
-			$scope.logged = currentUser ? true : false;
-			$scope.user = currentUser.get('fullname');
-			
-			if ($scope.user === 'admin') {
-				$location.path('/admin');
-			} else {
-				$location.path('/guest');
-			}
-		});
 	};
 
 	$scope.logoff = function() {
