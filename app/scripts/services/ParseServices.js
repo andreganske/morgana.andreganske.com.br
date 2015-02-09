@@ -40,9 +40,25 @@ angular.module('ParseServices', [])
 					$rootScope.logged = true;
 					$rootScope.user = currentUser.get('fullname');
 				} else {
-					
+					$rootScope.logged = false;
 				}
 			});
+		},
+
+		getProducts: function() {
+			var Product = Parse.Object.extend('Product');
+			var query = new Parse.Query(Product);
+
+			var promise = query.find({
+				success: function(result) {
+					$rootScope.products = result;
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+
+			return promise;
 		}
 	};
 

@@ -1,21 +1,25 @@
 <div id="header" ng-include="'app/scripts/views/header.html'"></div>
 
-<div id="guestview-main" class="container background-img">
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
-			<div class="row">
-				<div id="guestview-header" class="col-md-12"></div>
-				<div id="guestview-menu" class="col-md-4">
-					
-					<accordion close-others="true">
-						<accordion-group heading="{{group.title}}" ng-repeat="group in groups">
-							{{group.content}}
-						</accordion-group>
-					</accordion>
+<div class="row">
+	<div class="col-md-10 col-md-offset-1">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th class="col-md-4">Nome</th>
+					<th class="col-md-3">Categoria</th>
+					<th class="col-md-4">Descrição</th>
+					<th class="col-md-1">Disponível</th>
+				</tr>
+			</thead>
 
-				</div>
-				<div id="guestview-list" class="col-md-8"></div>
-			</div>
-		</div>
+			<tbody>
+				<tr ng-repeat="product in products | filter:q as results" >
+					<th class="col-md-3">{{product.name}}</th>
+					<th class="col-md-2">{{product.category}}</th>
+					<th class="col-md-6">{{product.description}}</th>
+					<th class="col-md-1">{{product.available}}</th>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
