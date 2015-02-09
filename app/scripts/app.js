@@ -8,9 +8,7 @@ var myApp = angular.module('myApp', [
 	'myApp.filters'
 ]);
 
-myApp.config(function($routeProvider, ParseSDK) {
-
-	ParseSDK.getConfig();
+myApp.config(function($routeProvider) {
 
 	$routeProvider.when('/', {
 		templateUrl : 'app/scripts/views/home.html'
@@ -21,5 +19,8 @@ myApp.config(function($routeProvider, ParseSDK) {
 	});
 
 	$routeProvider.otherwise({redirectTo: '/'});
+})
 
-});
+.run(['ParseSDK', '$rootScope', function(ParseService, $rootScope) {
+	ParseService.getConfig();
+}]);
