@@ -34,6 +34,14 @@ angular.module('ParseServices', [])
 				$rootScope.allowLogin = params.allowLogin ? true : false;
 				$rootScope.allowSingin = params.allowSingin ? true : false;
 				$rootScope.useAnalytics = params.useAnalytics ? true : false;
+
+				var currentUser = Parse.User.current();
+				if (currentUser != undefined) {
+					$rootScope.logged = true;
+					$rootScope.user = currentUser.get('fullname');
+				} else {
+					
+				}
 			});
 		}
 	};
