@@ -1,6 +1,6 @@
 'use strict';
 
-var myApp = angular.module('myApp', ['ngRoute', 'angular-loading-bar']);
+var myApp = angular.module('myApp', ['ngRoute', 'ui.bootstrap', 'angular-loading-bar', 'ParseServices']);
 
 myApp.config(function($routeProvider) {
 
@@ -14,81 +14,35 @@ myApp.config(function($routeProvider) {
 
 	$routeProvider.otherwise({redirectTo: '/'});
 
-});
+})
 
-myApp.controller('LoginModalCtrl', ['$rootScope', '$scope', '$modal', '$location', function($rootScope, $scope, $modal, $location) {
+.run(['ParseSDK', '$rootScope', function(ParseService, $rootScope) {
 
-	 $scope.init = function() {
-		$scope.allowLogin = $rootScope.allowLogin;
-		$scope.allowSingin = $rootScope.allowSingin;
+	var params = {};
+	var _this = this;
 
-		var currentUser = Parse.User.current();
-		$scope.logged = currentUser ? true : false;
-	};
+	var promise = Parse.Config.get().then(function(config) {
+		params.allowLogin = config.get("allow_login");
+		params.allowSingin = config.get("allow_singin");
+		params.useAnalytics = config.get("use_analytics");
+	}, function(error) {
+		Parse.Analytics.track('error', { code: '' + error.code });
+		var config = Parse.Config.current();
+		if (config === undefined) {
+			params.allowLogin = false;
+			params.allowSingin = false;
+			params.useAnalytics = false;
+		} else {
+			params.allowLogin = config.get("allowLogin");
+			params.allowSingin = config.get("allowSingin");
+			params.useAnalytics = config.get("useAnalytics");
+		}
+	});
 
-	$scope.open = function(modal, size) {
-		var modalInstance = $modal.open({
-			templateUrl: modal + '.html',
-			controller: 'ModalInstanceCtrl',
-			size: size
-		});
-
-		modalInstance.result.then(function () {
-			var currentUser = Parse.User.current();
-			$scope.logged = currentUser ? true : false;
-			$scope.user = currentUser.get('fullname');
-			
-			if ($scope.user === 'admin') {
-				$location.path('/admin');
-			} else {
-				$location.path('/guest');
-			}
-		});
-	};
-
-	$scope.logoff = function() {
-		Parse.User.logOut();
-		$location.path('/');
-	};
+	promise.done(function() {
+		$rootScope.allowLogin = params.allowLogin ? true : false;
+		$rootScope.allowSingin = params.allowSingin ? true : false;
+		$rootScope.useAnalytics = params.useAnalytics ? true : false;
+	});
+	
 }]);
-
-myApp.controller('ModalInstanceCtrl', function($scope, $modalInstance) {
-
-	$scope.login = function () {
-		Parse.User.logIn($scope.email, $scope.password, {
-			success: function(retorno) {
-				$modalInstance.close();
-			},
-			error: function(user, error) {
-				if (error.code == 101) {
-					//app.showAlert(1);
-				} else {
-					//$('#error-undefined').alert();
-				}
-			}
-		});
-	};
-
-	$scope.create = function () {
-		var newUser = new Parse.User();
-
-		newUser.set('username', $scope.email);
-		newUser.set('email', 	$scope.email);
-		newUser.set('password',	$scope.password);
-		newUser.set('fullname', $scope.fullname);
-
-		newUser.signUp (null, {
-			success: function(user) {
-				$modalInstance.close();
-			},
-			error: function(user, error) {
-				//$scope.alerts.push({type: 'danger', msg: "Error: " + error.code + " " + error.message});
-				alert("Error: " + error.code + " " + error.message);
-			}
-		});
-	};
-
-	$scope.cancel = function () {
-		$modalInstance.dismiss('cancel');
-	};
-});

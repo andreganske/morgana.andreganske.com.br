@@ -38,7 +38,7 @@
         Please enable Javascript to experience this site :)
     </noscript>
 	
-	<div ng-include="'app/scripts/views/home.html'"></div>
+	<div ng-view></div>
 
 	<script type="text/javascript" src="//www.parsecdn.com/js/parse-1.3.3.min.js"></script>
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -48,8 +48,13 @@
 	<script type="text/javascript" src="app/scripts/libs/ui-bootstrap.min.js"></script>
 	<script type="text/javascript" src="app/scripts/libs/countdown.min.js"></script>
 
+	<!-- Services -->
+	<script type="text/javascript" src="app/scripts/services/ParseServices.js"></script>
+
 	<!-- controllers -->
 	<script type="text/javascript" src="app/scripts/controllers/home.js"></script>
+	<script type="text/javascript" src="app/scripts/controllers/modal.js"></script>
+	<script type="text/javascript" src="app/scripts/controllers/login.js"></script>
 
 </body>
 </html>
