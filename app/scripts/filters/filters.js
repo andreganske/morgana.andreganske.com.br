@@ -23,7 +23,7 @@ angular.module('myApp.filters', [])
 		var output = [];
 
 		angular.forEach(collection, function(item) {
-			if (item.category === category) {
+			if (item.category == category) {
 				output.push(item);
 			}
 		});
