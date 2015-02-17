@@ -16,10 +16,9 @@
 			<accordion-group heading="Eletro / Eletrônicos">
 				<table class="table table-striped">
 					<tbody>
-						<tr ng-repeat="product in products | category: 'eletro' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem()" >
-							<th class="col-md-3">{{product.name}}</th>
-							<th class="col-md-6">{{product.description}}</th>
-							<th class="col-md-1">{{product.available}}</th>
+						<tr ng-repeat="product in products | category: 'eletro' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem()">
+							<th class="col-md-4">{{product.name}}</th>
+							<th class="col-md-8">{{product.description}}</th>
 						</tr>
 					</tbody>
 				</table>
@@ -28,10 +27,9 @@
 			<accordion-group heading="Cama, mesa e banho">
 				<table class="table table-striped">
 					<tbody>
-						<tr ng-repeat="product in products | category: 'kitchen' | filter:q as results" ng-class="{success: product.available}" >
-							<th class="col-md-3">{{product.name}}</th>
-							<th class="col-md-6">{{product.description}}</th>
-							<th class="col-md-1">{{product.available}}</th>
+						<tr ng-repeat="product in products | category: 'kitchen' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem()">
+							<th class="col-md-4">{{product.name}}</th>
+							<th class="col-md-8">{{product.description}}</th>
 						</tr>
 					</tbody>
 				</table>
@@ -40,10 +38,9 @@
 			<accordion-group heading="Utilidades domésticas">
 				<table class="table table-striped">
 					<tbody>
-						<tr ng-repeat="product in products | category: 'utilities' | filter:q as results" ng-class="{success: product.available}" >
-							<th class="col-md-3">{{product.name}}</th>
-							<th class="col-md-6">{{product.description}}</th>
-							<th class="col-md-1">{{product.available}}</th>
+						<tr ng-repeat="product in products | category: 'utilities' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem()">
+							<th class="col-md-4">{{product.name}}</th>
+							<th class="col-md-8">{{product.description}}</th>
 						</tr>
 					</tbody>
 				</table>
@@ -52,10 +49,9 @@
 			<accordion-group heading="Decoração">
 				<table class="table table-striped">
 					<tbody>
-						<tr ng-repeat="product in products | category: 'decor' | filter:q as results" ng-class="{success: product.available}" >
-							<th class="col-md-3">{{product.name}}</th>
-							<th class="col-md-6">{{product.description}}</th>
-							<th class="col-md-1">{{product.available}}</th>
+						<tr ng-repeat="product in products | category: 'decor' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem()">
+							<th class="col-md-4">{{product.name}}</th>
+							<th class="col-md-8">{{product.description}}</th>
 						</tr>
 					</tbody>
 				</table>
@@ -64,10 +60,9 @@
 			<accordion-group heading="Outros">
 				<table class="table table-striped">
 					<tbody>
-						<tr ng-repeat="product in products | category: 'others' | filter:q as results" ng-class="{success: product.available}" >
-							<th class="col-md-3">{{product.name}}</th>
-							<th class="col-md-6">{{product.description}}</th>
-							<th class="col-md-1">{{product.available}}</th>
+						<tr ng-repeat="product in products | category: 'others' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem()">
+							<th class="col-md-4">{{product.name}}</th>
+							<th class="col-md-8">{{product.description}}</th>
 						</tr>
 					</tbody>
 				</table>
