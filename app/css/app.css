@@ -112,3 +112,7 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
 .table .description {
   width: 80%;
 }
+
+#guest-products .success {
+  cursor: pointer !important;
+}
