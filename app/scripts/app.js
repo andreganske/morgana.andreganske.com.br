@@ -27,6 +27,10 @@ myApp.config(function($routeProvider) {
 	$routeProvider.otherwise({redirectTo: '/'});
 })
 
-.run(['ParseSDK', '$rootScope', function(ParseService, $rootScope) {
+.run(['ParseSDK', '$rootScope', '$location', function(ParseService, $rootScope, $location) {
 	ParseService.getConfig();
+
+	if ($rootScope.logged) {
+		$location.path("guest");
+	};
 }]);

@@ -7,8 +7,15 @@ angular.module('myApp')
 	 $scope.init = function() {
 		$scope.user = $rootScope.user;
 		$scope.logged = $rootScope.logged;
-		$scope.allowLogin = $rootScope.allowLogin;
-		$scope.allowSingin = $rootScope.allowSingin;
+		$scope.allowLogin = true;
+		$scope.allowSingin = false;
+
+		var currentUser = Parse.User.current();
+		if (currentUser != undefined) {
+			$scope.logged = true;
+			$scope.user = currentUser.get('fullname');
+			$location.path("guest");
+		}
 	};
 
 	$scope.open = function(modal, size) {
