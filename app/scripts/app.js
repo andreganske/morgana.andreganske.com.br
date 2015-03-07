@@ -3,6 +3,7 @@
 var myApp = angular.module('myApp', [
 	'ngRoute',
 	'ui.bootstrap',
+	'ui.mask',
 	'angular-loading-bar',
 	'ParseServices',
 	'myApp.filters'

@@ -74,26 +74,35 @@
 
 <script type="text/ng-template" id="selectItem.html">
     <div class="modal-header">
-        <h4 class="modal-title">Entrar</h4>
+        <h4 class="modal-title">Registrar</h4>
     </div>
 
     <div class="modal-body">
       <form>
         <div class="form-group">
-          <label for="input-name">Nome completo</label>
-          <input type="name" class="form-control" id="input-name" ng-model="text" placeholder="Seu nome completo">
+          <label for="guest-name">Nome completo *</label>
+          <input type="text" class="form-control" id="guest-name" ng-model="text" placeholder="Seu nome completo">
         </div>
 
         <div class="form-group">
-          <label for="login-inputEmail">Email</label>
-          <input type="email" class="form-control" id="login-inputEmail" ng-model="email" placeholder="meuemail@meuemail.com.br">
+          <label for="guest-email">Email</label>
+          <input type="email" class="form-control" id="guest-email" ng-model="email" placeholder="meuemail@meuemail.com.br">
+        </div>
+
+        <div class="form-group">
+        	<label for="guest-phone">Telefone * <small>(somente números)</small></label>
+        	<input type="text" ui-mask="999 9999 9999" class="form-control" id="guest-phone" ng-model="number" >
+        </div>
+
+        <div class="form-group">
+        	<p class="text-right">Campos com * são obrigatórios</p>
         </div>
 
       </form>
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="login()" >Entrar</button>
+        <button class="btn btn-primary" ng-click="save()">Confirmar</button>
         <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
     </div>
 </script>
