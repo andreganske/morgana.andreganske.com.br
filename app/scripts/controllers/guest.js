@@ -24,20 +24,24 @@ angular.module('myApp')
 		};
 	});
 
-	$scope.selectItem = function() {
+	$scope.selectItem = function(product) {
 		var modalInstance = $modal.open({
 			templateUrl: 'selectItem.html',
-			controller: 'ModalController'
-		});
-
-		modalInstance.result.then(function () {
-			
+			controller: 'ModalController',
+			scope: $scope,
+			resolve: {
+				item: function() {
+					return product.name;
+				}
+			}
 		});
 	};
 
 }])
 
-.controller('ModalController', function($rootScope, $scope, $modalInstance, toaster) {
+.controller('ModalController', function($rootScope, $scope, $modalInstance, toaster, item) {
+
+	$scope.item = item;
 
 	$scope.login = function () {
 		Parse.User.logIn($scope.email, $scope.password, {
