@@ -45,23 +45,6 @@ angular.module('myApp')
 	$('#formError').alert();
 	$scope.showInfo = false;
 
-	$scope.login = function () {
-		Parse.User.logIn($scope.email, $scope.password, {
-			success: function(retorno) {
-				$rootScope.logged = true;
-				$modalInstance.close();
-			},
-			error: function(user, error) {
-				if (error.code == 101) {
-					//app.showAlert(1);
-				} else {
-					//$('#error-undefined').alert();
-				}
-			}
-		});
-	};
-
-
 	$scope.validadeForm = function() {
 		var isValid = true;
 
@@ -88,48 +71,26 @@ angular.module('myApp')
 			this.save();
 		} else {
 			$('#formError').show();
-			/*var text = "Parece que você não preenchou o formulário corretamente. Por favor, nos diga seu nome completo, seu telefone e a forma de entrega. Se possível, seu email também. Obrigado :)";
-			toaster.pop('error', "Ooopss!", text, 10000);*/
 		}
 	};
 
 	$scope.save = function () {
-		/*var Gift = Parse.Object().extend("Gift");
-		var gift = new Gift();
+		var Guest = Parse.Object.extend("Guest");
+		var guest = new Guest();
 
-		git.set('senderName', $scope.fullname);
-		git.set('senderEmail', $scope.email);
-		git.set('senderPhone', $scope.phone);
+		guest.set('guest_name', 	$scope.fullname);
+		guest.set('guest_email', 	$scope.email);
+		guest.set('guest_phone', 	$scope.phone);
+		guest.set('guest_delivery', $scope.delivery);
+		guest.set('parent', item);
 		
-		gift.save(null, {
-			success: function(guest) {
+		guest.save(null, {
+			success: function(guest) {	
 				$modalInstance.close();
-				toaster.pop('success', "Presente confirmado!", 'Agradeçemos pelo presente! Até o casamento! ', 5000);
+				var text = "Obrigado " + guest.get('guest_name') + ". Agradeçemos pelo carinho e até o casamento! ";
+				toaster.pop('success', "Presente confirmado!", text, 10000);	
 			},
 			error: function(guest, error) {
-				alert("Error: " + error.code + " " + error.message);
-			}
-		});*/
-
-		$modalInstance.close();
-		var text = "Obrigado " + $scope.fullname + ". Agradeçemos pelo carinho e até o casamento! ";
-		toaster.pop('success', "Presente confirmado!", text, 10000);	
-	};
-
-	$scope.create = function () {
-		var newUser = new Parse.User();
-
-		newUser.set('username', $scope.email);
-		newUser.set('email', 	$scope.email);
-		newUser.set('password',	$scope.password);
-		newUser.set('fullname', $scope.fullname);
-
-		newUser.signUp (null, {
-			success: function(user) {
-				$modalInstance.close();
-			},
-			error: function(user, error) {
-				//$scope.alerts.push({type: 'danger', msg: "Error: " + error.code + " " + error.message});
 				alert("Error: " + error.code + " " + error.message);
 			}
 		});
