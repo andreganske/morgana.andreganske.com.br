@@ -42,6 +42,7 @@ angular.module('myApp')
 .controller('ModalController', function($rootScope, $scope, $modalInstance, toaster, item) {
 
 	$scope.item = item;
+	$('#formError').alert();
 
 	$scope.login = function () {
 		Parse.User.logIn($scope.email, $scope.password, {
@@ -57,6 +58,26 @@ angular.module('myApp')
 				}
 			}
 		});
+	};
+
+	$scope.validadeForm = function() {
+		var isValid = true;
+
+		if ($scope.fullname === undefined  || $scope.fullname.length <= 3) {
+			$("input[name='name']").parent().toggleClass('has-error');
+			isValid = false;
+		}
+
+		if ($scope.phone === undefined  || $scope.phone.length < 11 ) {
+			$("input[name='phone']").parent().toggleClass('has-error');
+			isValid = false;
+		}
+
+		if (isValid) {
+			this.save();
+		} else {
+			$('#formError').show();
+		}
 	};
 
 	$scope.save = function () {
