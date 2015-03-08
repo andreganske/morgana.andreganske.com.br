@@ -2,8 +2,10 @@
 
 var myApp = angular.module('myApp', [
 	'ngRoute',
+	'ngAnimate',
 	'ui.bootstrap',
 	'ui.mask',
+	'toaster',
 	'angular-loading-bar',
 	'ParseServices',
 	'myApp.filters'

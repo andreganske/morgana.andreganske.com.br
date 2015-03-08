@@ -37,7 +37,7 @@ angular.module('myApp')
 
 }])
 
-.controller('ModalController', function($rootScope, $scope, $modalInstance) {
+.controller('ModalController', function($rootScope, $scope, $modalInstance, toaster) {
 
 	$scope.login = function () {
 		Parse.User.logIn($scope.email, $scope.password, {
@@ -53,6 +53,29 @@ angular.module('myApp')
 				}
 			}
 		});
+	};
+
+	$scope.save = function () {
+		/*var Gift = Parse.Object().extend("Gift");
+		var gift = new Gift();
+
+		git.set('senderName', $scope.fullname);
+		git.set('senderEmail', $scope.email);
+		git.set('senderPhone', $scope.phone);
+		
+		gift.save(null, {
+			success: function(guest) {
+				$modalInstance.close();
+				toaster.pop('success', "Presente confirmado!", 'Agradeçemos pelo presente! Até o casamento! ', 5000);
+			},
+			error: function(guest, error) {
+				alert("Error: " + error.code + " " + error.message);
+			}
+		});*/
+
+		$modalInstance.close();
+		var text = "Obrigado " + $scope.fullname + ". Agradeçemos pelo carinho e até o casamento! ";
+		toaster.pop('success', "Presente confirmado!", text, 10000);	
 	};
 
 	$scope.create = function () {
