@@ -43,6 +43,7 @@ angular.module('myApp')
 
 	$scope.item = item;
 	$('#formError').alert();
+	$scope.showInfo = false;
 
 	$scope.login = function () {
 		Parse.User.logIn($scope.email, $scope.password, {
@@ -60,6 +61,7 @@ angular.module('myApp')
 		});
 	};
 
+
 	$scope.validadeForm = function() {
 		var isValid = true;
 
@@ -68,15 +70,26 @@ angular.module('myApp')
 			isValid = false;
 		}
 
+		if ($scope.email === undefined  || $scope.email.length <= 3) {
+			$("input[name='email']").parent().toggleClass('has-error');
+			isValid = false;
+		}
+
 		if ($scope.phone === undefined  || $scope.phone.length < 11 ) {
 			$("input[name='phone']").parent().toggleClass('has-error');
 			isValid = false;
+		}
+
+		if ($scope.carrier != undefined || $scope.personal != undefined) {
+			isValid = false;	
 		}
 
 		if (isValid) {
 			this.save();
 		} else {
 			$('#formError').show();
+			/*var text = "Parece que você não preenchou o formulário corretamente. Por favor, nos diga seu nome completo, seu telefone e a forma de entrega. Se possível, seu email também. Obrigado :)";
+			toaster.pop('error', "Ooopss!", text, 10000);*/
 		}
 	};
 
