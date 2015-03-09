@@ -12,34 +12,41 @@ angular.module('myApp')
 
 	promise.done(function() {
 		for (var i = $rootScope.products.length - 1; i >= 0; i--) {
-			var product = {name: '', description: '', category: '', available: ''},
+			var product = {name: '', description: '', category: '', available: '', id: ''},
 				obj = $rootScope.products[i];
 			
 			product.name = obj.get('name');
 			product.description = obj.get('description');
 			product.category = obj.get('category');
 			product.available = obj.get('available');
+			product.id = obj.id;
 			
 			$scope.products.push(product);
 		};
 	});
 
 	$scope.selectItem = function(product) {
-		var modalInstance = $modal.open({
-			templateUrl: 'selectItem.html',
-			controller: 'ModalController',
-			scope: $scope,
-			resolve: {
-				item: function() {
-					return product.name;
+		if (product.available) {
+			var modalInstance = $modal.open({
+				templateUrl: 'selectItem.html',
+				controller: 'ModalController',
+				scope: $scope,
+				resolve: {
+					item: function() {
+						return product;
+					}, 
+
+					ParseService: function() {
+						return ParseService;
+					}
 				}
-			}
-		});
+			});
+		}
 	};
 
 }])
 
-.controller('ModalController', function($rootScope, $scope, $modalInstance, toaster, item) {
+.controller('ModalController', function($rootScope, $scope, $modalInstance, ParseService, toaster, item) {
 
 	$scope.item = item;
 	$('#formError').alert();
@@ -75,24 +82,11 @@ angular.module('myApp')
 	};
 
 	$scope.save = function () {
-		var Guest = Parse.Object.extend("Guest");
-		var guest = new Guest();
-
-		guest.set('guest_name', 	$scope.fullname);
-		guest.set('guest_email', 	$scope.email);
-		guest.set('guest_phone', 	$scope.phone);
-		guest.set('guest_delivery', $scope.delivery);
-		guest.set('parent', item);
-		
-		guest.save(null, {
-			success: function(guest) {	
-				$modalInstance.close();
-				var text = "Obrigado " + guest.get('guest_name') + ". Agradeçemos pelo carinho e até o casamento! ";
-				toaster.pop('success', "Presente confirmado!", text, 10000);	
-			},
-			error: function(guest, error) {
-				alert("Error: " + error.code + " " + error.message);
-			}
+		var promise = ParseService.saveGuest($scope);
+		promise.done(function() {
+			$modalInstance.close();
+			var text = "Obrigado " + guest.get('guest_name') + ". Agradeçemos pelo carinho e até o casamento! ";
+			toaster.pop('success', "Presente confirmado!", text, 10000);
 		});
 	};
 
