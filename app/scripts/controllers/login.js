@@ -21,7 +21,7 @@ angular.module('myApp')
 	$scope.open = function(modal, size) {
 		var modalInstance = $modal.open({
 			templateUrl: modal + '.html',
-			controller: 'ModalController',
+			controller: 'LoginModalController',
 			size: size
 		});
 
@@ -38,7 +38,7 @@ angular.module('myApp')
 	};
 }])
 
-.controller('ModalController', function($rootScope, $scope, $modalInstance) {
+.controller('LoginModalController', function($rootScope, $scope, $modalInstance) {
 
 	$scope.login = function () {
 		Parse.User.logIn($scope.email, $scope.password, {
