@@ -40,6 +40,9 @@ angular.module('myApp')
 
 .controller('LoginModalController', function($rootScope, $scope, $modalInstance) {
 
+	$('#loginError').alert();
+	$('#unknowError').alert();
+
 	$scope.login = function () {
 		Parse.User.logIn($scope.email, $scope.password, {
 			success: function(retorno) {
@@ -48,9 +51,12 @@ angular.module('myApp')
 			},
 			error: function(user, error) {
 				if (error.code == 101) {
-					//app.showAlert(1);
+					$("#login-inputEmail").parent().toggleClass('has-error');
+					$("#login-inputPass").parent().toggleClass('has-error');
+					$('#loginError').show();
 				} else {
-					//$('#error-undefined').alert();
+					alert("Error: " + error.code + " " + error.message);
+					$('#unknowError').show();
 				}
 			}
 		});
@@ -69,7 +75,6 @@ angular.module('myApp')
 				$modalInstance.close();
 			},
 			error: function(user, error) {
-				//$scope.alerts.push({type: 'danger', msg: "Error: " + error.code + " " + error.message});
 				alert("Error: " + error.code + " " + error.message);
 			}
 		});

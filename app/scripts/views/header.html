@@ -7,6 +7,16 @@
 
         <div class="modal-body">
           <form>
+            <div class="alert alert-warning" role="alert" id="loginError" style="display: none;">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span aria-hidden="true">×</span></button>
+              <strong>Ops!</strong> O login ou a senha digitados estão incorretos. Por favor, verifique e tente novamente :)
+            </div>
+
+            <div class="alert alert-danger" role="alert" id="unknowError" style="display: none;">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span aria-hidden="true">×</span></button>
+              <strong>Ops!</strong> Houve um erro desconhecido. Por favor, tente novamente mais tarde :D
+            </div>
+
             <div class="form-group">
               <label for="login-inputEmail">Email</label>
               <input type="email" class="form-control" id="login-inputEmail" ng-model="email" placeholder="meuemail@meuemail.com.br">
@@ -32,6 +42,16 @@
 
         <div class="modal-body">
           <form>
+            <div class="alert alert-warning" role="alert" id="  " style="display: none;">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span aria-hidden="true">×</span></button>
+              <strong>Ops!</strong> O login ou a senha digistados estão incorretos. Por favor, verifique e tente novamente :)
+            </div>
+
+            <div class="alert alert-danger" role="alert" id="loginError" style="display: none;">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span aria-hidden="true">×</span></button>
+              <strong>Ops!</strong> Houve um erro desconhecido. Por favor, tente novamente mais tarde :D
+            </div>
+
             <div class="form-group">
               <label for="login-inputEmail">Nome completo</label>
               <input type="email" class="form-control" id="login-fullname" ng-model="fullname" placeholder="Meu Nome">
