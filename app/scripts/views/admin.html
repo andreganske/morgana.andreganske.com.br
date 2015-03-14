@@ -1,0 +1,20 @@
+<div id="header" ng-include="'app/scripts/views/header.html'"></div>
+
+<div class="row">
+	<div class="com-md-12">
+		<tabset>
+			<tab heading="Presentes">
+				<table class="table table-striped">
+					<tbody>
+						<tr ng-repeat="product in products | filter:q as results" ng-class="{success: product.available}">
+							<th class="col-md-4">{{product.name}}</th>
+							<th class="col-md-8">{{product.description}}</th>
+						</tr>
+					</tbody>
+				</table>
+			</tab>
+
+			<tab heading="Convidados">Static content 02</tab>
+		</tabset>
+	</div>
+</div>

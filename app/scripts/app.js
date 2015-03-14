@@ -18,13 +18,14 @@ myApp.config(function($routeProvider) {
 		controller: 'HomeController'
 	});
 
-	$routeProvider.when('/contact', {
-		templateUrl: 'app/scripts/views/contact.html'
-	});
-
 	$routeProvider.when('/guest', {
 		templateUrl: 'app/scripts/views/guest.html',
 		controller: 'GuestController'
+	});
+
+	$routeProvider.when('/admin', {
+		templateUrl: 'app/scripts/views/admin.html',
+		controller: 'AdminController'
 	});
 
 	$routeProvider.otherwise({redirectTo: '/'});
@@ -34,6 +35,10 @@ myApp.config(function($routeProvider) {
 	ParseService.getConfig();
 
 	if ($rootScope.logged) {
-		$location.path("guest");
-	};
+		if ($rootScope.login == "admin@admin.com") {
+			$location.path("/admin");
+		} else {
+			$location.path("/guest");
+		}
+	}
 }]);

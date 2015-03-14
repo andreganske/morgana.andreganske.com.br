@@ -2,7 +2,7 @@
 
 angular.module('ParseServices', [])
 
-.factory('ParseSDK', function($rootScope) {
+.factory('ParseSDK', function($rootScope, $location) {
 
 	Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
 
@@ -39,10 +39,21 @@ angular.module('ParseServices', [])
 				if (currentUser != undefined) {
 					$rootScope.logged = true;
 					$rootScope.user = currentUser.get('fullname');
+					$rootScope.login = currentUser.get('username');
 				} else {
 					$rootScope.logged = false;
 				}
 			});
+		},
+
+		validateLoggedUser: function() {
+			if ($rootScope.logged) {
+				if ($rootScope.login == "admin@admin.com") {
+					$location.path("/admin");
+				} else {
+					$location.path("/guest");
+				}
+			}
 		},
 
 		getProducts: function() {

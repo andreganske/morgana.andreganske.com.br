@@ -2,7 +2,7 @@
 
 angular.module('myApp')
 
-.controller('LoginController', ['$rootScope', '$scope', '$modal', '$location', function($rootScope, $scope, $modal, $location) {
+.controller('LoginController', ['$rootScope', '$scope', 'ParseSDK', '$modal', '$location', function($rootScope, $scope, ParseService, $modal, $location) {
 
 	 $scope.init = function() {
 		$scope.user = $rootScope.user;
@@ -14,7 +14,9 @@ angular.module('myApp')
 		if (currentUser != undefined) {
 			$scope.logged = true;
 			$scope.user = currentUser.get('fullname');
-			$location.path("guest");
+			$rootScope.login = currentUser.get('username');
+			
+			ParseService.validateLoggedUser();
 		}
 	};
 
@@ -26,9 +28,7 @@ angular.module('myApp')
 		});
 
 		modalInstance.result.then(function () {
-			if ($rootScope.logged) {
-				$location.path('/guest');
-			}
+			ParseService.validateLoggedUser();
 		});
 	};
 
@@ -45,8 +45,10 @@ angular.module('myApp')
 
 	$scope.login = function () {
 		Parse.User.logIn($scope.email, $scope.password, {
-			success: function(retorno) {
+			success: function(currentUser) {
 				$rootScope.logged = true;
+				$rootScope.user = currentUser.get('fullname');
+				$rootScope.login = currentUser.get('username');
 				$modalInstance.close();
 			},
 			error: function(user, error) {
