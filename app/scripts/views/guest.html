@@ -1,7 +1,12 @@
 <div id="header" ng-include="'app/scripts/views/header.html'"></div>
 
 <div class="row">
-	<div class="col-md-3 col-md-offset-8">
+
+	<div class="col-md-2 col-md-offset-1">
+		<input type="button" class="btn btn-warning" ng-click="moneyModal()" value="Presentes em dinheiro :)">
+	</div>
+
+	<div class="col-md-3 col-md-offset-5">
 		<div class="form-group">
 			<label for="search_label">Busca</label>
 			<input type="search" ng-model="q" placeholder="filtrar" class="form-control" id="search_label"/>					
@@ -72,6 +77,42 @@
 
 	</div>
 </div>
+
+<script type="text/ng-template" id="giftModal.html">
+	<div class="modal-header">
+        <h5 class="modal-title">Depósito ou transferencias</h5>
+    </div>
+
+    <div class="modal-body">
+    	<div class="row">
+    		<div class="col-md-4">
+    			<h5>HSBC</h5>
+    			<p><strong>Titular: </strong>Andre Gerson Ganske</p>
+    			<p><strong>Agência: </strong>141</p>
+    			<p><strong>Conta: </strong>07591-88</p>
+    		</div>
+
+    		<div class="col-md-4">
+    			<h5>Caixa</h5>
+    			<p><strong>Titular: </strong>Morgana Creuz</p>
+    			<p><strong>Agência: </strong>141</p>
+    			<p><strong>Conta: </strong>07591-88</p>
+    		</div>
+
+    		<div class="col-md-4">
+    			<h5>Itaú</h5>
+    			<p><strong>Titular: </strong>Andre Gerson Ganske e Morgana Creuz</p>
+    			<p><strong>Agência: </strong>1245</p>
+    			<p><strong>Conta: </strong>07591-88</p>
+    		</div>
+    	</div>
+    </div>
+
+    <div class="modal-footer">
+        <input type="button" class="btn btn-default" ng-click="cancel()" value="Fechar">
+    </div>
+
+</script>
 
 <script type="text/ng-template" id="selectItem.html">
     <div class="modal-header">

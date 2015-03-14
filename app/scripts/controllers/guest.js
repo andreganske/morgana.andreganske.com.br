@@ -50,6 +50,14 @@ angular.module('myApp')
 		}
 	};
 
+	$scope.moneyModal = function() {
+		var modalInstance = $modal.open({
+			templateUrl: 'giftModal.html',
+			controller: 'GiftModalController',
+			scope: $scope
+		});
+	};
+
 	$scope.updateList();
 
 }])
@@ -103,5 +111,12 @@ angular.module('myApp')
 	$scope.cancel = function () {
 		$modalInstance.dismiss('cancel');
 	};
-	
+})
+
+.controller('GiftModalController', function($rootScope, $scope, $modalInstance) {
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+
 });
