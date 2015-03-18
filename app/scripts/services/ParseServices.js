@@ -2,7 +2,7 @@
 
 angular.module('ParseServices', [])
 
-.factory('ParseSDK', function($rootScope, $location) {
+.factory('ParseSDK', function($rootScope, $location, $route) {
 
 	Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
 
@@ -54,6 +54,35 @@ angular.module('ParseServices', [])
 					$location.path("/guest");
 				}
 			}
+		},
+
+		login: function($scope) {
+			return Parse.User.logIn($scope.email, $scope.password, {
+				success: function(currentUser) {
+					$rootScope.logged = true;
+					$rootScope.user = currentUser.get('fullname');
+					$rootScope.login = currentUser.get('username');
+				},
+				error: function(user, error) {
+					if (error.code == 101) {
+						$("#login-inputEmail").parent().toggleClass('has-error');
+						$("#login-inputPass").parent().toggleClass('has-error');
+						$('#loginError').show();
+					} else {
+						alert("Error: " + error.code + " " + error.message);
+						$('#unknowError').show();
+					}
+				}
+			});
+		},
+
+		logout: function() {
+			Parse.User.logOut();
+			$rootScope.logged = false;
+			$rootScope.user = '';
+			$rootScope.login = '';
+			$location.path('/');
+			$route.reload();
 		},
 
 		getProducts: function() {

@@ -57,8 +57,7 @@ angular.module('myApp')
 	};
 
 	$scope.logoff = function() {
-		Parse.User.logOut();
-		$location.path('/');
+		ParseService.logout();
 	};
 
 	$scope.viewGifts();

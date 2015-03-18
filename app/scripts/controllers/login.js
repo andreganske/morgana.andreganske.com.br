@@ -24,7 +24,12 @@ angular.module('myApp')
 		var modalInstance = $modal.open({
 			templateUrl: modal + '.html',
 			controller: 'LoginModalController',
-			size: size
+			size: size,
+			resolve: {
+				ParseService: function () {
+					return ParseService;
+				}
+			}
 		});
 
 		modalInstance.result.then(function () {
@@ -33,33 +38,22 @@ angular.module('myApp')
 	};
 
 	$scope.logoff = function() {
-		Parse.User.logOut();
-		$location.path('/');
+		ParseService.logout();
 	};
 }])
 
-.controller('LoginModalController', function($rootScope, $scope, $modalInstance) {
+.controller('LoginModalController', function($rootScope, $scope, $modalInstance, ParseService) {
 
 	$('#loginError').alert();
 	$('#unknowError').alert();
 
 	$scope.login = function () {
-		Parse.User.logIn($scope.email, $scope.password, {
-			success: function(currentUser) {
-				$rootScope.logged = true;
-				$rootScope.user = currentUser.get('fullname');
-				$rootScope.login = currentUser.get('username');
+
+		var promise = ParseService.login($scope);
+
+		promise.done(function() {
+			if ($rootScope.logged) {
 				$modalInstance.close();
-			},
-			error: function(user, error) {
-				if (error.code == 101) {
-					$("#login-inputEmail").parent().toggleClass('has-error');
-					$("#login-inputPass").parent().toggleClass('has-error');
-					$('#loginError').show();
-				} else {
-					alert("Error: " + error.code + " " + error.message);
-					$('#unknowError').show();
-				}
 			}
 		});
 	};
