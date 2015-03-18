@@ -70,12 +70,6 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
   border: 0;
 }
 
-#home-content {
-  position: fixed !important;
-  height: 100%;
-  padding: 0;
-}
-
 .nav-footer {
   position: absolute;
   bottom: 0;
@@ -104,23 +98,6 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
   top: 38%;
   left: 10%;
   right: 10%;
-}
-
-#login-header {
-  padding: 10px 0;
-}
-
-#login-header .btn {
-  width: 120px;
-  background-color: #DCEBE8;
-}
-
-.logout-header .btn {
-  margin-left: 20px; 
-}
-
-.table .description {
-  width: 80%;
 }
 
 #guest-products .success {
