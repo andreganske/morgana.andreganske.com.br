@@ -25,7 +25,7 @@ angular.module('myApp')
 				$scope.products.push(product);
 			};
 		});
-	},
+	};
 
 	$scope.selectItem = function(product) {
 		if (product.available) {
