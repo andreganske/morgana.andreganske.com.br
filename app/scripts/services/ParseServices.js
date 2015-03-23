@@ -63,6 +63,7 @@ angular.module('ParseServices', [])
 					$rootScope.logged = true;
 					$rootScope.user = currentUser.get('fullname');
 					$rootScope.login = currentUser.get('username');
+					$rootScope.isAdmin = currentUser.get('isAdmin');
 				},
 				error: function(user, error) {
 					if (error.code == 101) {
