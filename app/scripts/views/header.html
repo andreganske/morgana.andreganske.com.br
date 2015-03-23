@@ -30,7 +30,7 @@
         <h4 class="modal-title">Entrar</h4>
     </div>
 
-    <div class="modal-body">
+    <div class="modal-body" ng-enter="login()">
       <form>
         <div class="alert alert-warning" role="alert" id="loginError" style="display: none;">
           <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span aria-hidden="true">×</span></button>
@@ -55,7 +55,7 @@
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="login()" ng-enter="login()">Entrar</button>
+        <button class="btn btn-primary" ng-click="login()">Entrar</button>
         <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
     </div>
 </script>
@@ -65,7 +65,7 @@
         <h4 class="modal-title">Novo usuário</h4>
     </div>
 
-    <div class="modal-body">
+    <div class="modal-body" ng-enter="create()">
       <form>
         <div class="alert alert-warning" role="alert" id="  " style="display: none;">
           <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span aria-hidden="true">×</span></button>
@@ -95,7 +95,7 @@
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="create()" ng-enter="create()">Cadastrar</button>
+        <button class="btn btn-primary" ng-click="create()">Cadastrar</button>
         <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
     </div>
 </script>
