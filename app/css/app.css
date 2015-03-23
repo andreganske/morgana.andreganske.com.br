@@ -58,6 +58,10 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
 
 /* ------------------------------------ navigation ------------------------------------ */
 
+#header {
+  margin-bottom: 15px;
+}
+
 .navbar {
   background: #DCEBE8;
 }
