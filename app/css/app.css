@@ -1,13 +1,11 @@
 /* ------------------------------------ main settings ------------------------------------ */
 
-html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; overflow-x: hidden; }
+html { -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
 
-body { 
-  margin: 0; 
+body {
   font-size: 12px; 
-  font-family: "Helvetica Neue", "Open Sans", Helvetica, Arial, sans-serif; 
-  color: #333; 
-  position: relative;
+  font-family: "Helvetica Neue", "Open Sans", Helvetica, Arial, sans-serif;
+  padding-top: 50px;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
@@ -54,12 +52,26 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
   outline: none;
 }
 
+.inline {
+  display: inline;
+}
+
 /* ------------------------------------ navigation ------------------------------------ */
 
-#home-content {
-  position: fixed !important;
-  height: 100%;
-  padding: 0;
+#header {
+  margin-bottom: 15px;
+}
+
+.navbar {
+  background: #DCEBE8;
+}
+
+.navbar a {
+  font-size: 18px;
+}
+
+.navbar-fixed-top {
+  border: 0;
 }
 
 .nav-footer {
@@ -77,7 +89,7 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
   bottom: 0;
   left: 0;
 
-  background: url("../img/bg.jpg") no-repeat center fixed;
+  background: url("../images/bg.jpg") no-repeat center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -92,10 +104,61 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
   right: 10%;
 }
 
-.modal-backdrop {
-  z-index: -1;
+#guest-products .success {
+  cursor: pointer !important;
 }
 
-.navbar {
-  margin-bottom: 0;
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+.main {
+  padding: 20px;
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+
+.main .page-header {
+  margin-top: 0;
 }

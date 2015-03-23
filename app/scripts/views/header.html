@@ -1,0 +1,121 @@
+<nav class="navbar navbar-fixed-top" ng-controller="LoginController" data-ng-init="init()">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Menu</span>
+        <span class="icon-bar"><a href="">...</a></span>
+      </button>
+      <a class="navbar-brand" href="/">Morgana & Andre</a>
+    </div>
+      
+    <div id="navbar" class="navbar-collapse collapse navbar-right">
+      <div ng-show="logged" class="logout-header">
+        <ul class="nav navbar-nav">
+          <li><a href="" ng-click="logoff()">Sair</a></li>
+        </ul>
+      </div>
+
+      <div ng-hide="logged" class="login-header">
+        <ul class="nav navbar-nav">
+          <li><a href="" ng-click="open('loginModal', 'sm')" ng-show="allowLogin">Entrar</a></li>
+          <li><a href="" ng-click="open('signinModal')" ng-show="allowSingin">Nova conta</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/ng-template" id="loginModal.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Entrar</h4>
+    </div>
+
+    <div class="modal-body">
+      <form>
+        <div class="alert alert-warning" role="alert" id="loginError" style="display: none;">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span aria-hidden="true">×</span></button>
+          <strong>Ops!</strong> O login ou a senha digitados estão incorretos. Por favor, verifique e tente novamente :)
+        </div>
+
+        <div class="alert alert-danger" role="alert" id="unknowError" style="display: none;">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span aria-hidden="true">×</span></button>
+          <strong>Ops!</strong> Houve um erro desconhecido. Por favor, tente novamente mais tarde :D
+        </div>
+
+        <div class="form-group">
+          <label for="login-inputEmail">Email</label>
+          <input type="email" class="form-control" id="login-inputEmail" ng-model="email" placeholder="meuemail@meuemail.com.br">
+        </div>
+
+        <div class="form-group">
+          <label for="login-inputPass">Senha</label>
+          <input type="password" class="form-control" id="login-inputPass" ng-model="password" placeholder="minha senha">
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="login()" >Entrar</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+    </div>
+</script>
+
+<script type="text/ng-template" id="signinModal.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Novo usuário</h4>
+    </div>
+
+    <div class="modal-body">
+      <form>
+        <div class="alert alert-warning" role="alert" id="  " style="display: none;">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span aria-hidden="true">×</span></button>
+          <strong>Ops!</strong> O login ou a senha digistados estão incorretos. Por favor, verifique e tente novamente :)
+        </div>
+
+        <div class="alert alert-danger" role="alert" id="loginError" style="display: none;">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Fechar"><span aria-hidden="true">×</span></button>
+          <strong>Ops!</strong> Houve um erro desconhecido. Por favor, tente novamente mais tarde :D
+        </div>
+
+        <div class="form-group">
+          <label for="login-inputEmail">Nome completo</label>
+          <input type="email" class="form-control" id="login-fullname" ng-model="fullname" placeholder="Meu Nome">
+        </div>
+
+        <div class="form-group">
+          <label for="login-inputEmail">Email</label>
+          <input type="email" class="form-control" id="login-inputEmail" ng-model="email" placeholder="meuemail@meuemail.com.br">
+        </div>
+
+        <div class="form-group">
+          <label for="login-inputPass">Senha</label>
+          <input type="password" class="form-control" id="login-inputPass" ng-model="password" placeholder="minha senha">
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="create()">Cadastrar</button>
+        <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
+    </div>
+</script>

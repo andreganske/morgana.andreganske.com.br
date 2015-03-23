@@ -1,0 +1,38 @@
+<nav class="navbar navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Menu</span>
+				<span class="icon-bar"><a href="">...</a></span>
+			</button>
+			<a class="navbar-brand" href="/">Morgana S2 Andre :)</a>
+		</div>
+
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="">Painel de Controle</a></li>
+				<li><a href="">Configurações</a></li>
+				<li><a href="">Perfil</a></li>
+				<li><a href="" ng-click="logoff()">Sair</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			<ul class="nav nav-sidebar">				
+				<li><a href="" ng-click="viewGifts()">Presentes</a></li>
+				<li><a href="" ng-click="viewGuests()">Convidados</a></li>
+			</ul>
+		</div>
+
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<h3 class="page-header">{{pageheader}}</h3>
+			<div class="tab-content">
+				<div class="slide-animate" ng-include="template.url"></div>
+			</div>
+		</div>
+	</div>
+</div>

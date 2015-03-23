@@ -1,0 +1,19 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Categoria</th>
+			<th>Nome</th>
+			<th>Descrição</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr ng-repeat="product in products | filter:q as results" ng-class="{success: product.available}">
+			<th class="col-md-2">{{product.category}}</th>
+			<th class="col-md-4">{{product.name}}</th>
+			<th class="col-md-6">{{product.description}}</th>
+			<th class="col-md-6">{{product.availableTxt}}</th>
+		</tr>
+	</tbody>
+</table>
