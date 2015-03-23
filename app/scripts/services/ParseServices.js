@@ -40,6 +40,7 @@ angular.module('ParseServices', [])
 					$rootScope.logged = true;
 					$rootScope.user = currentUser.get('fullname');
 					$rootScope.login = currentUser.get('username');
+					$rootScope.isAdmin = currentUser.get('isAdmin');
 				} else {
 					$rootScope.logged = false;
 				}
@@ -48,7 +49,7 @@ angular.module('ParseServices', [])
 
 		validateLoggedUser: function() {
 			if ($rootScope.logged) {
-				if ($rootScope.login == "admin@admin.com") {
+				if ($rootScope.isAdmin) {
 					$location.path("/admin");
 				} else {
 					$location.path("/guest");
