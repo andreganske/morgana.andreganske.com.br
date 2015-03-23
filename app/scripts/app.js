@@ -2,13 +2,14 @@
 
 var myApp = angular.module('myApp', [
 	'ngRoute',
-	'ngAnimate',
-	'ui.bootstrap',
 	'ui.mask',
 	'toaster',
 	'angular-loading-bar',
+	'myApp.directives',
+	'myApp.filters',
 	'ParseServices',
-	'myApp.filters'
+	'ui.bootstrap',
+	'ngAnimate'
 ]);
 
 myApp.config(function($routeProvider) {
@@ -29,9 +30,9 @@ myApp.config(function($routeProvider) {
 	});
 
 	$routeProvider.otherwise({redirectTo: '/'});
-})
+});
 
-.run(['ParseSDK', '$rootScope', '$location', function(ParseService, $rootScope, $location) {
+myApp.run(['ParseSDK', '$rootScope', '$location', function(ParseService, $rootScope, $location) {
 	ParseService.getConfig();
 
 	if ($rootScope.logged) {
@@ -41,17 +42,4 @@ myApp.config(function($routeProvider) {
 			$location.path("/guest");
 		}
 	}
-}])
-
-.directive('ngEnter', function() {
-	return function(scope, element, attrs) {
-		element.bind("keydown keypress", function(event) {
-			if(event.which === 13) {
-				scope.$apply(function(){
-					scope.$eval(attrs.ngEnter);
-				});
-				event.preventDefault();
-			}
-		});
-	};
-});
+}]);
