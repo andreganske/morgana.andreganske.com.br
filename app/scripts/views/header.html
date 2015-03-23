@@ -25,26 +25,6 @@
   </div>
 </nav>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script type="text/ng-template" id="loginModal.html">
     <div class="modal-header">
         <h4 class="modal-title">Entrar</h4>
@@ -75,7 +55,7 @@
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="login()" >Entrar</button>
+        <button class="btn btn-primary" ng-click="login()" ng-enter="login()">Entrar</button>
         <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
     </div>
 </script>
@@ -115,7 +95,7 @@
     </div>
 
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="create()">Cadastrar</button>
+        <button class="btn btn-primary" ng-click="create()" ng-enter="create()">Cadastrar</button>
         <button class="btn btn-default" ng-click="cancel()">Cancelar</button>
     </div>
 </script>
