@@ -33,7 +33,7 @@
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<div class="page-header">
 				<div class="row">
-					<h5>{{pageheader}}</h5>
+					<h3>{{pageheader}}</h3>
 				</div>
 				<div class="row">
 					<button class="btn btn-success" ng-click="new()">Incluir presente</button>
@@ -69,9 +69,12 @@
         		<input type="text" class="form-control" name="description" ng-model="description" placeholder="Descrição do presente">
 	        </div>
 
+
 	        <div class="form-group">
 	        	<label for="category">Categoria *</label>
-        		<input type="text" class="form-control" name="category" ng-model="category">
+	        	<select class="form-control" ng-model="category">
+	        		<option ng-repeat="category in categories" value="{{category.name}}">{{category.description}}</option>
+	        	</select>
 	        </div>
 
 	        <div class="form-group">

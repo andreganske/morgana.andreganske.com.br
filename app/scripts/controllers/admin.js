@@ -4,9 +4,17 @@ angular.module('myApp')
 
 .controller('AdminController', ['$rootScope', '$scope', 'ParseSDK', '$modal', '$location', function($rootScope, $scope, ParseService, $modal, $location) {
 
-	$scope.templates =[
+	$scope.templates = [
 		{ name: 'gifts', url: 'app/scripts/views/gifts.html'},
 		{ name: 'guest', url: 'app/scripts/views/guests.html'}
+	];
+
+	$scope.categories = [
+		{ name: 'eletro', 		description: 'Eletro eletronicos'},
+		{ name: 'kitchen', 		description: 'Cozinha'},
+		{ name: 'utilities', 	description: 'Utilidades'},
+		{ name: 'decor', 		description: 'Decoração'},
+		{ name: 'others', 		description: 'Outros'},
 	];
 
 	if ($rootScope.logged) {
