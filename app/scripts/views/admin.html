@@ -29,10 +29,50 @@
 		</div>
 
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<h3 class="page-header">{{pageheader}}</h3>
+
+			<div class="page-header">
+				<div class="row">
+					<h3>{{pageheader}}<button class="btn btn-primary pull-right" ng-click="new()">Incluir presente</button></h3>
+				</div>
+			</div>
+
 			<div class="tab-content">
 				<div class="slide-animate" ng-include="template.url"></div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script type="text/ng-template" id="newGift.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Novo presente</h4>
+    </div>
+    
+    <div class="modal-body">
+    	<form name="form">
+	        <div class="form-group">
+	        	<label for="name">Nome *</label>
+        		<input type="text" class="form-control" name="name" ng-model="name" placeholder="Nome do presente">
+	        </div>
+
+	        <div class="form-group">
+	        	<label for="description">Descrição *</label>
+        		<input type="text" class="form-control" name="description" ng-model="description" placeholder="Descrição do presente">
+	        </div>
+
+	        <div class="form-group">
+	        	<label for="category">Categoria *</label>
+        		<input type="text" class="form-control" name="category" ng-model="category">
+	        </div>
+
+	        <div class="form-group">
+	        	<p class="help-block text-right">Campos com * são obrigatórios</p>
+	        </div>
+		</form>
+    </div>
+
+    <div class="modal-footer">
+        <input type="button" class="btn btn-primary" ng-click="save()" value="Confirmar">
+        <input type="button" class="btn btn-default" ng-click="cancel()" value="Cancelar">
+    </div>
+</script>

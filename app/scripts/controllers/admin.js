@@ -60,6 +60,49 @@ angular.module('myApp')
 		ParseService.logout();
 	};
 
+	$scope.new = function() {
+		var modalInstance = $modal.open({
+			templateUrl: 'newGift.html',
+			controller: 'NewGiftController',
+			scope: $scope,
+			resolve: {
+				ParseService: function() {
+					return ParseService;
+				}
+			}
+		});
+
+		modalInstance.result.then(function () {
+			$scope.updateList();
+		});
+	}
+
+
 	$scope.viewGifts();
 
-}]);
+}])
+
+.controller('NewGiftController', function($rootScope, $scope, $modalInstance, ParseService, toaster) {
+
+	$('#formError').alert();
+	$scope.showInfo = false;
+
+	$scope.validadeForm = function() {
+		this.save();
+	};
+
+	$scope.save = function () {
+		var _toaster = toaster,
+			promise = ParseService.createProduct($scope);
+
+		promise.done(function() {
+			var text = $scope.fullname + " adicionado a lista de casamento!";
+			_toaster.pop('success', "Novo presente cadastrado!", text, 5000);
+			$modalInstance.close();
+		});
+	};
+
+	$scope.cancel = function () {
+		$modalInstance.dismiss('cancel');
+	};
+});

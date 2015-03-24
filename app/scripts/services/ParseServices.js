@@ -139,6 +139,28 @@ angular.module('ParseServices', [])
 			});
 
 			return promise;
+		},
+
+		createProduct: function($scope) {
+			var Product = Parse.Object.extend("Product");
+			var product = new Product(),
+				_this = this;
+				
+			product.set('name', 		$scope.name);
+			product.set('description', 	$scope.description);
+			product.set('category', 	$scope.category);
+			product.set('available', 	true);
+			
+			var promise = product.save(null, {
+				success: function(product) {
+					
+				},
+				error: function(product, error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+
+			return promise;
 		}
 	};
 
