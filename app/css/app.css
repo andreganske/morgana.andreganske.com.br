@@ -162,3 +162,7 @@ textarea:focus, input:focus, a:focus, a:visited, *:focus {
 .main .page-header {
   margin-top: 0;
 }
+
+td .select {
+  width: 15px;
+}

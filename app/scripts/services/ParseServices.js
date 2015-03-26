@@ -103,7 +103,7 @@ angular.module('ParseServices', [])
 			return promise;
 		},
 
-		updateProduct: function(item) {
+		setProductNotAvailable: function(item) {
 			var Product = Parse.Object.extend("Product");
 			var query = new Parse.Query(Product);
 
@@ -131,7 +131,7 @@ angular.module('ParseServices', [])
 			
 			var promise = guest.save(null, {
 				success: function(guest) {
-					_this.updateProduct($scope.item);
+					_this.setProductNotAvailable($scope.item);
 				},
 				error: function(guest, error) {
 					alert("Error: " + error.code + " " + error.message);
@@ -156,6 +156,49 @@ angular.module('ParseServices', [])
 					
 				},
 				error: function(product, error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+
+			return promise;
+		},
+
+		editProduct: function(product) {
+			var Product = Parse.Object.extend("Product");
+			var query = new Parse.Query(Product);
+
+			var promise = query.get(product.id, {
+				success: function(data) {
+					data.set('name', 		product.name);
+					data.set('description', product.description);
+					data.set('category', 	product.category);
+
+					data.save();
+				},
+				error: function(object, error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+
+			return promise;
+		},
+
+		deleteProduct: function(product) {
+			var Product = Parse.Object.extend("Product");
+			var query = new Parse.Query(Product);
+
+			var promise = query.get(product.id, {
+				success: function(data) {
+					data.destroy({
+						success: function(data) {
+
+						},
+						error: function(data, error) {
+							alert("Error: " + error.code + " " + error.message);
+						}
+					});
+				},
+				error: function(object, error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
