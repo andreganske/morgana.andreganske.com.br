@@ -20,6 +20,7 @@ angular.module('myApp')
 				product.description = obj.get('description');
 				product.category = obj.get('category');
 				product.available = obj.get('available');
+				product.availableTxt = obj.get('available') ? 'Disponível' : 'Reservado';
 				product.id = obj.id;
 				
 				$scope.products.push(product);

@@ -1,79 +1,86 @@
 <div id="header" ng-include="'app/scripts/views/header.html'"></div>
 
-<div class="row">
-	<div class="col-md-2 col-md-offset-1">
-		<input type="button" class="btn btn-warning" ng-click="moneyModal()" value="Presentes em dinheiro :)">
-	</div>
+<div class="container-fluid">
 
-	<div class="col-md-3 col-md-offset-5">
-		<div class="form-group">
-			<label for="search_label">Busca</label>
-			<input type="search" ng-model="q" placeholder="filtrar" class="form-control" id="search_label"/>					
+	<toaster-container toaster-options="{'position-class': 'toast-top-center', 'close-button': 'true'}"></toaster-container>
+
+	<div class="row">
+		<div class="col-md-2 col-md-offset-1">
+			<input type="button" class="btn btn-warning" ng-click="moneyModal()" value="Presentes em dinheiro :)">
+		</div>
+
+		<div class="col-md-3 col-md-offset-5">
+			<div class="form-group">
+				<label for="search_label">Busca</label>
+				<input type="search" ng-model="q" placeholder="filtrar" class="form-control" id="search_label"/>					
+			</div>
 		</div>
 	</div>
-</div>
 
-<div class="row">
-	<div class="col-md-10 col-md-offset-1">
-		<accordion close-others="false" id="guest-products">
-			<accordion-group heading="Eletro / Eletrônicos">
-				<table class="table table-striped">
-					<tbody>
-						<tr ng-repeat="product in products | category: 'eletro' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
-							<th class="col-md-4">{{product.name}}</th>
-							<th class="col-md-8">{{product.description}}</th>
-						</tr>
-					</tbody>
-				</table>
-			</accordion-group>
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<accordion close-others="false" id="guest-products">
+				<accordion-group heading="Eletro / Eletrônicos">
+					<table class="table table-hover">
+						<tbody>
+							<tr ng-repeat="product in products | category: 'eletro' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+								<th class="col-md-3">{{product.name}}</th>
+								<th class="col-md-8">{{product.description}}</th>
+								<td class="col-md-1">{{product.availableTxt}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</accordion-group>
 
-			<accordion-group heading="Cama, mesa e banho">
-				<table class="table table-striped">
-					<tbody>
-						<tr ng-repeat="product in products | category: 'kitchen' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
-							<th class="col-md-4">{{product.name}}</th>
-							<th class="col-md-8">{{product.description}}</th>
-						</tr>
-					</tbody>
-				</table>
-			</accordion-group>
+				<accordion-group heading="Cama, mesa e banho">
+					<table class="table table-hover">
+						<tbody>
+							<tr ng-repeat="product in products | category: 'kitchen' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+								<th class="col-md-3">{{product.name}}</th>
+								<th class="col-md-8">{{product.description}}</th>
+								<td class="col-md-1">{{product.availableTxt}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</accordion-group>
 
-			<accordion-group heading="Utilidades domésticas">
-				<table class="table table-striped">
-					<tbody>
-						<tr ng-repeat="product in products | category: 'utilities' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
-							<th class="col-md-4">{{product.name}}</th>
-							<th class="col-md-8">{{product.description}}</th>
-						</tr>
-					</tbody>
-				</table>
-			</accordion-group>
+				<accordion-group heading="Utilidades domésticas">
+					<table class="table table-hover">
+						<tbody>
+							<tr ng-repeat="product in products | category: 'utilities' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+								<th class="col-md-3">{{product.name}}</th>
+								<th class="col-md-8">{{product.description}}</th>
+								<td class="col-md-1">{{product.availableTxt}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</accordion-group>
 
-			<accordion-group heading="Decoração">
-				<table class="table table-striped">
-					<tbody>
-						<tr ng-repeat="product in products | category: 'decor' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
-							<th class="col-md-4">{{product.name}}</th>
-							<th class="col-md-8">{{product.description}}</th>
-						</tr>
-					</tbody>
-				</table>
-			</accordion-group>
+				<accordion-group heading="Decoração">
+					<table class="table table-hover">
+						<tbody>
+							<tr ng-repeat="product in products | category: 'decor' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+								<th class="col-md-3">{{product.name}}</th>
+								<th class="col-md-8">{{product.description}}</th>
+								<td class="col-md-1">{{product.availableTxt}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</accordion-group>
 
-			<accordion-group heading="Outros">
-				<table class="table table-striped">
-					<tbody>
-						<tr ng-repeat="product in products | category: 'others' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
-							<th class="col-md-4">{{product.name}}</th>
-							<th class="col-md-8">{{product.description}}</th>
-						</tr>
-					</tbody>
-				</table>
-			</accordion-group>
-		</accordion>
-
-		<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button': 'true'}"></toaster-container>
-
+				<accordion-group heading="Outros">
+					<table class="table table-hover">
+						<tbody>
+							<tr ng-repeat="product in products | category: 'others' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+								<th class="col-md-3">{{product.name}}</th>
+								<th class="col-md-8">{{product.description}}</th>
+								<td class="col-md-1">{{product.availableTxt}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</accordion-group>
+			</accordion>
+		</div>
 	</div>
 </div>
 
