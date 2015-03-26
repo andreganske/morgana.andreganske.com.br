@@ -36,7 +36,7 @@ myApp.run(['ParseSDK', '$rootScope', '$location', function(ParseService, $rootSc
 	ParseService.getConfig();
 
 	if ($rootScope.logged) {
-		if ($rootScope.login == "admin@admin.com") {
+		if ($rootScope.isAdmin) {
 			$location.path("/admin");
 		} else {
 			$location.path("/guest");
