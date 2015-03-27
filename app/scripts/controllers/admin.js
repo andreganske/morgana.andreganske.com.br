@@ -130,6 +130,14 @@ angular.module('myApp')
 
 	$scope.delete = function() {
 
+<<<<<<< Updated upstream
+=======
+		ParseService.deleteProduct($scope).done(function() {
+			var text = "Os presentes selecionados foram removidos com sucesso da lista de casamento!";
+			toaster.pop('success', "Presentes removidos", text, 5000);
+			$modalInstance.close();
+		});
+>>>>>>> Stashed changes
 	};
 
 	$scope.viewGifts();

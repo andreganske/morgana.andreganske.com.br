@@ -183,27 +183,11 @@ angular.module('ParseServices', [])
 			return promise;
 		},
 
-		deleteProduct: function(product) {
-			var Product = Parse.Object.extend("Product");
-			var query = new Parse.Query(Product);
-
-			var promise = query.get(product.id, {
-				success: function(data) {
-					data.destroy({
-						success: function(data) {
-
-						},
-						error: function(data, error) {
-							alert("Error: " + error.code + " " + error.message);
-						}
-					});
-				},
-				error: function(object, error) {
+		deleteProduct: function($scope) {
+			return Parse.Object.destroyAll($scope.selection).then(function(success) {},
+				function(error) {
 					alert("Error: " + error.code + " " + error.message);
-				}
-			});
-
-			return promise;
+				});
 		}
 	};
 
