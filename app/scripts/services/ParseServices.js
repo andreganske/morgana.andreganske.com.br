@@ -5,8 +5,18 @@ angular.module('ParseServices', [])
 .factory('ParseSDK', function($rootScope, $location, $route) {
 
 	Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
+	
 
 	var service = {
+
+		categories: [
+			{ name: 'eletro', 		description: 'Eletro eletronicos'},
+			{ name: 'kitchen', 		description: 'Cozinha'},
+			{ name: 'utilities', 	description: 'Utilidades'},
+			{ name: 'decor', 		description: 'Decoração'},
+			{ name: 'others', 		description: 'Outros'},
+		],
+
 		getConfig: function() {
 			
 			var params = {};
@@ -87,13 +97,37 @@ angular.module('ParseServices', [])
 			$route.reload();
 		},
 
+		getCategory: function(name) {
+			var _this = this,
+				result;
+			$.each(_this.categories, function(key, value) {
+				if (value.name === name) {
+					result = value;
+				}
+			});
+			return result;
+		},
+
 		getProducts: function() {
-			var Product = Parse.Object.extend('Product');
-			var query = new Parse.Query(Product);
+			var _this = this,
+				query = new Parse.Query(Parse.Object.extend('Product'));
+
+			$rootScope.products = [];
 
 			var promise = query.find({
 				success: function(result) {
-					$rootScope.products = result;
+					$.each(result, function(key, value) {
+						var product = {};
+
+						product.id 				= value.id;
+						product.name 			= value.get('name');
+						product.description 	= value.get('description');
+						product.category 		= _this.getCategory(value.get('category'));
+						product.available 		= value.get('available');
+						product.availableTxt 	= value.get('available') ? 'Disponível' : 'Reservado';
+
+						$rootScope.products.push(product);
+					});
 				},
 				error: function(error) {
 					alert("Error: " + error.code + " " + error.message);
@@ -148,7 +182,7 @@ angular.module('ParseServices', [])
 				
 			product.set('name', 		$scope.name);
 			product.set('description', 	$scope.description);
-			product.set('category', 	$scope.category);
+			product.set('category', 	$scope.category.name);
 			product.set('available', 	true);
 			
 			var promise = product.save(null, {
@@ -163,15 +197,15 @@ angular.module('ParseServices', [])
 			return promise;
 		},
 
-		editProduct: function(product) {
+		editProduct: function($scope) {
 			var Product = Parse.Object.extend("Product");
 			var query = new Parse.Query(Product);
 
-			var promise = query.get(product.id, {
+			var promise = query.get($scope.selection[0].id, {
 				success: function(data) {
-					data.set('name', 		product.name);
-					data.set('description', product.description);
-					data.set('category', 	product.category);
+					data.set('name', 		$scope.name);
+					data.set('description', $scope.description);
+					data.set('category', 	$scope.category.name);
 
 					data.save();
 				},

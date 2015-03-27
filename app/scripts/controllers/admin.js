@@ -4,6 +4,8 @@ angular.module('myApp')
 
 .controller('AdminController', ['$rootScope', '$scope', 'ParseSDK', '$modal', '$location', 'toaster', function($rootScope, $scope, ParseService, $modal, $location, toaster) {
 
+	$scope.tab = 0;
+	
 	$scope.selection = [];
 
 	$scope.templates = [
@@ -11,27 +13,14 @@ angular.module('myApp')
 		{ name: 'guest', url: 'app/scripts/views/guests.html'}
 	];
 
-	$scope.categories = [
-		{ name: 'eletro', 		description: 'Eletro eletronicos'},
-		{ name: 'kitchen', 		description: 'Cozinha'},
-		{ name: 'utilities', 	description: 'Utilidades'},
-		{ name: 'decor', 		description: 'Decoração'},
-		{ name: 'others', 		description: 'Outros'},
-	];
+	$scope.categories = ParseService.categories;
 
-	if ($rootScope.logged) {
-		$scope.user = Parse.User.current().get('fullname');
-	}
-
-	$scope.tab = 0;
+	$scope.init = function() {
+		$scope.viewGifts();
+	},
 
 	$scope.toggle = function (product) {
 		product.selected = !product.selected;
-		if (product.selected) {
-			$scope.selection.push(product);
-		} else {
-			$scope.selection.splice($scope.selection.indexOf(product));
-		}
 	};
 
 	$scope.changeTab = function(newTab) {
@@ -43,24 +32,8 @@ angular.module('myApp')
 	};
 
 	$scope.updateList = function() {
-		var promise = ParseService.getProducts();
-
-		promise.done(function() {
-			$scope.products = [];
-
-			for (var i = $rootScope.products.length - 1; i >= 0; i--) {
-				var product = {name: '', description: '', category: '', available: '', id: ''},
-					obj = $rootScope.products[i];
-				
-				product.name = obj.get('name');
-				product.description = obj.get('description');
-				product.category = obj.get('category');
-				product.available = obj.get('available');
-				product.availableTxt = obj.get('available') ? 'Disponível' : 'Reservado';
-				product.id = obj.id;
-				
-				$scope.products.push(product);
-			};
+		ParseService.getProducts().done(function() {
+			$scope.products = $rootScope.products;
 		});
 	};
 
@@ -99,49 +72,52 @@ angular.module('myApp')
 		});
 	};
 
-	$scope.edit = function() {
-
-		if ($scope.selection.length == 0) {
-			toaster.pop('warning', "Oooops", "Parece que voce não selecionou nenhum presente para editar :)", 5000);
-		}
-
-		if ($scope.selection.length > 1) {
-			toaster.pop('warning', "Oooops", "Só conseguimos editar um presente de cada vez. Selecione apenas um (Y)", 5000);
-		}
-
-		var modalInstance = $modal.open({
-			templateUrl: 'newGift.html',
-			controller: 'NewGiftController',
-			scope: $scope,
-			resolve: {
-				ParseService: function() {
-					return ParseService;
-				},
-				action: function() {
-					return 'edit';
-				}
+	$scope.getSelected = function() {
+		$scope.selection = [];
+		$.each($scope.products, function(key, product) {
+			if (product.selected) {
+				$scope.selection.push(product);
 			}
-		});
-
-		modalInstance.result.then(function () {
-			$scope.updateList();
 		});
 	};
 
-	$scope.delete = function() {
+	$scope.edit = function() {
+		this.getSelected();
 
-<<<<<<< Updated upstream
-=======
+		if ($scope.selection.length == 0) {
+			toaster.pop('warning', "Oooops", "Parece que voce não selecionou nenhum presente para editar :)", 5000);
+		} else if ($scope.selection.length != 1) {
+			toaster.pop('warning', "Oooops", "Só conseguimos editar um presente de cada vez. Selecione apenas um (Y)", 5000);
+		} else {
+			var modalInstance = $modal.open({
+				templateUrl: 'newGift.html',
+				controller: 'NewGiftController',
+				scope: $scope,
+				resolve: {
+					ParseService: function() {
+						return ParseService;
+					},
+					action: function() {
+						return 'edit';
+					}
+				}
+			});
+
+			modalInstance.result.then(function () {
+				$scope.updateList();
+			});
+		}
+	};
+
+	$scope.delete = function() {
+		this.getSelected();
+
 		ParseService.deleteProduct($scope).done(function() {
 			var text = "Os presentes selecionados foram removidos com sucesso da lista de casamento!";
 			toaster.pop('success', "Presentes removidos", text, 5000);
 			$modalInstance.close();
 		});
->>>>>>> Stashed changes
 	};
-
-	$scope.viewGifts();
-
 }])
 
 .controller('NewGiftController', function($rootScope, $scope, $modalInstance, ParseService, toaster, action) {
@@ -163,6 +139,14 @@ angular.module('myApp')
 		}
 	};
 
+	$scope.handleSaveButton = function() {
+		if ($scope.selection.length > 0 && $scope.selection[0].id) {
+			this.edit();
+		} else {
+			this.save();
+		}
+	};
+
 	$scope.save = function () {
 		var _toaster = toaster,
 			promise = ParseService.createProduct($scope);
@@ -175,7 +159,7 @@ angular.module('myApp')
 	};
 
 	$scope.edit = function () {
-		var promise = ParseService.editProduct($scope.selection[0]);
+		var promise = ParseService.editProduct($scope);
 
 		promise.done(function() {
 			var text = $scope.name + " foi alterado e já está disponível na lista de casamento!";
