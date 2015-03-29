@@ -137,6 +137,32 @@ angular.module('ParseServices', [])
 			return promise;
 		},
 
+		getGuests: function() {
+			var _this = this,
+				query = new Parse.Query(Parse.Object.extend('Guest'));
+
+			$rootScope.guests = [];
+
+			return query.find({
+				success: function(result) {
+					$.each(result, function(key, value) {
+						var guest = {};
+
+						guest.id 		= value.id;
+						guest.name 	= value.get('name');
+						guest.email 	= value.get('email');
+						guest.phone 	= value.get('phone');
+						guest.delivery 	= value.get('delivery') === 'personal' ? 'Pessoalmente' : 'Via correio';
+
+						$rootScope.guests.push(guest);
+					});
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);	
+				}
+			});
+		},
+
 		setProductNotAvailable: function(item) {
 			var Product = Parse.Object.extend("Product");
 			var query = new Parse.Query(Product);
@@ -157,11 +183,11 @@ angular.module('ParseServices', [])
 			var guest = new Guest(),
 				_this = this;
 				
-			guest.set('guest_name', 	$scope.fullname);
-			guest.set('guest_email', 	$scope.email);
-			guest.set('guest_phone', 	$scope.phone);
-			guest.set('guest_delivery', $scope.delivery);
-			guest.set('guest_product', 	$scope.item.id);
+			guest.set('name', 	  $scope.name);
+			guest.set('email', 	  $scope.email);
+			guest.set('phone', 	  $scope.phone);
+			guest.set('delivery', $scope.delivery);
+			guest.set('product',  $scope.item.id);
 			
 			var promise = guest.save(null, {
 				success: function(guest) {
