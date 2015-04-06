@@ -9,8 +9,8 @@ angular.module('myApp')
 	$scope.selection = [];
 
 	$scope.templates = [
-		{ name: 'gifts', url: 'app/scripts/views/gifts.html'},
-		{ name: 'guest', url: 'app/scripts/views/guests.html'}
+		{ name: 'gifts', url: 'app/scripts/views/admin_gifts.html'},
+		{ name: 'guest', url: 'app/scripts/views/admin_guests.html'}
 	];
 
 	$scope.categories = ParseService.categories;
@@ -31,21 +31,28 @@ angular.module('myApp')
 		return $scope.tab === tab;
 	};
 
-	$scope.updateList = function() {
+	$scope.updateGifts = function() {
 		ParseService.getProducts().done(function() {
 			$scope.products = $rootScope.products;
 		});
 	};
 
+	$scope.updateGuests = function() {
+		ParseService.getGuests().done(function() {
+			$scope.guests = $rootScope.guests;
+		});
+	};	
+
 	$scope.viewGifts = function() {
 		$scope.pageheader = 'Nossos presentes';
 		$scope.template = $scope.templates[0];
-		$scope.updateList();
+		$scope.updateGifts();
 	};
 
 	$scope.viewGuests = function() {
 		$scope.pageheader = 'Nossos convidados';
 		$scope.template = $scope.templates[1];
+		$scope.updateGuests();
 	};
 
 	$scope.logoff = function() {
@@ -68,7 +75,7 @@ angular.module('myApp')
 		});
 
 		modalInstance.result.then(function () {
-			$scope.updateList();
+			$scope.updateGifts();
 		});
 	};
 
@@ -104,7 +111,7 @@ angular.module('myApp')
 			});
 
 			modalInstance.result.then(function () {
-				$scope.updateList();
+				$scope.updateGifts();
 			});
 		}
 	};
