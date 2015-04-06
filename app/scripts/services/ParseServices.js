@@ -12,7 +12,7 @@ angular.module('ParseServices', [])
 		categories: [
 			{ name: 'eletro', 		description: 'Eletro eletronicos'},
 			{ name: 'kitchen', 		description: 'Cozinha'},
-			{ name: 'utilities', 	description: 'Utilidades'},
+			{ name: 'utilities', 	description: 'Cama, mesa e banho'},
 			{ name: 'decor', 		description: 'Decoração'},
 			{ name: 'others', 		description: 'Outros'},
 		],
@@ -149,7 +149,7 @@ angular.module('ParseServices', [])
 						var guest = {};
 
 						guest.id 		= value.id;
-						guest.name 	= value.get('name');
+						guest.name 		= value.get('name');
 						guest.email 	= value.get('email');
 						guest.phone 	= value.get('phone');
 						guest.delivery 	= value.get('delivery') === 'personal' ? 'Pessoalmente' : 'Via correio';

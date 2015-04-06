@@ -32,7 +32,7 @@
 					</table>
 				</accordion-group>
 
-				<accordion-group heading="Cama, mesa e banho">
+				<accordion-group heading="Cozinha">
 					<table class="table table-hover">
 						<tbody>
 							<tr ng-repeat="product in products | category: 'kitchen' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
@@ -44,7 +44,7 @@
 					</table>
 				</accordion-group>
 
-				<accordion-group heading="Utilidades domésticas">
+				<accordion-group heading="Cama, mesa e banho">
 					<table class="table table-hover">
 						<tbody>
 							<tr ng-repeat="product in products | category: 'utilities' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
