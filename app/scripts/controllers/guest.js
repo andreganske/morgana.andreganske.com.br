@@ -49,7 +49,6 @@ angular.module('myApp')
 .controller('GuestModalController', function($rootScope, $scope, $modalInstance, ParseService, toaster, item) {
 
 	$scope.item = item;
-	$('#formError').alert();
 	$scope.showInfo = false;
 
 	$scope.validadeForm = function() {
@@ -77,7 +76,9 @@ angular.module('myApp')
 		if (isValid) {
 			this.save();
 		} else {
-			$('#formError').show();
+			var text = "Parece que você não preenchou o formulário corretamente. Por favor, nos diga seu nome completo, seu email, seu telefone e a forma de entrega. Obrigado :)";
+			toaster.pop('error', "Ooopss!", text, 5000);
+			$modalInstance.close();
 		}
 	};
 
