@@ -78,7 +78,6 @@ angular.module('myApp')
 		} else {
 			var text = "Parece que você não preenchou o formulário corretamente. Por favor, nos diga seu nome completo, seu email, seu telefone e a forma de entrega. Obrigado :)";
 			toaster.pop('error', "Ooopss!", text, 5000);
-			$modalInstance.close();
 		}
 	};
 
