@@ -7,6 +7,7 @@ var myApp = angular.module('myApp', [
 	'angular-loading-bar',
 	'myApp.directives',
 	'myApp.filters',
+	'angular-intro',
 	'ParseServices',
 	'ui.bootstrap',
 	'ngAnimate'

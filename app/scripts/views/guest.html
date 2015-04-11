@@ -1,15 +1,15 @@
 <div id="header" ng-include="'app/scripts/views/header.html'"></div>
 
-<div class="container-fluid" ng-init="init()">
+<div class="container-fluid" ng-init="init()" ng-intro-options="IntroOptions" ng-intro-method="startIntro" ng-intro-autostart="true">
 
 	<toaster-container toaster-options="{'position-class':'toast-top-center', 'close-button':'true'}"></toaster-container>
 
 	<div class="row">
-		<div class="col-md-2 col-md-offset-1">
+		<div class="col-md-2 col-md-offset-1" id="step1">
 			<input type="button" class="btn btn-warning" ng-click="moneyModal()" value="Presentes em dinheiro :)">
 		</div>
 
-		<div class="col-md-3 col-md-offset-5">
+		<div class="col-md-3 col-md-offset-5" id="step4">
 			<div class="form-group">
 				<input type="search" ng-model="q" placeholder="Buscar presente" class="form-control" id="search_label"/>
 			</div>
@@ -17,9 +17,9 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
+		<div class="col-md-10 col-md-offset-1" >
 			<accordion close-others="true" id="guest-products">
-				<accordion-group heading="Eletro / Eletrônicos">
+				<accordion-group heading="Eletros" is-open="true" id="step2">
 					<table class="table table-hover">
 						<tbody>
 							<tr ng-repeat="product in products | category: 'eletro' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
@@ -85,7 +85,7 @@
 
 <script type="text/ng-template" id="giftModal.html">
 	<div class="modal-header">
-        <h5 class="modal-title">Depósito ou transferencias</h5>
+        <h5 class="modal-title">Depósito ou transferências</h5>
     </div>
 
     <div class="modal-body">
@@ -120,7 +120,7 @@
 
 <script type="text/ng-template" id="selectItem.html">
     <div class="modal-header">
-        <h5 class="modal-title">Confirmar presente</h5>
+        <h5 class="modal-title">Confirmar o presente selecionado</h5>
     </div>
     
     <div class="modal-body">
@@ -142,7 +142,7 @@
 	        <div class="row">
 		        <div class="col-md-6">
 	        		<label for="phone" class="control-label">Telefone * </label>
-	        		<input type="text" ui-mask="999 9999 9999" class="form-control" name="phone" ng-model="phone" required>
+	        		<input type="text" ui-mask="(99) 9999-9999" class="form-control" name="phone" ng-model="phone" required>
 	        		<p class="help-block">(somente números)</p>
 		        </div>
 
@@ -150,7 +150,7 @@
 	        		<label>Forma de entrega *</label>
 					<div class="radio">
 					  <label>
-					    <input type="radio" name="delivery" id="personal" value="personal" ng-model="delivery" checked>
+					    <input type="radio" name="delivery" id="personal" value="personal" ng-model="delivery">
 					    Prefiro entregar pessoalmente
 					  </label>
 					</div>
