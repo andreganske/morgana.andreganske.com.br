@@ -44,11 +44,7 @@ angular.module('myApp')
 
 .controller('LoginModalController', function($rootScope, $scope, $modalInstance, ParseService) {
 
-	$('#loginError').alert();
-	$('#unknowError').alert();
-
 	$scope.login = function () {
-
 		var promise = ParseService.login($scope);
 
 		promise.done(function() {

@@ -1,11 +1,10 @@
 'use strict';
 
-angular.module('ParseServices', [])
+angular.module('ParseServices', ['toaster'])
 
-.factory('ParseSDK', function($rootScope, $location, $route) {
+.factory('ParseSDK', function($rootScope, $location, $route, toaster) {
 
 	Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
-	
 
 	var service = {
 
@@ -76,13 +75,12 @@ angular.module('ParseServices', [])
 					$rootScope.isAdmin = currentUser.get('isAdmin');
 				},
 				error: function(user, error) {
-					if (error.code == 101) {
+					if ([101, 200, 201].indexOf(error.code) > -1) {
 						$("#login-inputEmail").parent().toggleClass('has-error');
 						$("#login-inputPass").parent().toggleClass('has-error');
-						$('#loginError').show();
+						toaster.pop('error', "Oooops", "O login ou a senha digitados estão incorretos. Por favor, verifique e tente novamente :)", 5000);
 					} else {
-						alert("Error: " + error.code + " " + error.message);
-						$('#unknowError').show();
+						toaster.pop('error', "Oooops", "Houve um erro desconhecido. Por favor, tente novamente mais tarde :D", 5000);
 					}
 				}
 			});
