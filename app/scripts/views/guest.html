@@ -1,0 +1,190 @@
+<div id="header" ng-include="'app/scripts/views/header.html'"></div>
+
+<div class="container-fluid" ng-init="init()" ng-intro-options="IntroOptions" ng-intro-method="startIntro" ng-intro-autostart="true">
+
+	<toaster-container toaster-options="{'position-class':'toast-top-center', 'close-button':'true'}"></toaster-container>
+
+	<div class="row">
+		<div class="col-md-2 col-md-offset-1" id="step1">
+			<input type="button" class="btn btn-warning" ng-click="moneyModal()" value="Presentes em dinheiro :)">
+		</div>
+
+		<div class="col-md-3 col-md-offset-5" id="step4">
+			<div class="form-group">
+				<input type="search" ng-model="q" placeholder="Buscar presente" class="form-control" id="search_label"/>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1" >
+			<accordion close-others="true" id="guest-products">
+				<accordion-group heading="Eletros" is-open="true" id="step2">
+					<table class="table table-hover">
+						<tbody>
+							<tr ng-repeat="product in products | category: 'eletro' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+								<th class="col-md-3">{{product.name}}</th>
+								<th class="col-md-8">{{product.description}}</th>
+								<td class="col-md-1">{{product.availableTxt}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</accordion-group>
+
+				<accordion-group heading="Cozinha">
+					<table class="table table-hover">
+						<tbody>
+							<tr ng-repeat="product in products | category: 'kitchen' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+								<th class="col-md-3">{{product.name}}</th>
+								<th class="col-md-8">{{product.description}}</th>
+								<td class="col-md-1">{{product.availableTxt}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</accordion-group>
+
+				<accordion-group heading="Cama, mesa e banho">
+					<table class="table table-hover">
+						<tbody>
+							<tr ng-repeat="product in products | category: 'utilities' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+								<th class="col-md-3">{{product.name}}</th>
+								<th class="col-md-8">{{product.description}}</th>
+								<td class="col-md-1">{{product.availableTxt}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</accordion-group>
+
+				<accordion-group heading="Decoração">
+					<table class="table table-hover">
+						<tbody>
+							<tr ng-repeat="product in products | category: 'decor' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+								<th class="col-md-3">{{product.name}}</th>
+								<th class="col-md-8">{{product.description}}</th>
+								<td class="col-md-1">{{product.availableTxt}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</accordion-group>
+
+				<accordion-group heading="Outros">
+					<table class="table table-hover">
+						<tbody>
+							<tr ng-repeat="product in products | category: 'others' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+								<th class="col-md-3">{{product.name}}</th>
+								<th class="col-md-8">{{product.description}}</th>
+								<td class="col-md-1">{{product.availableTxt}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</accordion-group>
+			</accordion>
+		</div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="giftModal.html">
+	<div class="modal-header">
+        <h5 class="modal-title">Depósito ou transferências</h5>
+    </div>
+
+    <div class="modal-body">
+    	<div class="row">
+    		<div class="col-md-4">
+    			<h5>HSBC</h5>
+    			<p><strong>Titular: </strong>Andre Gerson Ganske</p>
+    			<p><strong>Agência: </strong>141</p>
+    			<p><strong>Conta: </strong>07591-88</p>
+    		</div>
+
+    		<div class="col-md-4">
+    			<h5>Caixa</h5>
+    			<p><strong>Titular: </strong>Morgana Creuz</p>
+    			<p><strong>Agência: </strong>141</p>
+    			<p><strong>Conta: </strong>07591-88</p>
+    		</div>
+
+    		<div class="col-md-4">
+    			<h5>Itaú</h5>
+    			<p><strong>Titular: </strong>Andre Gerson Ganske</p>
+    			<p><strong>Agência: </strong>1245</p>
+    			<p><strong>Conta: </strong>29721-0</p>
+    		</div>
+    	</div>
+    </div>
+
+    <div class="modal-footer">
+        <input type="button" class="btn btn-default" ng-click="cancel()" value="Fechar">
+    </div>
+</script>
+
+<script type="text/ng-template" id="selectItem.html">
+    <div class="modal-header">
+        <h5 class="modal-title">Confirmar o presente selecionado</h5>
+    </div>
+    
+    <div class="modal-body">
+    	<form name="form">
+	      	<div class="class-md-12">
+	      		<p>Você selecionou: <strong>{{item.name}}</strong></p>
+	      	</div>
+
+	        <div class="form-group">
+	        	<label for="name">Nome completo *</label>
+        		<input type="text" class="form-control" name="name" ng-model="name" placeholder="Seu nome completo" required>
+	        </div>
+
+	        <div class="form-group">
+	        	<label for="email">Email *</label>
+        		<input type="email" class="form-control" name="email" ng-model="email" placeholder="meuemail@meuemail.com.br">
+	        </div>
+
+	        <div class="row">
+		        <div class="col-md-6">
+	        		<label for="phone" class="control-label">Telefone * </label>
+	        		<input type="text" ui-mask="(99) 9999-9999" class="form-control" name="phone" ng-model="phone" required>
+	        		<p class="help-block">(somente números)</p>
+		        </div>
+
+	    		<div class="col-md-6" id="delivery-options">
+	        		<label>Forma de entrega *</label>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="delivery" id="personal" value="personal" ng-model="delivery">
+					    Prefiro entregar pessoalmente
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="delivery" id="carrier" value="carrier" ng-model="delivery">
+					    Vou enviar por correio ou transportadora
+					  </label>
+					</div>
+		        </div>
+	        </div>
+
+	        <div class="form-group" id="deliveryInfo" ng-show="delivery == 'carrier'">
+	        	<h5>Nossos endereços:</h5>
+	        	<address class="col-md-6">
+	        		<strong>Morgana Creuz</strong><br>
+	        		Rua Helena Degelmann, 570 - Costa e Silva<br>
+	        		Joinville, SC - 89218-580 <br>
+				</address>
+	        	<address class="col-md-6">
+	        		<strong>Andre Gerson Ganske</strong><br>
+	        		Rua Tenente Antônio João, 1168 - Bom Retiro<br>
+	        		Joinville, SC - 89222-401 <br>
+				</address>
+	        </div>
+
+	        <div class="form-group">
+	        	<p class="help-block text-right">Campos com * são obrigatórios</p>
+	        </div>
+		</form>
+    </div>
+
+    <div class="modal-footer">
+        <input type="button" class="btn btn-primary" ng-click="validadeForm()" ng-enter="validadeForm()" value="Confirmar">
+        <input type="button" class="btn btn-default" ng-click="cancel()" value="Cancelar">
+    </div>
+</script>

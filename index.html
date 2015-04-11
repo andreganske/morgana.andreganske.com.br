@@ -1,43 +1,74 @@
 <!DOCTYPE html>
-<html lang="us">
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible"  content="IE=edge,chrome=1">
+    <meta name="viewport"               content="width=device-width, initial-scale=1.0">
+    <meta name="description"            content="Morgana e Andre vão casar!">
+    <meta name="author"                 content="@andreganske and @morganacreuz">
+
 	<title>Morgana e Andre</title>
-	<meta name="description" content="">
-	<meta name="author" content="http://andreganske.com.br">
-	<link rel="shortcut icon" href="image/favicon.png">
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" media="all">
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" media="all">
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:600,300' rel='stylesheet' type='text/css' media="all">
-	<link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
-	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-	<![endif]-->
-</head>
-<body>
-	<header id="nav-content" class="vertical-nav col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
-		<div id="profile-bg"></div>
-		
-		<div class="profile-content" >
-			<h4 id="countdown"></h4>
-		</div>
+
+	<link rel="shortcut icon" href="app/images/favicon.png">
 	
-		<div class="pull-right">
-			<span class="nav-footer">Designed and built with love by Morgana e Andre</strong></span>
-		</div>
-	</header>
-	<script type="text/javascript" src="js/main.js"></script>
-	<!--script async>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-	  ga('create', 'UA-53119909-1', 'auto');
-	  ga('send', 'pageview');
-	</script-->
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.2/normalize.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" media="all">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.css"/>
+	<link rel='stylesheet' href='//fonts.googleapis.com/css?family=Open+Sans:600,300' media="all">
+
+	<link rel="stylesheet" href="app/css/loading-bar.css"/>
+	<link rel="stylesheet" href="app/css/introjs.min.css"/>	
+	<link rel="stylesheet" href="app/css/app.css"/>
+
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular-route.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.8/angular-animate.min.js" ></script>
+
+	<script type="text/javascript" src="app/scripts/libs/loading-bar.js"></script>
+	<script type="text/javascript" src="app/scripts/app.js"></script>
+
+</head>
+
+<body>
+	<!--[if lt IE 7]>
+			<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+
+    <noscript>
+        Please enable Javascript to experience this site :)
+    </noscript>
+	
+	<div ng-view></div>
+
+	<script type="text/javascript" src="//www.parsecdn.com/js/parse-1.3.3.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.9/toaster.min.js"></script>
+
+	<!-- Libs -->
+	<script type="text/javascript" src="app/scripts/libs/ui-bootstrap.min.js"></script>
+	<script type="text/javascript" src="app/scripts/libs/ui-utils.min.js"></script>
+	<script type="text/javascript" src="app/scripts/libs/countdown.min.js"></script>
+	<script type="text/javascript" src="app/scripts/libs/intro.min.js"></script>
+	<script type="text/javascript" src="app/scripts/libs/angular-intro.min.js"></script>
+
+	<!-- Services -->
+	<script type="text/javascript" src="app/scripts/services/ParseServices.js"></script>
+
+	<!-- Filters -->
+	<script type="text/javascript" src="app/scripts/filters/filters.js"></script>
+
+	<!-- Directives -->
+	<script type="text/javascript" src="app/scripts/directives/directives.js"></script>
+
+	<!-- controllers -->
+	<script type="text/javascript" src="app/scripts/controllers/home.js"></script>
+	<script type="text/javascript" src="app/scripts/controllers/login.js"></script>
+	<script type="text/javascript" src="app/scripts/controllers/admin.js"></script>
+	<script type="text/javascript" src="app/scripts/controllers/guest.js"></script>
+
 </body>
 </html>

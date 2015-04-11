@@ -1,0 +1,81 @@
+<nav class="navbar navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Menu</span>
+				<span class="icon-bar"><a href="">...</a></span>
+			</button>
+			<a class="navbar-brand" href="/">Morgana S2 Andre :)</a>
+		</div>
+
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="">Painel de Controle</a></li>
+				<li><a href="">Configurações</a></li>
+				<li><a href="">Perfil</a></li>
+				<li><a href="" ng-click="logoff()">Sair</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container-fluid" ng-init="init()">
+
+	<toaster-container toaster-options="{'position-class': 'toast-top-center', 'close-button': 'true'}"></toaster-container>
+
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			<ul class="nav nav-sidebar">				
+				<li><a href="" ng-click="viewGifts()">Presentes</a></li>
+				<li><a href="" ng-click="viewGuests()">Convidados</a></li>
+			</ul>
+		</div>
+
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<div class="page-header">
+				<div class="row">
+					<h3>{{pageheader}}</h3>
+				</div>
+			</div>
+
+			<div class="tab-content">
+				<div class="slide-animate" ng-include="template.url"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/ng-template" id="newGift.html">
+    <div class="modal-header">
+        <h4 class="modal-title">Novo presente</h4>
+    </div>
+    
+    <div class="modal-body">
+    	<form name="form">
+	        <div class="form-group">
+	        	<label for="name">Nome *</label>
+        		<input type="text" class="form-control" name="name" ng-model="name" placeholder="Nome do presente">
+	        </div>
+
+	        <div class="form-group">
+	        	<label for="description">Descrição *</label>
+        		<input type="text" class="form-control" name="description" ng-model="description" placeholder="Descrição do presente">
+	        </div>
+
+
+	        <div class="form-group">
+	        	<label for="category">Categoria *</label>
+	        	<select class="form-control" id ="category" ng-model="category" ng-options="category.description for category in categories"></select>
+	        </div>
+
+	        <div class="form-group">
+	        	<p class="help-block text-right">Campos com * são obrigatórios</p>
+	        </div>
+		</form>
+    </div>
+
+    <div class="modal-footer">
+        <input type="button" class="btn btn-primary" ng-click="handleSaveButton()" value="Confirmar">
+        <input type="button" class="btn btn-default" ng-click="cancel()" value="Cancelar">
+    </div>
+</script>

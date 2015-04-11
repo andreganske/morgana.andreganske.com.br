@@ -1,0 +1,31 @@
+<div class="row">
+	<div class="pull-right col-md-4">
+		<div class="form-group">
+			<input type="search" ng-model="q" placeholder="Buscar" class="form-control" id="search_label">
+		</div>
+	</div>
+</div>
+
+<div class="table-responsive">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Nome</th>
+				<th>Email</th>
+				<th>Telefone</th>
+				<th>Tipo entrega</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr ng-repeat="guest in guests | filter:q as results" ng-class="{active: guest.selected}" ng-click="toggle(guest)">
+				<td class="col-md-1"><input ng-model="guest.selected" type="checkbox"></td>
+				<td class="col-md-4">{{guest.name}}</td>
+				<td class="col-md-4">{{guest.email}}</td>
+				<td class="col-md-1">{{guest.phone}}</td>
+				<td class="col-md-2">{{guest.delivery}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
