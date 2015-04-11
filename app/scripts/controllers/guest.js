@@ -98,7 +98,8 @@ angular.module('myApp')
 			isValid = false;
 		}
 
-		if ($scope.carrier != undefined || $scope.personal != undefined) {
+		if ($scope.delivery === undefined) {
+			$("#delivery-options").toggleClass('has-error');
 			isValid = false;	
 		}
 
