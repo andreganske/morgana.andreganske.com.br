@@ -83,17 +83,17 @@ angular.module('myApp')
 	$scope.validadeForm = function() {
 		var isValid = true;
 
-		if ($scope.fullname === undefined  || $scope.fullname.length <= 3) {
+		if ($scope.name === undefined || $scope.name.length <= 3) {
 			$("input[name='name']").parent().toggleClass('has-error');
 			isValid = false;
 		}
 
-		if ($scope.email === undefined  || $scope.email.length <= 3) {
+		if ($scope.email === undefined || $scope.email.length <= 3) {
 			$("input[name='email']").parent().toggleClass('has-error');
 			isValid = false;
 		}
 
-		if ($scope.phone === undefined  || $scope.phone.length < 11 ) {
+		if ($scope.phone === undefined) {
 			$("input[name='phone']").parent().toggleClass('has-error');
 			isValid = false;
 		}
@@ -105,7 +105,7 @@ angular.module('myApp')
 		if (isValid) {
 			this.save();
 		} else {
-			var text = "Parece que você não preenchou o formulário corretamente. Por favor, nos diga seu nome completo, seu email, seu telefone e a forma de entrega. Obrigado :)";
+			var text = "Parece que você não informou todos os dados do formulário. Verifique se todos os campos estão preecnhidos corretamente, e se a opção de entrega está selecionada :)";
 			toaster.pop('error', "Ooopss!", text, 5000);
 		}
 	};
@@ -115,7 +115,7 @@ angular.module('myApp')
 			promise = ParseService.saveGuest($scope);
 
 		promise.done(function() {
-			var text = "Obrigado " + $scope.fullname + ". Agradeçemos pelo carinho e até o casamento! ";
+			var text = "Obrigado " + $scope.name + ". Agradeçemos pelo carinho e até o casamento! ";
 			_toaster.pop('success', "Presente confirmado!", text, 10000);
 			$modalInstance.close();
 		});
