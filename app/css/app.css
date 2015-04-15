@@ -178,3 +178,8 @@ td .select {
 .footer h4 {
 	font-size: 24px;
 }
+
+.footer img {
+	height: 100px;
+	margin-top: 20px;
+}
