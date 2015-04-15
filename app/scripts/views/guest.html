@@ -18,7 +18,7 @@
 
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1" >
-			<accordion close-others="true" id="guest-products">
+			<accordion close-others="false" id="guest-products">
 				<accordion-group heading="Eletros" is-open="true" id="step2">
 					<table class="table table-hover">
 						<tbody>
@@ -31,7 +31,7 @@
 					</table>
 				</accordion-group>
 
-				<accordion-group heading="Cozinha">
+				<accordion-group heading="Cozinha" is-open="true">
 					<table class="table table-hover">
 						<tbody>
 							<tr ng-repeat="product in products | category: 'kitchen' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
@@ -43,7 +43,7 @@
 					</table>
 				</accordion-group>
 
-				<accordion-group heading="Cama, mesa e banho">
+				<accordion-group heading="Cama, mesa e banho" is-open="true">
 					<table class="table table-hover">
 						<tbody>
 							<tr ng-repeat="product in products | category: 'utilities' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
@@ -55,7 +55,7 @@
 					</table>
 				</accordion-group>
 
-				<accordion-group heading="Decoração">
+				<accordion-group heading="Decoração" is-open="true">
 					<table class="table table-hover">
 						<tbody>
 							<tr ng-repeat="product in products | category: 'decor' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
@@ -67,7 +67,7 @@
 					</table>
 				</accordion-group>
 
-				<accordion-group heading="Outros">
+				<accordion-group heading="Outros" is-open="true">
 					<table class="table table-hover">
 						<tbody>
 							<tr ng-repeat="product in products | category: 'others' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
@@ -81,6 +81,31 @@
 			</accordion>
 		</div>
 	</div>
+
+</div>
+
+<div class="row footer">
+	<div class="col-md-3">
+		<address>
+			<strong>Morgana Creuz</strong><br>
+			<a href="mailto:morganacreuz.mc@gmail.com">morganacreuz.mc@gmail.com</a><br>
+			<a href="https://www.facebook.com/morgana.creuz">Facebook da Morgana</a><br>
+			<strong>(47) 9674-6215</strong><br>
+			Rua Helena Degelmann, 570 - Costa e Silva<br>
+			Joinville, SC - 89218-580 <br>
+		</address>
+	</div>
+
+	<div class="col-md-3">
+		<address>
+			<strong>Andre Gerson Ganske</strong><br>
+			<a href="mailto:andre.g.ganske@gmail.com">andre.g.ganske@gmail.com</a><br>
+			<a href="https://www.facebook.com/andre.ganske">Facebook do Andre</a><br>
+			<strong>(47) 9614-5116</strong><br>
+			Rua Tenente Antônio João, 1168 - Bom Retiro<br>
+			Joinville, SC - 89222-401 <br>
+		</address>
+	</div>
 </div>
 
 <script type="text/ng-template" id="giftModal.html">
@@ -93,6 +118,7 @@
     		<div class="col-md-4">
     			<h5>HSBC</h5>
     			<p><strong>Titular: </strong>Andre Gerson Ganske</p>
+    			<p><strong>CPF: </strong>059.148.919-81</p>
     			<p><strong>Agência: </strong>141</p>
     			<p><strong>Conta: </strong>07591-88</p>
     		</div>
@@ -100,6 +126,7 @@
     		<div class="col-md-4">
     			<h5>Caixa</h5>
     			<p><strong>Titular: </strong>Morgana Creuz</p>
+    			<p><strong>CPF: </strong>079.660.949-79</p>
     			<p><strong>Agência: </strong>141</p>
     			<p><strong>Conta: </strong>07591-88</p>
     		</div>
@@ -107,6 +134,7 @@
     		<div class="col-md-4">
     			<h5>Itaú</h5>
     			<p><strong>Titular: </strong>Andre Gerson Ganske</p>
+    			<p><strong>CPF: </strong>059.148.919-81</p>
     			<p><strong>Agência: </strong>1245</p>
     			<p><strong>Conta: </strong>29721-0</p>
     		</div>
