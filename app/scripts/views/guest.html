@@ -1,87 +1,98 @@
 <div id="header" ng-include="'app/scripts/views/header.html'"></div>
 
+<div id="header" ng-include="'app/scripts/views/header.html'"></div>
+
 <div class="container-fluid" ng-init="init()" ng-intro-options="IntroOptions" ng-intro-method="startIntro" ng-intro-autostart="true">
 
 	<toaster-container toaster-options="{'position-class':'toast-top-center', 'close-button':'true'}"></toaster-container>
 
-	<div class="row">
-		<div class="col-md-2 col-md-offset-1" id="step1">
-			<input type="button" class="btn btn-warning" ng-click="moneyModal()" value="Presentes em dinheiro :)">
+	<div class="col-md-12">
+
+		<div class="page-header">
+			<h3>Bem vindo a nossa lista de casamento <small> Confirme o presente abaixo</small></h3>
 		</div>
 
-		<div class="col-md-3 col-md-offset-5" id="step4">
-			<div class="form-group">
-				<input type="search" ng-model="q" placeholder="Buscar presente" class="form-control" id="search_label"/>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="pull-left" id="step1">
+					<input type="button" class="btn btn-warning" ng-click="moneyModal()" value="Presentes em dinheiro :)">
+				</div>
+
+				<div class="pull-right" id="step4">
+					<div class="form-group">
+						<input type="search" size="40" ng-model="q" placeholder="Buscar presente" class="form-control" id="search_label"/>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12" id="step2">
+				<h4 class="page-header">Eletros</h4>
+				<table class="table table-hover">
+					<tbody>
+						<tr ng-repeat="product in products | category: 'eletro' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+							<th class="col-md-3">{{product.name}}</th>
+							<th class="col-md-8">{{product.description}}</th>
+							<td class="col-md-1">{{product.availableTxt}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="col-md-12">
+				<h4 class="page-header">Cozinha</h4>
+				<table class="table table-hover">
+					<tbody>
+						<tr ng-repeat="product in products | category: 'kitchen' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+							<th class="col-md-3">{{product.name}}</th>
+							<th class="col-md-8">{{product.description}}</th>
+							<td class="col-md-1">{{product.availableTxt}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="col-md-12">
+				<h4 class="page-header">Cama, mesa e banho</h4>
+				<table class="table table-hover">
+					<tbody>
+						<tr ng-repeat="product in products | category: 'utilities' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+							<th class="col-md-3">{{product.name}}</th>
+							<th class="col-md-8">{{product.description}}</th>
+							<td class="col-md-1">{{product.availableTxt}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="col-md-12">
+				<h4 class="page-header">Decoração</h4>
+				<table class="table table-hover">
+					<tbody>
+						<tr ng-repeat="product in products | category: 'decor' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+							<th class="col-md-3">{{product.name}}</th>
+							<th class="col-md-8">{{product.description}}</th>
+							<td class="col-md-1">{{product.availableTxt}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="col-md-12">
+				<h4 class="page-header">Outros</h4>
+				<table class="table table-hover">
+					<tbody>
+						<tr ng-repeat="product in products | category: 'others' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
+							<th class="col-md-3">{{product.name}}</th>
+							<th class="col-md-8">{{product.description}}</th>
+							<td class="col-md-1">{{product.availableTxt}}</td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
-
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1" >
-			<accordion close-others="false" id="guest-products">
-				<accordion-group heading="Eletros" is-open="true" id="step2">
-					<table class="table table-hover">
-						<tbody>
-							<tr ng-repeat="product in products | category: 'eletro' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
-								<th class="col-md-3">{{product.name}}</th>
-								<th class="col-md-8">{{product.description}}</th>
-								<td class="col-md-1">{{product.availableTxt}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</accordion-group>
-
-				<accordion-group heading="Cozinha" is-open="true">
-					<table class="table table-hover">
-						<tbody>
-							<tr ng-repeat="product in products | category: 'kitchen' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
-								<th class="col-md-3">{{product.name}}</th>
-								<th class="col-md-8">{{product.description}}</th>
-								<td class="col-md-1">{{product.availableTxt}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</accordion-group>
-
-				<accordion-group heading="Cama, mesa e banho" is-open="true">
-					<table class="table table-hover">
-						<tbody>
-							<tr ng-repeat="product in products | category: 'utilities' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
-								<th class="col-md-3">{{product.name}}</th>
-								<th class="col-md-8">{{product.description}}</th>
-								<td class="col-md-1">{{product.availableTxt}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</accordion-group>
-
-				<accordion-group heading="Decoração" is-open="true">
-					<table class="table table-hover">
-						<tbody>
-							<tr ng-repeat="product in products | category: 'decor' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
-								<th class="col-md-3">{{product.name}}</th>
-								<th class="col-md-8">{{product.description}}</th>
-								<td class="col-md-1">{{product.availableTxt}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</accordion-group>
-
-				<accordion-group heading="Outros" is-open="true">
-					<table class="table table-hover">
-						<tbody>
-							<tr ng-repeat="product in products | category: 'others' | filter:q as results" ng-class="{success: product.available}" ng-click="selectItem(product)">
-								<th class="col-md-3">{{product.name}}</th>
-								<th class="col-md-8">{{product.description}}</th>
-								<td class="col-md-1">{{product.availableTxt}}</td>
-							</tr>
-						</tbody>
-					</table>
-				</accordion-group>
-			</accordion>
-		</div>
-	</div>
-
 </div>
 
 <div class="row footer">
