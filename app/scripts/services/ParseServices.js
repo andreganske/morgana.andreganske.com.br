@@ -106,13 +106,13 @@ angular.module('ParseServices', ['toaster'])
 			return result;
 		},
 
-		getProducts: function() {
+		getProducts: function($scope) {
 			var _this = this,
 				query = new Parse.Query(Parse.Object.extend('Product'));
 
-			$rootScope.products = [];
+			$scope.products = [];
 
-			var promise = query.find({
+			return query.find({
 				success: function(result) {
 					$.each(result, function(key, value) {
 						var product = {};
@@ -124,15 +124,13 @@ angular.module('ParseServices', ['toaster'])
 						product.available 		= value.get('available');
 						product.availableTxt 	= value.get('available') ? 'Disponível' : 'Reservado';
 
-						$rootScope.products.push(product);
+						$scope.products.push(product);
 					});
 				},
 				error: function(error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
-
-			return promise;
 		},
 
 		getGuests: function() {
@@ -164,8 +162,9 @@ angular.module('ParseServices', ['toaster'])
 		setProductNotAvailable: function(item) {
 			var Product = Parse.Object.extend("Product");
 			var query = new Parse.Query(Product);
+			var _this = this;
 
-			query.get(item.id, {
+			return query.get(item.id, {
 				success: function(item) {
 					item.set('available', false);
 					return item.save();
@@ -176,7 +175,7 @@ angular.module('ParseServices', ['toaster'])
 			});
 		},
 
-		saveGuest: function($scope) {
+		saveGuest: function($scope, $modal, toaster) {
 			var Guest = Parse.Object.extend("Guest");
 			var guest = new Guest(),
 				_this = this;
@@ -187,16 +186,18 @@ angular.module('ParseServices', ['toaster'])
 			guest.set('delivery', $scope.delivery);
 			guest.set('product',  $scope.item.id);
 			
-			var promise = guest.save(null, {
+			return guest.save(null, {
 				success: function(guest) {
-					_this.setProductNotAvailable($scope.item);
+					_this.setProductNotAvailable($scope.item).done(function() {
+						var text = "Obrigado " + $scope.name + ". Agradeçemos pelo carinho e até o casamento! ";
+						toaster.pop('success', "Presente confirmado!", text, 10000);
+						$modal.close();
+					});
 				},
 				error: function(guest, error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
-
-			return promise;
 		},
 
 		createProduct: function($scope) {

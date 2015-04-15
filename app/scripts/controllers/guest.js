@@ -3,8 +3,6 @@
 angular.module('myApp')
 
 .controller('GuestController', ['$rootScope', '$scope', 'ParseSDK', '$modal', function($rootScope, $scope, ParseService, $modal) {
-	
-	var start = true;
 
     $scope.IntroOptions = {
         steps:[{
@@ -36,17 +34,7 @@ angular.module('myApp')
     };
 
 	$scope.init = function() {
-		$scope.updateList();
-	};
-
-	$scope.updateList = function() {
-		ParseService.getProducts().done(function() {
-			$scope.products = $rootScope.products;
-			if (start) {
-				$scope.startIntro();
-				start = false;
-			}
-		});
+		ParseService.getProducts($scope);
 	};
 
 	$scope.selectItem = function(product) {
@@ -58,8 +46,7 @@ angular.module('myApp')
 				resolve: {
 					item: function() {
 						return product;
-					}, 
-
+					},
 					ParseService: function() {
 						return ParseService;
 					}
@@ -67,7 +54,7 @@ angular.module('myApp')
 			});
 
 			modalInstance.result.then(function () {
-				$scope.updateList();
+				ParseService.getProducts($scope);
 			});
 		}
 	};
@@ -75,8 +62,7 @@ angular.module('myApp')
 	$scope.moneyModal = function() {
 		var modalInstance = $modal.open({
 			templateUrl: 'giftModal.html',
-			controller: 'GiftModalController',
-			scope: $scope
+			controller: 'GiftModalController'
 		});
 	};
 }])
@@ -118,14 +104,8 @@ angular.module('myApp')
 	};
 
 	$scope.save = function () {
-		var _toaster = toaster,
-			promise = ParseService.saveGuest($scope);
-
-		promise.done(function() {
-			var text = "Obrigado " + $scope.name + ". Agradeçemos pelo carinho e até o casamento! ";
-			_toaster.pop('success', "Presente confirmado!", text, 10000);
-			$modalInstance.close();
-		});
+		$(".modal-footer input[type=button]").prop('disabled', 'true');
+		ParseService.saveGuest($scope, $modalInstance, toaster);
 	};
 
 	$scope.cancel = function () {
