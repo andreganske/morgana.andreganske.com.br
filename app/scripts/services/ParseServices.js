@@ -106,13 +106,13 @@ angular.module('ParseServices', ['toaster'])
 			return result;
 		},
 
-		getProducts: function() {
+		getProducts: function($scope) {
 			var _this = this,
 				query = new Parse.Query(Parse.Object.extend('Product'));
 
-			$rootScope.products = [];
+			$scope.products = [];
 
-			var promise = query.find({
+			return query.find({
 				success: function(result) {
 					$.each(result, function(key, value) {
 						var product = {};
@@ -124,22 +124,20 @@ angular.module('ParseServices', ['toaster'])
 						product.available 		= value.get('available');
 						product.availableTxt 	= value.get('available') ? 'Disponível' : 'Reservado';
 
-						$rootScope.products.push(product);
+						$scope.products.push(product);
 					});
 				},
 				error: function(error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
-
-			return promise;
 		},
 
-		getGuests: function() {
+		getGuests: function($scope) {
 			var _this = this,
 				query = new Parse.Query(Parse.Object.extend('Guest'));
 
-			$rootScope.guests = [];
+			$scope.guests = [];
 
 			return query.find({
 				success: function(result) {
@@ -152,7 +150,7 @@ angular.module('ParseServices', ['toaster'])
 						guest.phone 	= value.get('phone');
 						guest.delivery 	= value.get('delivery') === 'personal' ? 'Pessoalmente' : 'Via correio';
 
-						$rootScope.guests.push(guest);
+						$scope.guests.push(guest);
 					});
 				},
 				error: function(error) {
@@ -164,8 +162,9 @@ angular.module('ParseServices', ['toaster'])
 		setProductNotAvailable: function(item) {
 			var Product = Parse.Object.extend("Product");
 			var query = new Parse.Query(Product);
+			var _this = this;
 
-			query.get(item.id, {
+			return query.get(item.id, {
 				success: function(item) {
 					item.set('available', false);
 					return item.save();
@@ -176,7 +175,7 @@ angular.module('ParseServices', ['toaster'])
 			});
 		},
 
-		saveGuest: function($scope) {
+		saveGuest: function($scope, $modal, toaster) {
 			var Guest = Parse.Object.extend("Guest");
 			var guest = new Guest(),
 				_this = this;
@@ -187,19 +186,21 @@ angular.module('ParseServices', ['toaster'])
 			guest.set('delivery', $scope.delivery);
 			guest.set('product',  $scope.item.id);
 			
-			var promise = guest.save(null, {
+			return guest.save(null, {
 				success: function(guest) {
-					_this.setProductNotAvailable($scope.item);
+					_this.setProductNotAvailable($scope.item).done(function() {
+						var text = "Obrigado " + $scope.name + ". Agradeçemos pelo carinho e até o casamento! ";
+						toaster.pop('success', "Presente confirmado!", text, 10000);
+						$modal.close();
+					});
 				},
 				error: function(guest, error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
-
-			return promise;
 		},
 
-		createProduct: function($scope) {
+		createProduct: function($scope, $modalInstance, toaster) {
 			var Product = Parse.Object.extend("Product");
 			var product = new Product(),
 				_this = this;
@@ -209,23 +210,23 @@ angular.module('ParseServices', ['toaster'])
 			product.set('category', 	$scope.category.name);
 			product.set('available', 	true);
 			
-			var promise = product.save(null, {
+			return product.save(null, {
 				success: function(product) {
-					
+					var text = $scope.name + " adicionado a lista de casamento!";
+					toaster.pop('success', "Novo presente cadastrado!", text, 5000);
+					$modalInstance.close();
 				},
 				error: function(product, error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
-
-			return promise;
 		},
 
 		editProduct: function($scope) {
 			var Product = Parse.Object.extend("Product");
 			var query = new Parse.Query(Product);
 
-			var promise = query.get($scope.selection[0].id, {
+			return query.get($scope.selection[0].id, {
 				success: function(data) {
 					data.set('name', 		$scope.name);
 					data.set('description', $scope.description);
@@ -237,15 +238,30 @@ angular.module('ParseServices', ['toaster'])
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
-
-			return promise;
 		},
 
-		deleteProduct: function($scope) {
-			return Parse.Object.destroyAll($scope.selection).then(function(success) {},
-				function(error) {
-					alert("Error: " + error.code + " " + error.message);
+		deleteProduct: function($scope, toaster) {
+			var Product = Parse.Object.extend("Product");
+			var query = new Parse.Query(Product);
+
+			$.each($scope.selection, function(key, value) {
+				query.get(value.id, {
+					success: function(data) {
+						data.destroy({
+							success: function(object) {
+								var text = "O presentes " + object.get('name') + " foi removido com sucesso da lista de casamento!";
+								toaster.pop('success', "Presente removido", text, 2000);
+							},
+							error: function(object, error) {
+								alert("Error: " + error.code + " " + error.message);		
+							}
+						});
+					},
+					error: function(object, error) {
+						alert("Error: " + error.code + " " + error.message);		
+					}
 				});
+			});
 		}
 	};
 

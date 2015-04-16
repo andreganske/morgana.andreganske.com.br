@@ -3,11 +3,11 @@
 angular.module('myApp')
 
 .controller('GuestController', ['$rootScope', '$scope', 'ParseSDK', '$modal', function($rootScope, $scope, ParseService, $modal) {
-	
+
     $scope.IntroOptions = {
         steps:[{
         		element: '#welcome',
-        		intro: "Olá! Bem vindo à nossa lista de casamento! Esta é uma pequena introdução sobre como ela funciona. Para sair, clique em qualquer lugar da tela ou no botão de sair aqui em baixo. <strong>Para continuar, clique em próximo ;)</strong>"
+        		intro: "Olá! Bem vindo à nossa lista de casamento! Esta é uma pequena introdução sobre como ela funciona. <strong>Para continuar, clique em próximo,</strong> ou use o botão de sair aqui em baixo."
 	        },{
 	            element: '#step1',
 	            intro: "Caso deseje, você poderá nos presentear com <strong>valores em dinheiro</strong>. Aqui você encontrará as informações necessárias"
@@ -16,31 +16,25 @@ angular.module('myApp')
 	            intro: "<strong>Categorias:</strong> Para facilitar, separamos os presentes em cinco categorias. Desta forma, ficará mais fácil encontrar o presente certo xD"
 	        },{
 	            element: '#step2',
-	            intro: '<strong>Presentes:</strong> As linhas em verde significam que o presente está disponível. Para selecioná-lo, clique nele. Preencha o formulário com algumas informações e confirme o presente.'
+	            intro: "<strong>Presentes:</strong> As linhas em verde significam que o presente está disponível. Para selecioná-lo, clique nele. Preencha o formulário com suas informações e confirme o presente."
 	        },{
 	            element: '#step4',
-	            intro: 'Utilize este campo para buscar presentes em todas as categorias'
+	            intro: "Utilize este campo para buscar presentes em todas as categorias"
 	        },{
 	            element: '#step5',
-	            intro: 'Muito obrigado por nos ajudar a construir nosso novo lar :)'
+	            intro: "<h4>Muito obrigado por nos ajudar a construir nosso novo lar :)</h4>"
 	        }],
         showStepNumbers: false,
         exitOnOverlayClick: true,
         exitOnEsc: true,
-        nextLabel: '<strong>Próximo!</strong>',
+        nextLabel: '<strong>Próximo</strong>',
         prevLabel: 'Anterior',
         skipLabel: 'Sair',
-        doneLabel: 'Pronto!'
+        doneLabel: 'Concluído'
     };
 
 	$scope.init = function() {
-		$scope.updateList();
-	};
-
-	$scope.updateList = function() {
-		ParseService.getProducts().done(function() {
-			$scope.products = $rootScope.products;
-		});
+		ParseService.getProducts($scope);
 	};
 
 	$scope.selectItem = function(product) {
@@ -52,8 +46,7 @@ angular.module('myApp')
 				resolve: {
 					item: function() {
 						return product;
-					}, 
-
+					},
 					ParseService: function() {
 						return ParseService;
 					}
@@ -61,7 +54,7 @@ angular.module('myApp')
 			});
 
 			modalInstance.result.then(function () {
-				$scope.updateList();
+				ParseService.getProducts($scope);
 			});
 		}
 	};
@@ -69,8 +62,7 @@ angular.module('myApp')
 	$scope.moneyModal = function() {
 		var modalInstance = $modal.open({
 			templateUrl: 'giftModal.html',
-			controller: 'GiftModalController',
-			scope: $scope
+			controller: 'GiftModalController'
 		});
 	};
 }])
@@ -112,14 +104,8 @@ angular.module('myApp')
 	};
 
 	$scope.save = function () {
-		var _toaster = toaster,
-			promise = ParseService.saveGuest($scope);
-
-		promise.done(function() {
-			var text = "Obrigado " + $scope.name + ". Agradeçemos pelo carinho e até o casamento! ";
-			_toaster.pop('success', "Presente confirmado!", text, 10000);
-			$modalInstance.close();
-		});
+		$(".modal-footer input[type=button]").prop('disabled', 'true');
+		ParseService.saveGuest($scope, $modalInstance, toaster);
 	};
 
 	$scope.cancel = function () {
