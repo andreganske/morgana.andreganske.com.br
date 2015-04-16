@@ -56,6 +56,8 @@ angular.module('myApp')
 	};
 
 	$scope.new = function() {
+		$scope.selection = [];
+		
 		var modalInstance = $modal.open({
 			templateUrl: 'newGift.html',
 			controller: 'NewGiftController',
@@ -120,7 +122,7 @@ angular.module('myApp')
 
 	$scope.showInfo = false;
 
-	if (action != 'create' && $scope.selection.length == 1) {
+	if ($scope.selection.length == 1) {
 		$scope.name = $scope.selection[0].name;
 		$scope.description = $scope.selection[0].description;
 		$scope.category = $scope.selection[0].category;
