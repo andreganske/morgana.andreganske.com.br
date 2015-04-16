@@ -32,15 +32,11 @@ angular.module('myApp')
 	};
 
 	$scope.updateGifts = function() {
-		ParseService.getProducts().done(function() {
-			$scope.products = $rootScope.products;
-		});
+		ParseService.getProducts($scope);
 	};
 
 	$scope.updateGuests = function() {
-		ParseService.getGuests().done(function() {
-			$scope.guests = $rootScope.guests;
-		});
+		ParseService.getGuests($scope);
 	};	
 
 	$scope.viewGifts = function() {
@@ -72,10 +68,6 @@ angular.module('myApp')
 					return 'create';
 				}
 			}
-		});
-
-		modalInstance.result.then(function () {
-			$scope.updateGifts();
 		});
 	};
 
@@ -109,27 +101,17 @@ angular.module('myApp')
 					}
 				}
 			});
-
-			modalInstance.result.then(function () {
-				$scope.updateGifts();
-			});
 		}
 	};
 
 	$scope.delete = function() {
 		this.getSelected();
-
-		ParseService.deleteProduct($scope).done(function() {
-			var text = "Os presentes selecionados foram removidos com sucesso da lista de casamento!";
-			toaster.pop('success', "Presentes removidos", text, 5000);
-			$modalInstance.close();
-		});
+		ParseService.deleteProduct($scope, toaster);
 	};
 }])
 
 .controller('NewGiftController', function($rootScope, $scope, $modalInstance, ParseService, toaster, action) {
 
-	$('#formError').alert();
 	$scope.showInfo = false;
 
 	if ($scope.selection.length == 1) {
@@ -155,22 +137,19 @@ angular.module('myApp')
 	};
 
 	$scope.save = function () {
-		var _toaster = toaster,
-			promise = ParseService.createProduct($scope);
-
-		promise.done(function() {
+		ParseService.createProduct($scope).done(function() {
 			var text = $scope.name + " adicionado a lista de casamento!";
 			_toaster.pop('success', "Novo presente cadastrado!", text, 5000);
+			ParseService.getGuests($scope);
 			$modalInstance.close();
 		});
 	};
 
 	$scope.edit = function () {
-		var promise = ParseService.editProduct($scope);
-
-		promise.done(function() {
+		ParseService.editProduct($scope).done(function() {
 			var text = $scope.name + " foi alterado e já está disponível na lista de casamento!";
 			toaster.pop('success', "Presente alterado com sucesso!", text, 5000);
+			ParseService.getGuests($scope);
 			$modalInstance.close();
 		});
 	};

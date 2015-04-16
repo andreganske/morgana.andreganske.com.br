@@ -133,11 +133,11 @@ angular.module('ParseServices', ['toaster'])
 			});
 		},
 
-		getGuests: function() {
+		getGuests: function($scope) {
 			var _this = this,
 				query = new Parse.Query(Parse.Object.extend('Guest'));
 
-			$rootScope.guests = [];
+			$scope.guests = [];
 
 			return query.find({
 				success: function(result) {
@@ -150,7 +150,7 @@ angular.module('ParseServices', ['toaster'])
 						guest.phone 	= value.get('phone');
 						guest.delivery 	= value.get('delivery') === 'personal' ? 'Pessoalmente' : 'Via correio';
 
-						$rootScope.guests.push(guest);
+						$scope.guests.push(guest);
 					});
 				},
 				error: function(error) {
@@ -210,23 +210,19 @@ angular.module('ParseServices', ['toaster'])
 			product.set('category', 	$scope.category.name);
 			product.set('available', 	true);
 			
-			var promise = product.save(null, {
-				success: function(product) {
-					
-				},
+			return product.save(null, {
+				success: function(product) {},
 				error: function(product, error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
-
-			return promise;
 		},
 
 		editProduct: function($scope) {
 			var Product = Parse.Object.extend("Product");
 			var query = new Parse.Query(Product);
 
-			var promise = query.get($scope.selection[0].id, {
+			return query.get($scope.selection[0].id, {
 				success: function(data) {
 					data.set('name', 		$scope.name);
 					data.set('description', $scope.description);
@@ -238,15 +234,30 @@ angular.module('ParseServices', ['toaster'])
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
-
-			return promise;
 		},
 
-		deleteProduct: function($scope) {
-			return Parse.Object.destroyAll($scope.selection).then(function(success) {},
-				function(error) {
-					alert("Error: " + error.code + " " + error.message);
+		deleteProduct: function($scope, toaster) {
+			var Product = Parse.Object.extend("Product");
+			var query = new Parse.Query(Product);
+
+			$.each($scope.selection, function(key, value) {
+				query.get(value.id, {
+					success: function(data) {
+						data.destroy({
+							success: function(object) {
+								var text = "O presentes " + object.get('name') + " foi removido com sucesso da lista de casamento!";
+								toaster.pop('success', "Presente removido", text, 2000);
+							},
+							error: function(object, error) {
+								alert("Error: " + error.code + " " + error.message);		
+							}
+						});
+					},
+					error: function(object, error) {
+						alert("Error: " + error.code + " " + error.message);		
+					}
 				});
+			});
 		}
 	};
 
