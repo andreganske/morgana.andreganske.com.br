@@ -69,6 +69,9 @@ angular.module('myApp')
 				}
 			}
 		});
+		modalInstance.result.then(function () {
+			$scope.updateGifts();
+		});
 	};
 
 	$scope.getSelected = function() {
@@ -101,6 +104,9 @@ angular.module('myApp')
 					}
 				}
 			});
+			modalInstance.result.then(function () {
+				$scope.updateGifts();
+			});
 		}
 	};
 
@@ -114,7 +120,7 @@ angular.module('myApp')
 
 	$scope.showInfo = false;
 
-	if ($scope.selection.length == 1) {
+	if (action != 'create' && $scope.selection.length == 1) {
 		$scope.name = $scope.selection[0].name;
 		$scope.description = $scope.selection[0].description;
 		$scope.category = $scope.selection[0].category;
@@ -137,12 +143,7 @@ angular.module('myApp')
 	};
 
 	$scope.save = function () {
-		ParseService.createProduct($scope).done(function() {
-			var text = $scope.name + " adicionado a lista de casamento!";
-			_toaster.pop('success', "Novo presente cadastrado!", text, 5000);
-			ParseService.getGuests($scope);
-			$modalInstance.close();
-		});
+		ParseService.createProduct($scope, $modalInstance, toaster);
 	};
 
 	$scope.edit = function () {

@@ -200,7 +200,7 @@ angular.module('ParseServices', ['toaster'])
 			});
 		},
 
-		createProduct: function($scope) {
+		createProduct: function($scope, $modalInstance, toaster) {
 			var Product = Parse.Object.extend("Product");
 			var product = new Product(),
 				_this = this;
@@ -211,7 +211,11 @@ angular.module('ParseServices', ['toaster'])
 			product.set('available', 	true);
 			
 			return product.save(null, {
-				success: function(product) {},
+				success: function(product) {
+					var text = $scope.name + " adicionado a lista de casamento!";
+					toaster.pop('success', "Novo presente cadastrado!", text, 5000);
+					$modalInstance.close();
+				},
 				error: function(product, error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
