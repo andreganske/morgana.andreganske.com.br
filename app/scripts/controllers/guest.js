@@ -7,22 +7,23 @@ angular.module('myApp')
     $scope.IntroOptions = {
         steps:[{
         		element: '#welcome',
-        		intro: "Olá! Bem vindo à nossa lista de casamento! Esta é uma pequena introdução sobre como ela funciona. <strong>Para continuar, clique em próximo,</strong> ou use o botão de sair aqui em baixo."
+        		intro: "<h5>Olá! Bem vindo à nossa lista de casamento! Esta é uma pequena introdução sobre como ela funciona. <strong>Para continuar, clique em próximo,</strong> ou use o botão de sair aqui em baixo.</h5>"
 	        },{
 	            element: '#step1',
-	            intro: "Caso deseje, você poderá nos presentear com <strong>valores em dinheiro</strong>. Aqui você encontrará as informações necessárias"
+	            intro: "<h5>Caso deseje, você poderá nos presentear com <strong>valores em dinheiro</strong>. Aqui você encontrará as informações necessárias</h5>",
+	            position: 'right'
 	        },{
 	            element: '#step2',
-	            intro: "<strong>Categorias:</strong> Para facilitar, separamos os presentes em cinco categorias. Desta forma, ficará mais fácil encontrar o presente certo xD"
+	            intro: "<h5><strong>Categorias:</strong> Para facilitar, separamos os presentes em cinco categorias. Desta forma, ficará mais fácil encontrar o presente certo xD</h5>"
 	        },{
 	            element: '#step2',
-	            intro: "<strong>Presentes:</strong> As linhas em verde significam que o presente está disponível. Para selecioná-lo, clique nele. Preencha o formulário com suas informações e confirme o presente."
+	            intro: "<h5><strong>Presentes:</strong> As linhas em verde significam que o presente está disponível. Para selecioná-lo, clique nele. Preencha o formulário com suas informações e confirme o presente.</h5>"
 	        },{
 	            element: '#step4',
-	            intro: "Utilize este campo para buscar presentes em todas as categorias"
+	            intro: "<h5>Utilize este campo para buscar presentes em todas as categorias</h5>"
 	        },{
 	            element: '#step5',
-	            intro: "<h4>Muito obrigado por nos ajudar a construir nosso novo lar :)</h4>"
+	            intro: "<h5>Muito obrigado por nos ajudar a construir nosso novo lar :)</h5>"
 	        }],
         showStepNumbers: false,
         exitOnOverlayClick: true,

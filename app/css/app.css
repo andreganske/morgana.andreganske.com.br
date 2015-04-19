@@ -183,3 +183,7 @@ td .select {
 	height: 100px;
 	margin-top: 20px;
 }
+
+.introjs-tooltiptext h5 {
+	line-height: 25px !important;
+}
