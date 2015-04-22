@@ -16,6 +16,7 @@ angular.module('myApp')
 	$scope.categories = ParseService.categories;
 
 	$scope.init = function() {
+		ParseService.validateLoggedUser();
 		$scope.viewGifts();
 	},
 
