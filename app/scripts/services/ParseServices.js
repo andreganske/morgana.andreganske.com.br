@@ -57,8 +57,9 @@ angular.module('ParseServices', ['toaster'])
 		},
 
 		validateLoggedUser: function() {
-			if ($rootScope.logged) {
-				if ($rootScope.isAdmin) {
+			var currentUser = Parse.User.current();
+			if (currentUser != undefined) {
+				if (currentUser.get('isAdmin')) {
 					$location.path("/admin");
 				} else {
 					$location.path("/guest");
