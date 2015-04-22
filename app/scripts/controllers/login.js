@@ -40,10 +40,7 @@ angular.module('myApp')
 	$scope.logoff = function() {
 		ParseService.logout();
 	};
-
-	$scope.validateLoggedUser = function() {
-		ParseService.validateLoggedUser();
-	}
+	
 }])
 
 .controller('LoginModalController', function($rootScope, $scope, $modalInstance, ParseService) {
