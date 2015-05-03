@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "_default": {
+            "link": "morgana.andreganske.com.br"
+        }, 
+        "morgana.andreganske.com.br": {
+            "applicationId": "co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", 
+            "masterKey": "fGrG0i41rm8p52wgOOkFLGii0J95mHYpLCtIZjAH"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.4.2"
+    }
+}

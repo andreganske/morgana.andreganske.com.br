@@ -192,6 +192,7 @@ angular.module('ParseServices', ['toaster'])
 					_this.setProductNotAvailable($scope.item).done(function() {
 						var text = "Obrigado " + $scope.name + ". Agradeçemos pelo carinho e até o casamento! ";
 						toaster.pop('success', "Presente confirmado!", text, 10000);
+						_this.sendConfirmationEmail($scope);
 						$modal.close();
 					});
 				},
@@ -259,9 +260,21 @@ angular.module('ParseServices', ['toaster'])
 						});
 					},
 					error: function(object, error) {
-						alert("Error: " + error.code + " " + error.message);		
+						alert("Error: " + error.code + " " + error.message);
 					}
 				});
+			});
+		},
+
+		sendConfirmationEmail: function($scope) {
+			Parse.Cloud.run('sendConfirmationEmail', {email: $scope.email, name: $scope.name, gift: $scope.item.name}, {
+				success: function(result) {
+					var text = "Email de confirmação enviado com sucesso!";
+					toaster.pop('success', "Email enviado", text, 5000);
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
 			});
 		}
 	};
