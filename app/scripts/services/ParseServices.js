@@ -4,8 +4,7 @@ angular.module('ParseServices', ['toaster'])
 
 .factory('ParseSDK', function($rootScope, $location, $route, toaster) {
 
-	//Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
-	Parse.initialize("HEILUzQUUjtAwjJcjO9wVpCHeEaPVpYJzEmDybgx", "71vRVduGDwNKeBwV0jt4a8iKP7rm1F0Crej2xPqu");
+	Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
 
 	var service = {
 
