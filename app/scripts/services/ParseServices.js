@@ -190,7 +190,7 @@ angular.module('ParseServices', ['toaster'])
 			return guest.save(null, {
 				success: function(guest) {
 					_this.setProductNotAvailable($scope.item).done(function() {
-						var text = "Obrigado " + $scope.name + ". Agradeçemos pelo carinho e até o casamento! ";
+						var text = "Obrigado " + $scope.name + ". Agradecemos pelo carinho e até o casamento! ";
 						toaster.pop('success', "Presente confirmado!", text, 10000);
 						_this.sendConfirmationEmail($scope);
 						$modal.close();
