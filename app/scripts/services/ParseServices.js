@@ -25,6 +25,7 @@ angular.module('ParseServices', ['toaster'])
 				params.allowLogin = config.get("allow_login");
 				params.allowSingin = config.get("allow_singin");
 				params.useAnalytics = config.get("use_analytics");
+				params.sendEmail = config.get("send_email");
 			}, function(error) {
 				Parse.Analytics.track('error', { code: '' + error.code });
 				var config = Parse.Config.current();
@@ -32,10 +33,12 @@ angular.module('ParseServices', ['toaster'])
 					params.allowLogin = false;
 					params.allowSingin = false;
 					params.useAnalytics = false;
+					params.sendEmail = false;
 				} else {
 					params.allowLogin = config.get("allowLogin");
 					params.allowSingin = config.get("allowSingin");
 					params.useAnalytics = config.get("useAnalytics");
+					params.sendEmail = config.get("send_email");
 				}
 			});
 
@@ -43,6 +46,7 @@ angular.module('ParseServices', ['toaster'])
 				$rootScope.allowLogin = params.allowLogin ? true : false;
 				$rootScope.allowSingin = params.allowSingin ? true : false;
 				$rootScope.useAnalytics = params.useAnalytics ? true : false;
+				$rootScope.sendEmail = params.sendEmail ? true : false;
 
 				var currentUser = Parse.User.current();
 				if (currentUser != undefined) {
@@ -256,15 +260,17 @@ angular.module('ParseServices', ['toaster'])
 		},
 
 		sendConfirmationEmail: function($scope) {
-			Parse.Cloud.run('sendConfirmationEmail', {email: $scope.email, name: $scope.name, gift: $scope.item.name}, {
-				success: function(result) {
-					var text = "Email de confirmação enviado com sucesso!";
-					toaster.pop('success', "Email enviado", text, 5000);
-				},
-				error: function(error) {
-					alert("Error: " + error.code + " " + error.message);
-				}
-			});
+			if ($rootScope.sendEmail) {
+				Parse.Cloud.run('sendConfirmationEmail', {email: $scope.email, name: $scope.name, gift: $scope.item.name}, {
+					success: function(result) {
+						var text = "Email de confirmação enviado com sucesso!";
+						toaster.pop('success', "Email enviado", text, 5000);
+					},
+					error: function(error) {
+						alert("Error: " + error.code + " " + error.message);
+					}
+				});
+			}
 		},
 
 		setCounters: function($scope) {
