@@ -157,6 +157,7 @@ angular.module('ParseServices', ['toaster'])
 						guest.email 	= value.get('guest').get('email');
 						guest.phone 	= value.get('guest').get('phone');
 						guest.gift 		= value.get('name');
+						guest.updatedAt	= value.updatedAt;
 						guest.delivery 	= value.get('guest').get('delivery') === 'personal' ? 'Pessoalmente' : 'Via correio';
 
 						$scope.guests.push(guest);
@@ -167,36 +168,6 @@ angular.module('ParseServices', ['toaster'])
 				}
 			});
 		},
-
-		/*getGuests: function($scope) {
-			var _this = this,
-				query = new Parse.Query(Parse.Object.extend('Guest'));
-
-			$scope.guests = [];
-
-			query.descending("updatedAt");
-			query.include("product");
-
-			return query.find({
-				success: function(result) {
-					$.each(result, function(key, value) {
-						var guest = {};
-
-						guest.id 		= value.id;
-						guest.name 		= value.get('name');
-						guest.email 	= value.get('email');
-						guest.phone 	= value.get('phone');
-						guest.gift 		= value.get('product.name');
-						guest.delivery 	= value.get('delivery') === 'personal' ? 'Pessoalmente' : 'Via correio';
-
-						$scope.guests.push(guest);
-					});
-				},
-				error: function(error) {
-					alert("Error: " + error.code + " " + error.message);	
-				}
-			});
-		},*/
 
 		saveGuest: function($scope, $modal, toaster) {
 			var _this = this,

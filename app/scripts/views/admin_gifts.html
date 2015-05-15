@@ -26,11 +26,11 @@
 
 			<tbody>
 				<tr ng-repeat="product in products | filter:q as results" ng-class="{success: product.available, active: product.selected}" ng-click="toggle(product)">
-					<td class="col-md-1"><input ng-model="product.selected" type="checkbox"></td>
-					<td class="col-md-2">{{product.category.description}}</td>
-					<td class="col-md-2">{{product.name}}</td>
+					<td><input ng-model="product.selected" type="checkbox" ng-click="toggle(product)"></td>
+					<td class="col-md-3">{{product.category.description}}</td>
+					<td class="col-md-4">{{product.name}}</td>
 					<td class="col-md-4">{{product.description}}</td>
-					<td class="col-md-1">{{product.availableTxt}}</td>
+					<td class="col-md-2">{{product.availableTxt}}</td>
 				</tr>
 			</tbody>
 		</table>
