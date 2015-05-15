@@ -112,10 +112,12 @@ angular.module('ParseServices', ['toaster'])
 		},
 
 		getProducts: function($scope) {
+			$scope.products = [];
+
 			var _this = this,
 				query = new Parse.Query(Parse.Object.extend('Product'));
 
-			$scope.products = [];
+			query.ascending("name");
 
 			return query.find({
 				success: function(result) {
