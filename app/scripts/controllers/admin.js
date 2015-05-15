@@ -3,8 +3,6 @@
 angular.module('myApp')
 
 .controller('AdminController', ['$rootScope', '$scope', 'ParseSDK', '$modal', '$location', 'toaster', function($rootScope, $scope, ParseService, $modal, $location, toaster) {
-
-	$scope.tab = 0;
 	
 	$scope.selection = [];
 
@@ -15,20 +13,15 @@ angular.module('myApp')
 
 	$scope.init = function() {
 		ParseService.validateLoggedUser();
+
 		$scope.updateGifts();
 		$scope.updateGuests();
+
+		ParseService.setCounters($scope);
 	},
 
 	$scope.toggle = function (product) {
 		product.selected = !product.selected;
-	};
-
-	$scope.changeTab = function(newTab) {
-		$scope.tab = newTab;
-	};
-
-	$scope.isActiveTab = function(tab) {
-		return $scope.tab === tab;
 	};
 
 	$scope.updateGifts = function() {

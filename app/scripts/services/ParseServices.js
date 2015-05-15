@@ -4,8 +4,8 @@ angular.module('ParseServices', ['toaster'])
 
 .factory('ParseSDK', function($rootScope, $location, $route, toaster) {
 
-	Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
-	//Parse.initialize("HEILUzQUUjtAwjJcjO9wVpCHeEaPVpYJzEmDybgx", "71vRVduGDwNKeBwV0jt4a8iKP7rm1F0Crej2xPqu");
+	//Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
+	Parse.initialize("HEILUzQUUjtAwjJcjO9wVpCHeEaPVpYJzEmDybgx", "71vRVduGDwNKeBwV0jt4a8iKP7rm1F0Crej2xPqu");
 
 	var service = {
 
@@ -18,7 +18,6 @@ angular.module('ParseServices', ['toaster'])
 		],
 
 		getConfig: function() {
-			
 			var params = {};
 			var _this = this;
 
@@ -161,43 +160,30 @@ angular.module('ParseServices', ['toaster'])
 			});
 		},
 
-		setProductNotAvailable: function(item) {
-			var Product = Parse.Object.extend("Product");
-			var query = new Parse.Query(Product);
-			var _this = this;
-
-			return query.get(item.id, {
-				success: function(item) {
-					item.set('available', false);
-					return item.save();
-				},
-				error: function(object, error) {
-					alert("Error: " + error.code + " " + error.message);
-				}
-			});
-		},
-
 		saveGuest: function($scope, $modal, toaster) {
-			var Guest = Parse.Object.extend("Guest");
-			var guest = new Guest(),
-				_this = this;
-				
-			guest.set('name', 	  $scope.name);
-			guest.set('email', 	  $scope.email);
-			guest.set('phone', 	  $scope.phone);
-			guest.set('delivery', $scope.delivery);
-			guest.set('product',  $scope.item.id);
-			
-			return guest.save(null, {
-				success: function(guest) {
-					_this.setProductNotAvailable($scope.item).done(function() {
+			var _this = this,
+				Gift = Parse.Object.extend("Product");
+
+			new Parse.Query(Gift).get($scope.item.id, {
+				success: function(item) {
+					var guest = new (Parse.Object.extend("Guest"));
+						
+					guest.set('name', 	  $scope.name);
+					guest.set('email', 	  $scope.email);
+					guest.set('phone', 	  $scope.phone);
+					guest.set('delivery', $scope.delivery);
+					
+					item.set('available', false);
+					item.set("guest", guest);
+
+					item.save().done(function() {
 						var text = "Obrigado " + $scope.name + ". Agradecemos pelo carinho e até o casamento! ";
 						toaster.pop('success', "Presente confirmado!", text, 10000);
 						_this.sendConfirmationEmail($scope);
 						$modal.close();
 					});
 				},
-				error: function(guest, error) {
+				error: function(object, error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
@@ -274,6 +260,40 @@ angular.module('ParseServices', ['toaster'])
 				success: function(result) {
 					var text = "Email de confirmação enviado com sucesso!";
 					toaster.pop('success', "Email enviado", text, 5000);
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+		},
+
+		setCounters: function($scope) {
+			this.countGuests($scope);
+			this.countProduct($scope);
+		},
+
+		countGuests: function($scope) {
+			var query = new Parse.Query(Parse.Object.extend('Guest'));
+
+			query.count({
+				success: function(count) {
+					$scope.count_guest = count;
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+		},
+
+		countProduct: function($scope) {
+			var query = new Parse.Query(Parse.Object.extend('Product'));
+
+			query.equalTo("available", false);
+
+
+			query.count({
+				success: function(count) {
+					$scope.count_gifts = count;
 				},
 				error: function(error) {
 					alert("Error: " + error.code + " " + error.message);
