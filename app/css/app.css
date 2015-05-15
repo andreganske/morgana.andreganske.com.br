@@ -187,3 +187,22 @@ td .select {
 .introjs-tooltiptext h5 {
 	line-height: 25px !important;
 }
+
+#resume {
+	margin: 10px 0;
+	padding-top: 15px;
+}
+
+#new-gift .btn {
+	width: 100%;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+#views {
+	padding-top: 15px;
+}
+
+.admin-view {
+	padding-top: 20px;
+}

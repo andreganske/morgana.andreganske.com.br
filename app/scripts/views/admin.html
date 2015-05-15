@@ -24,22 +24,38 @@
 	<toaster-container toaster-options="{'position-class': 'toast-top-center', 'close-button': 'true'}"></toaster-container>
 
 	<div class="row">
-		<div class="col-sm-3 col-md-2 sidebar">
-			<ul class="nav nav-sidebar">				
-				<li><a href="" ng-click="viewGifts()">Presentes</a></li>
-				<li><a href="" ng-click="viewGuests()">Convidados</a></li>
-			</ul>
-		</div>
 
-		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<div class="col-md-12">
 			<div class="page-header">
-				<div class="row">
-					<h3>{{pageheader}}</h3>
-				</div>
+				<ol class="breadcrumb pull-right">
+					<li><a href="#">Principal</a></li>
+					<li class="active ng-binding">{{pageheader}}</li>
+				</ol>
+				<h4>Administração da nossa lista de casamento <span class="glyphicon glyphicon-heart"></span></h4>
 			</div>
 
 			<div class="tab-content">
-				<div class="slide-animate" ng-include="template.url"></div>
+				<div class="row bg-success">
+					<div class="col-md-8" id="resume">
+						<div class="col-md-6">
+							<h5 class="ng-binding">Convidados registrados: <strong>{{count_guest}}</strong></h5>
+						</div>
+						<div class="col-md-6">
+							<h5 class="ng-binding">Presentes registrados: <strong>{{count_gifts}}</strong></h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-12" id="views">
+					<tabset>
+						<tab heading="Convidados">
+							<div ng-include="'app/scripts/views/admin_guests.html'"></div>
+						</tab>
+						<tab heading="Presentes">
+							<div ng-include="'app/scripts/views/admin_gifts.html'"></div>
+						</tab>
+					</tabset>				
+				</div>
 			</div>
 		</div>
 	</div>

@@ -5,6 +5,7 @@ angular.module('ParseServices', ['toaster'])
 .factory('ParseSDK', function($rootScope, $location, $route, toaster) {
 
 	Parse.initialize("co1z3OCpRS8Ue4JBeNRmWsvj2V48sfSym0kxbCmh", "JQSS4X7cFaqA9MWlu6K4pGmoN4mFzYC9SmfizSvU");
+	//Parse.initialize("HEILUzQUUjtAwjJcjO9wVpCHeEaPVpYJzEmDybgx", "71vRVduGDwNKeBwV0jt4a8iKP7rm1F0Crej2xPqu");
 
 	var service = {
 
@@ -216,7 +217,9 @@ angular.module('ParseServices', ['toaster'])
 				success: function(product) {
 					var text = $scope.name + " adicionado a lista de casamento!";
 					toaster.pop('success', "Novo presente cadastrado!", text, 5000);
-					$modalInstance.close();
+					if ($modalInstance) {
+						$modalInstance.close();
+					}
 				},
 				error: function(product, error) {
 					alert("Error: " + error.code + " " + error.message);

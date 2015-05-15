@@ -8,16 +8,15 @@ angular.module('myApp')
 	
 	$scope.selection = [];
 
-	$scope.templates = [
-		{ name: 'gifts', url: 'app/scripts/views/admin_gifts.html'},
-		{ name: 'guest', url: 'app/scripts/views/admin_guests.html'}
-	];
+	$scope.count_guest = 0;
+	$scope.count_gifts = 0;	
 
 	$scope.categories = ParseService.categories;
 
 	$scope.init = function() {
 		ParseService.validateLoggedUser();
-		$scope.viewGifts();
+		$scope.updateGifts();
+		$scope.updateGuests();
 	},
 
 	$scope.toggle = function (product) {
@@ -39,18 +38,6 @@ angular.module('myApp')
 	$scope.updateGuests = function() {
 		ParseService.getGuests($scope);
 	};	
-
-	$scope.viewGifts = function() {
-		$scope.pageheader = 'Nossos presentes';
-		$scope.template = $scope.templates[0];
-		$scope.updateGifts();
-	};
-
-	$scope.viewGuests = function() {
-		$scope.pageheader = 'Nossos convidados';
-		$scope.template = $scope.templates[1];
-		$scope.updateGuests();
-	};
 
 	$scope.logoff = function() {
 		ParseService.logout();
