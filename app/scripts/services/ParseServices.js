@@ -280,7 +280,6 @@ angular.module('ParseServices', ['toaster'])
 
 		countGuests: function($scope) {
 			var query = new Parse.Query(Parse.Object.extend('Guest'));
-
 			query.count({
 				success: function(count) {
 					$scope.count_guest = count;
@@ -293,10 +292,7 @@ angular.module('ParseServices', ['toaster'])
 
 		countProduct: function($scope) {
 			var query = new Parse.Query(Parse.Object.extend('Product'));
-
-			query.equalTo("available", false);
-
-
+			query.exists("guest");
 			query.count({
 				success: function(count) {
 					$scope.count_gifts = count;
