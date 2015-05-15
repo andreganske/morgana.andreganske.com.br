@@ -17,7 +17,6 @@ angular.module('ParseServices', ['toaster'])
 		],
 
 		getConfig: function() {
-			
 			var params = {};
 			var _this = this;
 
@@ -25,6 +24,7 @@ angular.module('ParseServices', ['toaster'])
 				params.allowLogin = config.get("allow_login");
 				params.allowSingin = config.get("allow_singin");
 				params.useAnalytics = config.get("use_analytics");
+				params.sendEmail = config.get("send_email");
 			}, function(error) {
 				Parse.Analytics.track('error', { code: '' + error.code });
 				var config = Parse.Config.current();
@@ -32,10 +32,12 @@ angular.module('ParseServices', ['toaster'])
 					params.allowLogin = false;
 					params.allowSingin = false;
 					params.useAnalytics = false;
+					params.sendEmail = false;
 				} else {
 					params.allowLogin = config.get("allowLogin");
 					params.allowSingin = config.get("allowSingin");
 					params.useAnalytics = config.get("useAnalytics");
+					params.sendEmail = config.get("send_email");
 				}
 			});
 
@@ -43,6 +45,7 @@ angular.module('ParseServices', ['toaster'])
 				$rootScope.allowLogin = params.allowLogin ? true : false;
 				$rootScope.allowSingin = params.allowSingin ? true : false;
 				$rootScope.useAnalytics = params.useAnalytics ? true : false;
+				$rootScope.sendEmail = params.sendEmail ? true : false;
 
 				var currentUser = Parse.User.current();
 				if (currentUser != undefined) {
@@ -108,10 +111,12 @@ angular.module('ParseServices', ['toaster'])
 		},
 
 		getProducts: function($scope) {
+			$scope.products = [];
+
 			var _this = this,
 				query = new Parse.Query(Parse.Object.extend('Product'));
 
-			$scope.products = [];
+			query.ascending("name");
 
 			return query.find({
 				success: function(result) {
@@ -135,68 +140,60 @@ angular.module('ParseServices', ['toaster'])
 		},
 
 		getGuests: function($scope) {
-			var _this = this,
-				query = new Parse.Query(Parse.Object.extend('Guest'));
-
 			$scope.guests = [];
+
+			var query = new Parse.Query(Parse.Object.extend('Product'));
+			
+			query.descending("updatedAt");
+			query.exists("guest");
+			query.include("guest");
 
 			return query.find({
 				success: function(result) {
 					$.each(result, function(key, value) {
 						var guest = {};
 
-						guest.id 		= value.id;
-						guest.name 		= value.get('name');
-						guest.email 	= value.get('email');
-						guest.phone 	= value.get('phone');
-						guest.delivery 	= value.get('delivery') === 'personal' ? 'Pessoalmente' : 'Via correio';
+						guest.id 		= value.get('guest').id;
+						guest.name 		= value.get('guest').get('name');
+						guest.email 	= value.get('guest').get('email');
+						guest.phone 	= value.get('guest').get('phone');
+						guest.gift 		= value.get('name');
+						guest.updatedAt	= value.updatedAt;
+						guest.delivery 	= value.get('guest').get('delivery') === 'personal' ? 'Pessoalmente' : 'Via correio';
 
 						$scope.guests.push(guest);
 					});
 				},
 				error: function(error) {
-					alert("Error: " + error.code + " " + error.message);	
-				}
-			});
-		},
-
-		setProductNotAvailable: function(item) {
-			var Product = Parse.Object.extend("Product");
-			var query = new Parse.Query(Product);
-			var _this = this;
-
-			return query.get(item.id, {
-				success: function(item) {
-					item.set('available', false);
-					return item.save();
-				},
-				error: function(object, error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
 		},
 
 		saveGuest: function($scope, $modal, toaster) {
-			var Guest = Parse.Object.extend("Guest");
-			var guest = new Guest(),
-				_this = this;
-				
-			guest.set('name', 	  $scope.name);
-			guest.set('email', 	  $scope.email);
-			guest.set('phone', 	  $scope.phone);
-			guest.set('delivery', $scope.delivery);
-			guest.set('product',  $scope.item.id);
-			
-			return guest.save(null, {
-				success: function(guest) {
-					_this.setProductNotAvailable($scope.item).done(function() {
+			var _this = this,
+				Gift = Parse.Object.extend("Product");
+
+			new Parse.Query(Gift).get($scope.item.id, {
+				success: function(item) {
+					var guest = new (Parse.Object.extend("Guest"));
+						
+					guest.set('name', 	  $scope.name);
+					guest.set('email', 	  $scope.email);
+					guest.set('phone', 	  $scope.phone);
+					guest.set('delivery', $scope.delivery);
+					
+					item.set('available', false);
+					item.set("guest", guest);
+
+					item.save().done(function() {
 						var text = "Obrigado " + $scope.name + ". Agradecemos pelo carinho e até o casamento! ";
 						toaster.pop('success', "Presente confirmado!", text, 10000);
 						_this.sendConfirmationEmail($scope);
 						$modal.close();
 					});
 				},
-				error: function(guest, error) {
+				error: function(object, error) {
 					alert("Error: " + error.code + " " + error.message);
 				}
 			});
@@ -216,7 +213,9 @@ angular.module('ParseServices', ['toaster'])
 				success: function(product) {
 					var text = $scope.name + " adicionado a lista de casamento!";
 					toaster.pop('success', "Novo presente cadastrado!", text, 5000);
-					$modalInstance.close();
+					if ($modalInstance) {
+						$modalInstance.close();
+					}
 				},
 				error: function(product, error) {
 					alert("Error: " + error.code + " " + error.message);
@@ -267,10 +266,42 @@ angular.module('ParseServices', ['toaster'])
 		},
 
 		sendConfirmationEmail: function($scope) {
-			Parse.Cloud.run('sendConfirmationEmail', {email: $scope.email, name: $scope.name, gift: $scope.item.name}, {
-				success: function(result) {
-					var text = "Email de confirmação enviado com sucesso!";
-					toaster.pop('success', "Email enviado", text, 5000);
+			if ($rootScope.sendEmail) {
+				Parse.Cloud.run('sendConfirmationEmail', {email: $scope.email, name: $scope.name, gift: $scope.item.name}, {
+					success: function(result) {
+						var text = "Email de confirmação enviado com sucesso!";
+						toaster.pop('success', "Email enviado", text, 5000);
+					},
+					error: function(error) {
+						alert("Error: " + error.code + " " + error.message);
+					}
+				});
+			}
+		},
+
+		setCounters: function($scope) {
+			this.countGuests($scope);
+			this.countProduct($scope);
+		},
+
+		countGuests: function($scope) {
+			var query = new Parse.Query(Parse.Object.extend('Guest'));
+			query.count({
+				success: function(count) {
+					$scope.count_guest = count;
+				},
+				error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+				}
+			});
+		},
+
+		countProduct: function($scope) {
+			var query = new Parse.Query(Parse.Object.extend('Product'));
+			query.exists("guest");
+			query.count({
+				success: function(count) {
+					$scope.count_gifts = count;
 				},
 				error: function(error) {
 					alert("Error: " + error.code + " " + error.message);
