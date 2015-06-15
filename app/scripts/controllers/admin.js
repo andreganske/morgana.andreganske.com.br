@@ -3,33 +3,25 @@
 angular.module('myApp')
 
 .controller('AdminController', ['$rootScope', '$scope', 'ParseSDK', '$modal', '$location', 'toaster', function($rootScope, $scope, ParseService, $modal, $location, toaster) {
-
-	$scope.tab = 0;
 	
 	$scope.selection = [];
 
-	$scope.templates = [
-		{ name: 'gifts', url: 'app/scripts/views/admin_gifts.html'},
-		{ name: 'guest', url: 'app/scripts/views/admin_guests.html'}
-	];
+	$scope.count_guest = 0;
+	$scope.count_gifts = 0;	
 
 	$scope.categories = ParseService.categories;
 
 	$scope.init = function() {
 		ParseService.validateLoggedUser();
-		$scope.viewGifts();
+
+		$scope.updateGifts();
+		$scope.updateGuests();
+
+		ParseService.setCounters($scope);
 	},
 
 	$scope.toggle = function (product) {
 		product.selected = !product.selected;
-	};
-
-	$scope.changeTab = function(newTab) {
-		$scope.tab = newTab;
-	};
-
-	$scope.isActiveTab = function(tab) {
-		return $scope.tab === tab;
 	};
 
 	$scope.updateGifts = function() {
@@ -39,18 +31,6 @@ angular.module('myApp')
 	$scope.updateGuests = function() {
 		ParseService.getGuests($scope);
 	};	
-
-	$scope.viewGifts = function() {
-		$scope.pageheader = 'Nossos presentes';
-		$scope.template = $scope.templates[0];
-		$scope.updateGifts();
-	};
-
-	$scope.viewGuests = function() {
-		$scope.pageheader = 'Nossos convidados';
-		$scope.template = $scope.templates[1];
-		$scope.updateGuests();
-	};
 
 	$scope.logoff = function() {
 		ParseService.logout();
