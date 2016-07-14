@@ -5,7 +5,7 @@ Parse.Cloud.define("sendConfirmationEmail", function(request, response) {
 		text = request.params.name + ", queremos agradecer por ter escolhido " + request.params.gift + " para nos presentear.",
 		subject = "Obrigado pelo presente " + request.params.name + "!";
 
-	sendgrid.initialize("aganske", "qK0OylGG9PJfvC9lvh");
+	sendgrid.initialize("aganske", "key");
 
 	var sendmail = sendgrid.Email({
 		from: "andre.g.ganske@gmail.com", 
